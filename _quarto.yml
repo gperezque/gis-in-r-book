@@ -1,0 +1,26 @@
+project:
+  type: book
+
+book:
+  title: "GIS in R: Fundamentals and Economic Applications"
+  author: "Dr. Gaby Perez-Quesada"
+  date: "Spring 2026"
+  chapters:
+    - index.qmd
+    - syllabus.qmd
+    - Ch1_getting started.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    link-external-newwindow: true
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

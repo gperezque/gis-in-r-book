@@ -1,0 +1,9 @@
+# Welcome! {.unnumbered}
+
+![Alt text](cover1.png)
+
+This book was created in order to host all of the materials for AREC 493 class.
+
+Spatial data is increasingly essential for understanding economic activity, policy and development. This course introduces students to the use of R as a Geographic Information System (GIS) for economic analysis. Students will learn core GIS concepts alongside the basics of R programming, with a focus on practical applications in economics. The course closely integrates *tidyverse* functions with GIS tools to develop efficient and intuitive coding. Topics include spatial data processing, covering the import, management, and manipulation of raster and vector data, as well as visualization of spatial data through maps to identify spatial patterns. By the end, students will have the skills to integrate spatial analysis into economic research, enabling them to work with powerful and flexible tools for investigating real-world economic questions.
+
+Be aware that the book is currently being written and will be completed by the end of the semester. Let me know if you think any changes are necessary!
