@@ -105,6 +105,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -181,6 +210,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#navigating-rstudio" id="toc-navigating-rstudio" class="nav-link" data-scroll-target="#navigating-rstudio"><span class="header-section-number">2.3</span> Navigating RStudio</a></li>
   <li><a href="#scripts" id="toc-scripts" class="nav-link" data-scroll-target="#scripts"><span class="header-section-number">2.4</span> Scripts</a></li>
   <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto"><span class="header-section-number">2.5</span> Quarto</a></li>
+  <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory"><span class="header-section-number">2.6</span> Working directory</a></li>
+  <li><a href="#create-your-r-project" id="toc-create-your-r-project" class="nav-link" data-scroll-target="#create-your-r-project"><span class="header-section-number">2.7</span> Create your R project</a></li>
+  <li><a href="#quarto-file-.qmd-overview" id="toc-quarto-file-.qmd-overview" class="nav-link" data-scroll-target="#quarto-file-.qmd-overview"><span class="header-section-number">2.8</span> Quarto file (<code>.qmd</code>) overview</a></li>
   </ul>
 </nav>
     </div>
@@ -254,9 +286,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="quarto" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="quarto"><span class="header-section-number">2.5</span> Quarto</h2>
 <p><a href="https://quarto.org/docs/get-started/hello/rstudio.html">Quarto</a> is a tool that lets you combine your R code, text, and visualizations in a single document. It’s perfect for creating reports, tutorials, or assignments where you want your analysis and explanations to live side by side. With Quarto, you can run your code, include the results, and produce a polished document; all in one place, making your work easy to share and easy to reproduce.</p>
+<p>We will use Quarto document (.qmd) to write and edit your code!</p>
 <p><em>Free online resources</em>:</p>
 <p><a href="https://quarto.org/docs/get-started/hello/rstudio.html">Tutorial: Hello Quarto</a></p>
 <p><a href="https://r4ds.hadley.nz/quarto.html">R for Data Science: Quarto</a></p>
+</section>
+<section id="working-directory" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="working-directory"><span class="header-section-number">2.6</span> Working directory</h2>
+<p>The working directory (wd) is the root folder location used by R for your work, where R looks for and save files by default. R will save new files and outputs to this location, and will look for files to import (e.g.&nbsp;datasets) here as well.</p>
+<p>The <code>wd</code> information appears at the top pf the Console pane. You can also print the current <code>wd</code> by running <code>getwd()</code> function.</p>
+<p><img src="wd.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/gperezqu/Library/CloudStorage/OneDrive-UniversityofTennessee/University of Tennessee/Teaching/R as GIS for Economists/GIS R course book"</code></pre>
+</div>
+</div>
+<p>A recommended (and very efficient) approach is to use <a href="https://r4ds.hadley.nz/workflow-scripts.html#rstudio-projects">R projects</a>. When you work inside the R project, your <code>wd</code> is automatically set to the project’s root folder, which contains the <code>.rproj</code> file. This happens whenever you open RStudio by double-clicking the “.rproj” file, so you don’t need to set the working directory yourself.</p>
+</section>
+<section id="create-your-r-project" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="create-your-r-project"><span class="header-section-number">2.7</span> Create your R project</h2>
+<ol type="1">
+<li>Create a folder in your computer (e.g., Project1)</li>
+<li>Open RStudio</li>
+<li>Click File <span class="math inline">\(\rightarrow\)</span> New Project</li>
+<li>Click Browse</li>
+<li>Select the folder you created (<code>Project1</code>)</li>
+<li>Click Create Project</li>
+</ol>
+<p>RStudio will now:</p>
+<ul>
+<li>Open the project</li>
+<li>Create a <code>.rproj</code> in the folder</li>
+<li>Set the <code>wd</code> automatically</li>
+</ul>
+<ol start="7" type="1">
+<li>Confirm you’re in the project</li>
+</ol>
+<p>You should see:</p>
+<ul>
+<li>the project name in the top-right corner of RStudio</li>
+<li>a file ending in <code>.rproj</code> in the Files pane</li>
+</ul>
+<ol start="8" type="1">
+<li>Create your first <code>Quarto</code> document</li>
+</ol>
+<ul>
+<li>Click File <span class="math inline">\(\rightarrow\)</span> New File <span class="math inline">\(\rightarrow\)</span> Quarto Document…</li>
+<li>Choose: Format: HTML; Engine: Knitr</li>
+<li>Click Create</li>
+<li>Save as <span class="math inline">\(\rightarrow\)</span> <code>hello</code></li>
+</ul>
+<p>Always open your project <strong>by double-clicking</strong> the <code>.rproj</code> file, not by opening RStudio first and setting the <code>wd</code> manually.</p>
+</section>
+<section id="quarto-file-.qmd-overview" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="quarto-file-.qmd-overview"><span class="header-section-number">2.8</span> Quarto file (<code>.qmd</code>) overview</h2>
+<p>Below is a Quarto document (the <code>.qmd</code> file on the left) and its rendered output as an HTML page (on the right). The <code>.qmd</code> file is where you write your content and code, and when you render it, Quarto turns it into a polished document. You’re not limited to HTML, you can also render the same file as a PDF, a Word document, and more.</p>
+<p><img src="qmd-doc.png" class="img-fluid"></p>
+<ul>
+<li>Select <code>Preview in Viewer Pane</code> if you want to see the rendered output on the <code>Viewer Pane</code>.</li>
+<li>Click on the <code>Render</code> button to render the file and preview the output.</li>
+<li>Two modes of the RStudio editor: <code>visual</code> (on the left) and <code>source</code> (on the right). <code>visual</code>: what-you-see-is-what-you-mean (WYSIWYM) experience, so you can format text without worrying about markdown syntax. <code>source</code>: plain-text markdown code.</li>
+</ul>
 
 
 </section>

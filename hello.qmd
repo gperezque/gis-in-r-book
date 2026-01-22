@@ -1,0 +1,44 @@
+---
+title: "hello"
+format: html
+editor: visual
+---
+
+## Headings
+
+Use `#` symbols for section titles. Leave a blank line after headings for readability.
+
+\## Section title
+
+\### Subsection title
+
+\#### Smaller heading (more \# = smaller heading)
+
+## Bold and italic text
+
+If you are using `Source`: **text** and *italic*
+
+If you are using `Visual`: Click Format $\rightarrow$ Bold
+
+
+
+
+
+## Installing packages (run once)
+
+```{r, eval=FALSE}
+#install.packages("tidyverse")
+```
+
+## Load packages
+
+```{r setup}
+library(tidyverse)
+```
+
+## Create an object
+
+```{r}
+d1 <- 2 + 4
+d1
+```

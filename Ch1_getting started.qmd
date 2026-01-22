@@ -71,8 +71,68 @@ a <- 3 + 4 # you can annotate around your code!
 
 [Quarto](https://quarto.org/docs/get-started/hello/rstudio.html) is a tool that lets you combine your R code, text, and visualizations in a single document. It’s perfect for creating reports, tutorials, or assignments where you want your analysis and explanations to live side by side. With Quarto, you can run your code, include the results, and produce a polished document; all in one place, making your work easy to share and easy to reproduce.
 
+We will use Quarto document (.qmd) to write and edit your code!
+
 *Free online resources*:
 
 [Tutorial: Hello Quarto](https://quarto.org/docs/get-started/hello/rstudio.html)
 
 [R for Data Science: Quarto](https://r4ds.hadley.nz/quarto.html)
+
+## Working directory
+
+The working directory (wd) is the root folder location used by R for your work, where R looks for and save files by default. R will save new files and outputs to this location, and will look for files to import (e.g. datasets) here as well.
+
+The `wd` information appears at the top pf the Console pane. You can also print the current `wd` by running `getwd()` function.
+
+![](wd.png)
+
+```{r}
+getwd()
+```
+
+A recommended (and very efficient) approach is to use [R projects](https://r4ds.hadley.nz/workflow-scripts.html#rstudio-projects). When you work inside the R project, your `wd` is automatically set to the project’s root folder, which contains the `.rproj` file. This happens whenever you open RStudio by double-clicking the “.rproj” file, so you don’t need to set the working directory yourself.
+
+## Create your R project
+
+1.  Create a folder in your computer (e.g., Project1)
+2.  Open RStudio
+3.  Click File $\rightarrow$ New Project
+4.  Click Browse
+5.  Select the folder you created (`Project1`)
+6.  Click Create Project
+
+RStudio will now:
+
+-   Open the project
+-   Create a `.rproj` in the folder
+-   Set the `wd` automatically
+
+7.  Confirm you're in the project
+
+You should see:
+
+-   the project name in the top-right corner of RStudio
+-   a file ending in `.rproj` in the Files pane
+
+8.  Create your first `Quarto` document
+
+-   Click File $\rightarrow$ New File $\rightarrow$ Quarto Document...
+-   Choose: Format: HTML; Engine: Knitr
+-   Click Create
+-   Save as $\rightarrow$ `hello`
+
+Always open your project **by double-clicking** the `.rproj` file, not by opening RStudio first and setting the `wd` manually.
+
+## Quarto file (`.qmd`) overview
+
+Below is a Quarto document (the `.qmd` file on the left) and its rendered output as an HTML page (on the right). The `.qmd` file is where you write your content and code, and when you render it, Quarto turns it into a polished document. You’re not limited to HTML, you can also render the same file as a PDF, a Word document, and more.
+
+![](qmd-doc.png)
+
+-   Select `Preview in Viewer Pane` if you want to see the rendered output on the `Viewer Pane`.
+-   Click on the `Render` button to render the file and preview the output.
+-   Two modes of the RStudio editor: `visual` (on the left) and `source` (on the right).
+`visual`: what-you-see-is-what-you-mean (WYSIWYM) experience, so you can format text without worrying about markdown syntax.
+`source`: plain-text markdown code.
+
