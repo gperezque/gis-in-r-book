@@ -234,7 +234,7 @@
     "href": "hello.html#code-chuncks",
     "title": "3  hello",
     "section": "3.4 Code chuncks",
-    "text": "3.4 Code chuncks\nR code chunks are marked with {r}. Type the chunk by hand or using keyboard shortcut.\nMac: Command + Option + I\nWindows: Ctrl + Alt + I\n\n# your R code goes here\n# comment",
+    "text": "3.4 Code chuncks\nR code chunks are marked with {r}. Type the chunk by hand or using keyboard shortcut.\nMac: Command + Option + I\nWindows: Ctrl + Alt + I\n\n\nCode\n# your R code goes here\n# comment",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
     ]
@@ -244,7 +244,7 @@
     "href": "hello.html#common-chunck-options",
     "title": "3  hello",
     "section": "3.5 Common chunck options",
-    "text": "3.5 Common chunck options\n\neval = FALSE \\(\\rightarrow\\) show code, don’t run it\necho = FALSE \\(\\rightarrow\\) run code, don’t show it\ninclude = FALSE \\(\\rightarrow\\) run code, show nothing\nmessage = FALSE \\(\\rightarrow\\) hide package messages\nwarning = FALSE \\(\\rightarrow\\) hide warnings\n\nExample:\n\nd1 &lt;- 4 + 8\nd1\n\n[1] 12\n\n\n\n\n[1] 12",
+    "text": "3.5 Common chunck options\n\neval = FALSE \\(\\rightarrow\\) show code, don’t run it\necho = FALSE \\(\\rightarrow\\) run code, don’t show it\ninclude = FALSE \\(\\rightarrow\\) run code, show nothing\nmessage = FALSE \\(\\rightarrow\\) hide package messages\nwarning = FALSE \\(\\rightarrow\\) hide warnings\n\nExample:\n\n\nCode\nd1 &lt;- 4 + 8\nd1\n\n\n[1] 12\n\n\n\n\n[1] 12",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
     ]
@@ -254,7 +254,7 @@
     "href": "hello.html#installing-packages-run-once-and-loading-library",
     "title": "3  hello",
     "section": "3.6 Installing packages (run once) and loading library",
-    "text": "3.6 Installing packages (run once) and loading library\n\n#install.packages(\"tidyverse\")\nlibrary(tidyverse) # Load packages\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.4     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
+    "text": "3.6 Installing packages (run once) and loading library\n\n\nCode\n#install.packages(\"tidyverse\")\nlibrary(tidyverse) # Load packages\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.4     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
     ]
@@ -264,7 +264,7 @@
     "href": "hello.html#create-an-object",
     "title": "3  hello",
     "section": "3.7 Create an object",
-    "text": "3.7 Create an object\nEverything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.\nAfter an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).\n\n# Defining an object (&lt;-)\nd1 &lt;- 2 + 4\nd1\n\n[1] 6",
+    "text": "3.7 Create an object\nEverything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.\nAfter an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).\n\n\nCode\n# Defining an object (&lt;-)\nd1 &lt;- 2 + 4\nd1\n\n\n[1] 6",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
     ]
@@ -274,7 +274,7 @@
     "href": "hello.html#using-built-in-datasets-in-r",
     "title": "3  hello",
     "section": "3.8 Using built-in datasets in R",
-    "text": "3.8 Using built-in datasets in R\n\n#data() # list of datasets\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\n\n# Inspect it\nhead(my.data)\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1",
+    "text": "3.8 Using built-in datasets in R\n\n\nCode\n#data() # list of datasets\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\n\n# Inspect it\nhead(my.data)\n\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
     ]
