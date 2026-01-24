@@ -1,6 +1,7 @@
 ---
 title: "hello"
 format: html
+code-fold: true
 editor: visual
 ---
 
@@ -55,11 +56,11 @@ Windows: Ctrl + Alt + I
 
 ## Common chunck options
 
-- eval = FALSE $\rightarrow$ show code, don't run it
-- echo = FALSE $\rightarrow$ run code, don't show it
-- include = FALSE $\rightarrow$ run code, show nothing
-- message = FALSE $\rightarrow$ hide package messages
-- warning = FALSE $\rightarrow$ hide warnings
+-   eval = FALSE $\rightarrow$ show code, don't run it
+-   echo = FALSE $\rightarrow$ run code, don't show it
+-   include = FALSE $\rightarrow$ run code, show nothing
+-   message = FALSE $\rightarrow$ hide package messages
+-   warning = FALSE $\rightarrow$ hide warnings
 
 Example:
 
@@ -104,6 +105,3 @@ my.data <- mtcars
 # Inspect it
 head(my.data)
 ```
-
-
-
