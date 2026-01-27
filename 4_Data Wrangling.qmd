@@ -1,0 +1,58 @@
+---
+title: "Data Wrangling"
+format: html
+#code-fold: true
+editor: visual
+---
+
+This chapter walks through the most common steps involved in taking raw data and turning it into analysis-ready data. You’ll learn how to import datasets, clean and transform variables, handle missing values, combine multiple data sources, and filter data to answer specific questions. Along the way, we’ll introduce essential R data-management functions-mostly from the **tidyverse**-and show how to chain them together using pipes to create clear, readable workflows.
+
+## Loading data from a file
+
+Often your data will be stared in a file that you need to load into R. Common examples include:
+
+| File type | Extension | Common function | Package |
+|----------|-----------|-----------------|---------|
+| Excel spreadsheet | `.xlsx` | `read_excel()` | **readxl** |
+| Comma-separated values | `.csv` | `read_csv()` | **readr** |
+| Stata dataset | `.dta` | `read_dta()` | **haven** |
+
+*Note*: You can use read_csv() and read_excel() after loading tidyverse. You can also use **rio** package, which has an `import()` function that works for just about any data file type you might want.
+
+```{r}
+library(tidyverse)
+
+water <- read_csv("water_data.csv")
+ls(water)
+```
+
+## Looking at the data
+
+```{r}
+class(water)
+head(water)
+water %>% glimpse()
+summary(water)
+nrow(water)
+ncol(water)
+```
+
+```{r}
+# type of variables in water
+class(water$year)
+unique(water$year)
+```
+
+## Cleaning variable names
+
+```{r}
+water <- water %>%
+  rename(county_code = county)
+```
+
+## Selecting and filtering data
+
+
+
+
+

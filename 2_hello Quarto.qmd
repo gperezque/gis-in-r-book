@@ -1,0 +1,107 @@
+---
+title: "hello Quarto"
+format: html
+code-fold: true
+editor: visual
+---
+
+## Headings
+
+In this paper....
+
+### subsection
+
+Some more text... This is **bold** text
+
+My name is **Gaby...**
+
+Use `#` symbols for section titles. Leave a blank line after headings for readability.
+
+\## Section title
+
+\### Subsection title
+
+\#### Smaller heading (more \# = smaller heading)
+
+## Bold and italic text
+
+If you are using `Source`: **text** and *italic*
+
+If you are using `Visual`: Click Format $\rightarrow$ Bold
+
+## Adding figures and links
+
+Find any image and save it as `.png` in your R project.
+
+The figure below shows that...
+
+![](pics/map1.png)
+
+You can learn more about this paper [here](https://www.journals.uchicago.edu/doi/full/10.1086/726156).
+
+**How to include figures and links when using `Visual`?**
+
+## Code chuncks
+
+R code chunks are marked with `{r}`. Type the chunk by hand or using keyboard shortcut.
+
+Mac: Command + Option + I
+
+Windows: Ctrl + Alt + I
+
+```{r}
+# your R code goes here
+# comment
+```
+
+## Common chunck options
+
+-   eval = FALSE $\rightarrow$ show code, don't run it
+-   echo = FALSE $\rightarrow$ run code, don't show it
+-   include = FALSE $\rightarrow$ run code, show nothing
+-   message = FALSE $\rightarrow$ hide package messages
+-   warning = FALSE $\rightarrow$ hide warnings
+
+Example:
+
+```{r}
+d1 <- 4 + 8
+d1
+```
+
+```{r, echo=FALSE}
+d1 <- 4 + 8
+d1
+```
+
+## Installing packages (run once) and loading library
+
+```{r}
+#install.packages("tidyverse")
+library(tidyverse) # Load packages
+```
+
+## Create an object
+
+Everything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.
+
+After an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).
+
+```{r}
+# Defining an object (<-)
+d1 <- 2 + 4
+d1
+```
+
+## Using built-in datasets in R
+
+```{r}
+#data() # list of datasets
+data(mtcars) # load mtcars
+
+# create an object
+my.data <- mtcars
+
+# Inspect it
+head(my.data)
+```

@@ -1,6 +1,6 @@
 # Welcome! {.unnumbered}
 
-![Alt text](cover1.png)
+![](pics/cover1.png)
 
 This book was created in order to host all of the materials for AREC 493 class.
 
