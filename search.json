@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "GIS in R: Fundamentals and Economic Applications",
     "section": "",
-    "text": "Welcome!\n\n\n\nAlt text\n\n\nThis book was created in order to host all of the materials for AREC 493 class.\nSpatial data is increasingly essential for understanding economic activity, policy and development. This course introduces students to the use of R as a Geographic Information System (GIS) for economic analysis. Students will learn core GIS concepts alongside the basics of R programming, with a focus on practical applications in economics. The course closely integrates tidyverse functions with GIS tools to develop efficient and intuitive coding. Topics include spatial data processing, covering the import, management, and manipulation of raster and vector data, as well as visualization of spatial data through maps to identify spatial patterns. By the end, students will have the skills to integrate spatial analysis into economic research, enabling them to work with powerful and flexible tools for investigating real-world economic questions.\nBe aware that the book is currently being written and will be completed by the end of the semester. Let me know if you think any changes are necessary!",
+    "text": "Welcome!\n\nThis book was created in order to host all of the materials for AREC 493 class.\nSpatial data is increasingly essential for understanding economic activity, policy and development. This course introduces students to the use of R as a Geographic Information System (GIS) for economic analysis. Students will learn core GIS concepts alongside the basics of R programming, with a focus on practical applications in economics. The course closely integrates tidyverse functions with GIS tools to develop efficient and intuitive coding. Topics include spatial data processing, covering the import, management, and manipulation of raster and vector data, as well as visualization of spatial data through maps to identify spatial patterns. By the end, students will have the skills to integrate spatial analysis into economic research, enabling them to work with powerful and flexible tools for investigating real-world economic questions.\nBe aware that the book is currently being written and will be completed by the end of the semester. Let me know if you think any changes are necessary!",
     "crumbs": [
       "Welcome!"
     ]
   },
   {
-    "objectID": "syllabus.html",
-    "href": "syllabus.html",
+    "objectID": "0_syllabus.html",
+    "href": "0_syllabus.html",
     "title": "1  Syllabus",
     "section": "",
     "text": "1.1 Course Information\nCourse: AREC 493\nInstructor: Dr. Gaby Perez-Quesada\nEmail: gperezqu@utk.edu\nTerm: Spring 2026\nTimes: T & R, 2:30-3:45pm\nLocation: Morgan Hall 212B\nOffice Hours: T & R, 3:45-5:00pm",
@@ -20,8 +20,8 @@
     ]
   },
   {
-    "objectID": "syllabus.html#learning-objectives",
-    "href": "syllabus.html#learning-objectives",
+    "objectID": "0_syllabus.html#learning-objectives",
+    "href": "0_syllabus.html#learning-objectives",
     "title": "1  Syllabus",
     "section": "1.2 Learning Objectives",
     "text": "1.2 Learning Objectives\n\nUse R and tidyverse tools to import, clean, and manipulate spatial data efficiently and reproducibly\nExplain and apply core GIS concepts, including spatial data types, projections, and coordinate reference systems\nWork with vector and raster datasets, performing basic operations, analysis, and integration between data types\nVisualize spatial data effectively through maps to identify and interpret spatial patterns\nAccess and process real-world spatial datasets from public sources for applied economic analysis",
@@ -30,8 +30,8 @@
     ]
   },
   {
-    "objectID": "syllabus.html#prerequisites",
-    "href": "syllabus.html#prerequisites",
+    "objectID": "0_syllabus.html#prerequisites",
+    "href": "0_syllabus.html#prerequisites",
     "title": "1  Syllabus",
     "section": "1.3 Prerequisites",
     "text": "1.3 Prerequisites\nAREC 270. Prior coursework in basic statistics or econometrics is recommended. Students should be comfortable with fundamental concepts such as descriptive statistics, regression analysis, and interpreting empirical results.",
@@ -40,8 +40,8 @@
     ]
   },
   {
-    "objectID": "syllabus.html#lecture-topics",
-    "href": "syllabus.html#lecture-topics",
+    "objectID": "0_syllabus.html#lecture-topics",
+    "href": "0_syllabus.html#lecture-topics",
     "title": "1  Syllabus",
     "section": "1.4 Lecture Topics",
     "text": "1.4 Lecture Topics\n(Subject to change based on progression through the material)\nGetting started with R\n\nGet started with running code\nInstall and load libraries\nLoad in data from files, the internet, or libraries\nWrite good code and responsibly use AI in your coding\nLook at your data and get basic statistical results\nManipulate your data and get it ready for analysis\n\nGIS fundamentals\n\nTypes of spatial data\nProjections and coordinate reference system\n\nThe basics of vector data handling using sf package\n\nVector data (points, lines, polygons)\nImport and export vector data\n(re)projection of spatial datasets\nSingle-layer geometrical operations (e.g., create buffers)\n\nSpatial interactions of vector datasets\n\nUnderstand topological relations of multiple sf objects\nSpatially subset a layer based on another layer\nExtracting values form one layer to another layer\n\nThe basics of raster data handling using raster and terra packages\n\nImport and export raster data\nStack raster data\nQuick plotting\n\nSpatial interactions of vector and raster datasets\n\nCropping a raster layer to the geographic extent of a vector layer\nExtracting values form a raster to a vector later\n\nCreating maps using ggplot2 package\n\nVisualizing spatial data with ggplot2\n\nDownload and process publicly available datasets\n\nUSDA NASS QuickStat (tidyUSDA)\nPRISM (prism)\nDaymet (daymetr)\nCropland Data Layer (CropScapeR)\nCensus (tidycensus)",
@@ -50,8 +50,8 @@
     ]
   },
   {
-    "objectID": "syllabus.html#course-materials",
-    "href": "syllabus.html#course-materials",
+    "objectID": "0_syllabus.html#course-materials",
+    "href": "0_syllabus.html#course-materials",
     "title": "1  Syllabus",
     "section": "1.5 Course Materials",
     "text": "1.5 Course Materials\nThis course will follow a set of high-quality, freely available online resources, alongside DataCamp Classroom. Students are encouraged to consult these materials to complement lectures and exercises.\nIntroduction to R\n\nR for Data Science\nIntroduction to Working with Data: R version\n\nR for GIS\n\nR as GIS for Economists\nSpatial Statistics for Data Science: Theory and Practice with R",
@@ -60,8 +60,8 @@
     ]
   },
   {
-    "objectID": "syllabus.html#grading",
-    "href": "syllabus.html#grading",
+    "objectID": "0_syllabus.html#grading",
+    "href": "0_syllabus.html#grading",
     "title": "1  Syllabus",
     "section": "1.6 Grading",
     "text": "1.6 Grading\nAssignments: 30%\nMidterm Exam: 25%\nParticipation: 15%\nFinal Project: 30%",
@@ -70,8 +70,8 @@
     ]
   },
   {
-    "objectID": "syllabus.html#academic-integrity",
-    "href": "syllabus.html#academic-integrity",
+    "objectID": "0_syllabus.html#academic-integrity",
+    "href": "0_syllabus.html#academic-integrity",
     "title": "1  Syllabus",
     "section": "1.7 Academic Integrity",
     "text": "1.7 Academic Integrity\nIn accordance with the college’s academic honesty policy, students are expected to submit original work for all assignments. Any form of academic dishonesty will not be tolerated. Plagiarism includes copying answers, phrases, sentence structures, or ideas from any source without proper attribution.\nThis also applies to the use of artificial intelligence tools such as ChatGPT. While you may use AI to assist with coding or to explore solutions, you must not simply feed it questions and submit the generated responses as your own work. All submitted assignments should reflect your understanding and effort.",
@@ -80,8 +80,8 @@
     ]
   },
   {
-    "objectID": "syllabus.html#generative-ai-tools-in-coursework",
-    "href": "syllabus.html#generative-ai-tools-in-coursework",
+    "objectID": "0_syllabus.html#generative-ai-tools-in-coursework",
+    "href": "0_syllabus.html#generative-ai-tools-in-coursework",
     "title": "1  Syllabus",
     "section": "1.8 Generative AI Tools in Coursework",
     "text": "1.8 Generative AI Tools in Coursework\nOpen Use Guidelines: Embrace and encourage AI use in assignments, with the requirement that students disclose any AI assistance.\nAI policy: permitted in this course with attribution\nIn this course, students are allowed to use Generative AI Tools like ChatGPT to support their work. To maintain academic integrity, students must disclose any AI-generated material they use and properly attribute it, including in-text citations, quotations, and references.\nA student should include the following statement in assignments to indicate use of a Generative AI Tool: “The author(s) would like to acknowledge the use of [Generative AI Tool Name], a language model developed by [Generative AI Tool Provider], in the preparation of this assignment. The [Generative AI Tool Name] was used in the following way(s) in this assignment [e.g., coding, brainstorming, grammatical correction, citation, which portion of the assignment].”",
@@ -90,8 +90,8 @@
     ]
   },
   {
-    "objectID": "syllabus.html#accommodations-for-students-with-disabilities",
-    "href": "syllabus.html#accommodations-for-students-with-disabilities",
+    "objectID": "0_syllabus.html#accommodations-for-students-with-disabilities",
+    "href": "0_syllabus.html#accommodations-for-students-with-disabilities",
     "title": "1  Syllabus",
     "section": "1.9 Accommodations for Students with Disabilities",
     "text": "1.9 Accommodations for Students with Disabilities\nI am available to discuss appropriate academic accommodations that may be required for student with disabilities. The University of Tennessee, Knoxville, is committed to providing an inclusive learning environment for all students. If you anticipate or experience a barrier in this course due to a chronic health condition, a learning, hearing, neurological, mental health, vision, physical, or other kind of disability, or a temporary injury, you are encouraged to contact Student Disability Services (SDS) at 865-974-6087 or sds@utk.edu. An SDS Coordinator will meet with you to develop a plan to ensure you have equitable access to this course. If you are already registered with SDS, please contact your instructor to discuss implementing accommodations included in your course access letter.",
@@ -100,8 +100,8 @@
     ]
   },
   {
-    "objectID": "syllabus.html#onlineut",
-    "href": "syllabus.html#onlineut",
+    "objectID": "0_syllabus.html#onlineut",
+    "href": "0_syllabus.html#onlineut",
     "title": "1  Syllabus",
     "section": "1.10 Online@UT",
     "text": "1.10 Online@UT\nStudents are required to routinely access their UTK email account and the course website located on the Online@UT (Canvas) portal",
@@ -110,8 +110,8 @@
     ]
   },
   {
-    "objectID": "Ch1_getting started.html",
-    "href": "Ch1_getting started.html",
+    "objectID": "1_Getting started.html",
+    "href": "1_Getting started.html",
     "title": "2  Getting Started with R",
     "section": "",
     "text": "2.1 Why use R?\nAs stated on the R Project website, R is a programming language and environment for statistical computing and graphics. It’s flexible, easy to build on, and supported by a large, welcoming community.\nCost\nR is free and open-source for everyone.\nReproducibility\nUsing a programming language for data management and analysis, rather than relying on Excel or other point-and-click tools, makes your work easier to reproduce, helps you catch mistakes more quickly, and can save you a lot of time and effort.\nCommunity\nThe R community is huge and supportive. New packages and tools to tackle real-world problems are developed all the time, and the community helps test, improve, and share them.",
@@ -120,8 +120,8 @@
     ]
   },
   {
-    "objectID": "Ch1_getting started.html#installation-r-and-rstudio",
-    "href": "Ch1_getting started.html#installation-r-and-rstudio",
+    "objectID": "1_Getting started.html#installation-r-and-rstudio",
+    "href": "1_Getting started.html#installation-r-and-rstudio",
     "title": "2  Getting Started with R",
     "section": "2.2 Installation: R and RStudio",
     "text": "2.2 Installation: R and RStudio\nTo get started, you’ll need to have R running on your computer. There are a few options, but RStudio is a popular choice that makes working with R much easier.\nInstalling RStudio takes two steps. First, you’ll need to install the R language itself.\nHow to install R\nVisit this website https://www.r-project.org and download the latest version of R suitable for your computer. Note: Any mirror will work fine, but perhaps pick one close to you.\nOnce that’s done, you can install RStudio\nGo to this website https://posit.co/download/rstudio-desktop/ and download the latest free Desktop version of RStudio suitable for your computer.",
@@ -130,8 +130,8 @@
     ]
   },
   {
-    "objectID": "Ch1_getting started.html#navigating-rstudio",
-    "href": "Ch1_getting started.html#navigating-rstudio",
+    "objectID": "1_Getting started.html#navigating-rstudio",
+    "href": "1_Getting started.html#navigating-rstudio",
     "title": "2  Getting Started with R",
     "section": "2.3 Navigating RStudio",
     "text": "2.3 Navigating RStudio\nOpen RStudio. RStudio is divided into four main panes, each showing different information like your code, console, and files.\nThe source pane\nBy default, this pane appears in the upper-left corner. It’s where you can write, run, and save your scripts (your scripts are basically the sets of commands you want R to execute. You can also use this pane to view your datasets (data frames) while working.\nThe R console pane\nThe R Console (usually in the lower-left pane) is where the R “engine” lives. When you run commands here, you’ll see results, warnings, or error messages right away. You can type commands directly in the Console, but unlike scripts, these commands won’t be saved for later, so it’s best for quick tests or checks.\nThe environment pane\nBy default, this pane appears in the upper-right. It’s mainly used to get a quick look at the objects in your R environment during the current session. These objects can include datasets you’ve imported, created, or modified, as well as parameters or vectors and lists you’ve defined. You can click the little arrow next to a data frame to explore its variables.\nPlots, Viewer, Packages, and Help pane\nThe lower-right pane contains several useful tabs. The Plots tab displays your charts, graphs, and maps, while the Viewer tab shows interactive or HTML outputs. The Help tab gives access to R documentation and help files, and the Files tab works like a mini file explorer, letting you open, move, or delete files. Finally, the Packages tab lets you see which R packages are installed, add new ones, update or remove them, and load or unload them for your session.",
@@ -140,8 +140,8 @@
     ]
   },
   {
-    "objectID": "Ch1_getting started.html#scripts",
-    "href": "Ch1_getting started.html#scripts",
+    "objectID": "1_Getting started.html#scripts",
+    "href": "1_Getting started.html#scripts",
     "title": "2  Getting Started with R",
     "section": "2.4 Scripts",
     "text": "2.4 Scripts\nScripts are a fundamental part of programming. They’re files that store the commands you want R to run, like creating or modifying datasets and generating visualizations. You can save a script and run it again later, which comes with some big advantages:\nPortability: you can easily share your work with others by sending them your script.\nReproducibility: using scripts makes it clear exactly what steps you took, so you, or anyone else, can repeat your analysis with confidence.\nExample script\n\n3 + 4\n\n[1] 7\n\na &lt;- 3 + 4 # you can annotate around your code!",
@@ -150,8 +150,8 @@
     ]
   },
   {
-    "objectID": "Ch1_getting started.html#quarto",
-    "href": "Ch1_getting started.html#quarto",
+    "objectID": "1_Getting started.html#quarto",
+    "href": "1_Getting started.html#quarto",
     "title": "2  Getting Started with R",
     "section": "2.5 Quarto",
     "text": "2.5 Quarto\nQuarto is a tool that lets you combine your R code, text, and visualizations in a single document. It’s perfect for creating reports, tutorials, or assignments where you want your analysis and explanations to live side by side. With Quarto, you can run your code, include the results, and produce a polished document; all in one place, making your work easy to share and easy to reproduce.\nWe will use Quarto document (.qmd) to write and edit your code!\nFree online resources:\nTutorial: Hello Quarto\nR for Data Science: Quarto",
@@ -160,8 +160,8 @@
     ]
   },
   {
-    "objectID": "Ch1_getting started.html#working-directory",
-    "href": "Ch1_getting started.html#working-directory",
+    "objectID": "1_Getting started.html#working-directory",
+    "href": "1_Getting started.html#working-directory",
     "title": "2  Getting Started with R",
     "section": "2.6 Working directory",
     "text": "2.6 Working directory\nThe working directory (wd) is the root folder location used by R for your work, where R looks for and save files by default. R will save new files and outputs to this location, and will look for files to import (e.g. datasets) here as well.\nThe wd information appears at the top pf the Console pane. You can also print the current wd by running getwd() function.\n\n\ngetwd()\n\n[1] \"/Users/gperezqu/Library/CloudStorage/OneDrive-UniversityofTennessee/University of Tennessee/Teaching/R as GIS for Economists/GIS R course book\"\n\n\nA recommended (and very efficient) approach is to use R projects. When you work inside the R project, your wd is automatically set to the project’s root folder, which contains the .rproj file. This happens whenever you open RStudio by double-clicking the “.rproj” file, so you don’t need to set the working directory yourself.",
@@ -170,8 +170,8 @@
     ]
   },
   {
-    "objectID": "Ch1_getting started.html#create-your-r-project",
-    "href": "Ch1_getting started.html#create-your-r-project",
+    "objectID": "1_Getting started.html#create-your-r-project",
+    "href": "1_Getting started.html#create-your-r-project",
     "title": "2  Getting Started with R",
     "section": "2.7 Create your R project",
     "text": "2.7 Create your R project\n\nCreate a folder in your computer (e.g., Project1)\nOpen RStudio\nClick File \\(\\rightarrow\\) New Project\nClick Browse\nSelect the folder you created (Project1)\nClick Create Project\n\nRStudio will now:\n\nOpen the project\nCreate a .rproj in the folder\nSet the wd automatically\n\n\nConfirm you’re in the project\n\nYou should see:\n\nthe project name in the top-right corner of RStudio\na file ending in .rproj in the Files pane\n\n\nCreate your first Quarto document\n\n\nClick File \\(\\rightarrow\\) New File \\(\\rightarrow\\) Quarto Document…\nChoose: Format: HTML; Engine: Knitr\nClick Create\nSave as \\(\\rightarrow\\) hello\n\nAlways open your project by double-clicking the .rproj file, not by opening RStudio first and setting the wd manually.",
@@ -180,8 +180,8 @@
     ]
   },
   {
-    "objectID": "Ch1_getting started.html#quarto-file-.qmd-overview",
-    "href": "Ch1_getting started.html#quarto-file-.qmd-overview",
+    "objectID": "1_Getting started.html#quarto-file-.qmd-overview",
+    "href": "1_Getting started.html#quarto-file-.qmd-overview",
     "title": "2  Getting Started with R",
     "section": "2.8 Quarto file (.qmd) overview",
     "text": "2.8 Quarto file (.qmd) overview\nBelow is a Quarto document (the .qmd file on the left) and its rendered output as an HTML page (on the right). The .qmd file is where you write your content and code, and when you render it, Quarto turns it into a polished document. You’re not limited to HTML, you can also render the same file as a PDF, a Word document, and more.\n\n\nSelect Preview in Viewer Pane if you want to see the rendered output on the Viewer Pane.\nClick on the Render button to render the file and preview the output.\nTwo modes of the RStudio editor: visual (on the left) and source (on the right). visual: what-you-see-is-what-you-mean (WYSIWYM) experience, so you can format text without worrying about markdown syntax. source: plain-text markdown code.",
@@ -190,8 +190,8 @@
     ]
   },
   {
-    "objectID": "hello.html",
-    "href": "hello.html",
+    "objectID": "2_hello Quarto.html",
+    "href": "2_hello Quarto.html",
     "title": "3  hello Quarto",
     "section": "",
     "text": "3.1 Headings\nIn this paper….",
@@ -200,8 +200,8 @@
     ]
   },
   {
-    "objectID": "hello.html#headings",
-    "href": "hello.html#headings",
+    "objectID": "2_hello Quarto.html#headings",
+    "href": "2_hello Quarto.html#headings",
     "title": "3  hello Quarto",
     "section": "",
     "text": "3.1.1 subsection\nSome more text… This is bold text\nMy name is Gaby…\nUse # symbols for section titles. Leave a blank line after headings for readability.\n## Section title\n### Subsection title\n#### Smaller heading (more # = smaller heading)",
@@ -210,8 +210,8 @@
     ]
   },
   {
-    "objectID": "hello.html#bold-and-italic-text",
-    "href": "hello.html#bold-and-italic-text",
+    "objectID": "2_hello Quarto.html#bold-and-italic-text",
+    "href": "2_hello Quarto.html#bold-and-italic-text",
     "title": "3  hello Quarto",
     "section": "3.2 Bold and italic text",
     "text": "3.2 Bold and italic text\nIf you are using Source: text and italic\nIf you are using Visual: Click Format \\(\\rightarrow\\) Bold",
@@ -220,8 +220,8 @@
     ]
   },
   {
-    "objectID": "hello.html#adding-figures-and-links",
-    "href": "hello.html#adding-figures-and-links",
+    "objectID": "2_hello Quarto.html#adding-figures-and-links",
+    "href": "2_hello Quarto.html#adding-figures-and-links",
     "title": "3  hello Quarto",
     "section": "3.3 Adding figures and links",
     "text": "3.3 Adding figures and links\nFind any image and save it as .png in your R project.\nThe figure below shows that…\n\nYou can learn more about this paper here.\nHow to include figures and links when using Visual?",
@@ -230,8 +230,8 @@
     ]
   },
   {
-    "objectID": "hello.html#code-chuncks",
-    "href": "hello.html#code-chuncks",
+    "objectID": "2_hello Quarto.html#code-chuncks",
+    "href": "2_hello Quarto.html#code-chuncks",
     "title": "3  hello Quarto",
     "section": "3.4 Code chuncks",
     "text": "3.4 Code chuncks\nR code chunks are marked with {r}. Type the chunk by hand or using keyboard shortcut.\nMac: Command + Option + I\nWindows: Ctrl + Alt + I\n\n\nCode\n# your R code goes here\n# comment",
@@ -240,8 +240,8 @@
     ]
   },
   {
-    "objectID": "hello.html#common-chunck-options",
-    "href": "hello.html#common-chunck-options",
+    "objectID": "2_hello Quarto.html#common-chunck-options",
+    "href": "2_hello Quarto.html#common-chunck-options",
     "title": "3  hello Quarto",
     "section": "3.5 Common chunck options",
     "text": "3.5 Common chunck options\n\neval = FALSE \\(\\rightarrow\\) show code, don’t run it\necho = FALSE \\(\\rightarrow\\) run code, don’t show it\ninclude = FALSE \\(\\rightarrow\\) run code, show nothing\nmessage = FALSE \\(\\rightarrow\\) hide package messages\nwarning = FALSE \\(\\rightarrow\\) hide warnings\n\nExample:\n\n\nCode\nd1 &lt;- 4 + 8\nd1\n\n\n[1] 12\n\n\n\n\n[1] 12",
@@ -250,8 +250,8 @@
     ]
   },
   {
-    "objectID": "hello.html#installing-packages-run-once-and-loading-library",
-    "href": "hello.html#installing-packages-run-once-and-loading-library",
+    "objectID": "2_hello Quarto.html#installing-packages-run-once-and-loading-library",
+    "href": "2_hello Quarto.html#installing-packages-run-once-and-loading-library",
     "title": "3  hello Quarto",
     "section": "3.6 Installing packages (run once) and loading library",
     "text": "3.6 Installing packages (run once) and loading library\n\n\nCode\n#install.packages(\"tidyverse\")\nlibrary(tidyverse) # Load packages\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.4     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
@@ -260,8 +260,8 @@
     ]
   },
   {
-    "objectID": "hello.html#create-an-object",
-    "href": "hello.html#create-an-object",
+    "objectID": "2_hello Quarto.html#create-an-object",
+    "href": "2_hello Quarto.html#create-an-object",
     "title": "3  hello Quarto",
     "section": "3.7 Create an object",
     "text": "3.7 Create an object\nEverything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.\nAfter an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).\n\n\nCode\n# Defining an object (&lt;-)\nd1 &lt;- 2 + 4\nd1\n\n\n[1] 6",
@@ -270,8 +270,8 @@
     ]
   },
   {
-    "objectID": "hello.html#using-built-in-datasets-in-r",
-    "href": "hello.html#using-built-in-datasets-in-r",
+    "objectID": "2_hello Quarto.html#using-built-in-datasets-in-r",
+    "href": "2_hello Quarto.html#using-built-in-datasets-in-r",
     "title": "3  hello Quarto",
     "section": "3.8 Using built-in datasets in R",
     "text": "3.8 Using built-in datasets in R\n\n\nCode\n#data() # list of datasets\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\n\n# Inspect it\nhead(my.data)\n\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1",
@@ -280,8 +280,8 @@
     ]
   },
   {
-    "objectID": "R basics.html",
-    "href": "R basics.html",
+    "objectID": "3_R basics.html",
+    "href": "3_R basics.html",
     "title": "4  R Basics",
     "section": "",
     "text": "4.1 Create an object\nEverything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.\nAfter an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.4     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n# Defining an object (&lt;-)\nd1 &lt;- 2 + 4\nd1\n\n[1] 6\n#data()\n# Using built-in datasets in R\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\n# Inspect it\nhead(my.data)\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1",
@@ -290,8 +290,8 @@
     ]
   },
   {
-    "objectID": "R basics.html#object-structure",
-    "href": "R basics.html#object-structure",
+    "objectID": "3_R basics.html#object-structure",
+    "href": "3_R basics.html#object-structure",
     "title": "4  R Basics",
     "section": "4.2 Object structure",
     "text": "4.2 Object structure\nObjects can be as simple as a single value (e.g., d1), or they can hold more structured data, such as vectors, tables, or datasets, like the examples shown in the figure below (borrowed from this online R tutorial).\n\n\n4.2.1 Data types\nIn this course, we will be using mostly vector and data frame.\nVector: a collection of values of the same type (e.g., numbers or text) stored together in one object.\n\n# Numeric vector\nnumbers &lt;- c(1, 2, 3, 4, 5)\nnumbers\n\n[1] 1 2 3 4 5\n\nclass(numbers)\n\n[1] \"numeric\"\n\n# Character vector\nnames &lt;- c(\"Alice\", \"Bob\", \"Charlie\")\nclass(names)\n\n[1] \"character\"\n\n\ndata.frame: a table of data where each column is a vector, and all columns have the same number of rows.\n\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\nclass(my.data)\n\n[1] \"data.frame\"\n\n\n\n\n4.2.2 Variables types\n\n\n\nVariable\nDescription\nExample\n\n\n\n\ninteger\nWhole numbers\n5, 160, -30\n\n\nnumeric\nDecimals\n0.5, -0.38, 234.567\n\n\ncharacter\nText\n“A”, “Nice”, “welcome”\n\n\nlogical\nBooleans\nTRUE or FALSE\n\n\nfactor\nCategorical\n“green”, “blue”, “red”\n\n\nempty\n–\nNULL\n\n\n\nExamples\n\nclass(d1)\n\n[1] \"numeric\"\n\n# Numeric (decimal)\nnum &lt;- 3.14\nnum2 &lt;- 56 # R treats all numbers without a decimal as numeric by default\n\nclass(num)\n\n[1] \"numeric\"\n\nclass(num2)\n\n[1] \"numeric\"\n\n# Integer\nint &lt;- as.integer(num)\nclass(int)\n\n[1] \"integer\"\n\nint &lt;- 56L # L tells R to store this as an integer\nclass(int)\n\n[1] \"integer\"\n\nx &lt;- 89\nx &lt;- 289\n\n# Character (text)\nchar_var &lt;- \"welcome\"\n\n# Logical (TRUE/FALSE)\nlog_var &lt;- TRUE\n\n# Factor (categorical)\nfact_var &lt;- factor(c(\"green\", \"blue\", \"red\"))\n\n# variables type in my.data\nclass(my.data$hp)\n\n[1] \"numeric\"\n\nclass(my.data$mpg)\n\n[1] \"numeric\"",
@@ -300,8 +300,8 @@
     ]
   },
   {
-    "objectID": "R basics.html#functions",
-    "href": "R basics.html#functions",
+    "objectID": "3_R basics.html#functions",
+    "href": "3_R basics.html#functions",
     "title": "4  R Basics",
     "section": "4.3 Functions",
     "text": "4.3 Functions\nFunctions are at the core of using R. Want to calculate, plot, or transform something? There’s probably a function for it. R comes with lots built in, you can add more with packages, and you can even make your own! Learn more here.\nA function is like a little machine: you give it some inputs, it does something with them, and then it gives you an output. What comes out depends on the function you’re using.\nInputs \\(\\rightarrow\\) [ function ] \\(\\rightarrow\\) Output\nSimple functions\n\n# Function: sum()\n# Inputs: numbers\n# Action: adds them together\n# Output: the total\nsum(4, 7, 10)\n\n[1] 21\n\nresult &lt;- sum(4, 7, 10)\nresult\n\n[1] 21\n\n\n\n# Function: as.numeric()\n# Inputs: char_nums\n# Action: convert to numeric\n# Output: num_nums\n\n# Convert a character vector to numeric\nchar_nums &lt;- c(\"1\", \"2\", \"3\", \"4\")\nclass(char_nums)\n\n[1] \"character\"\n\n# Convert to numeric\nnum_nums &lt;- as.numeric(char_nums)\nclass(num_nums)\n\n[1] \"numeric\"\n\n\nCustom function\n\n# Define a function that doubles a number\ndouble_it &lt;- function(x) {\n  x * 2\n}\n\n# Use the function\ndouble_it(4576)\n\n[1] 9152\n\n\n\n# Functions with multiple arguments\n# Load ggplot2 package (install first if you don't have it)\nlibrary(ggplot2)\n\n# Use the built-in dataset 'mtcars'\n# We'll plot miles per gallon (mpg) vs number of cylinders (cyl)\nggplot(data = mtcars,              # Required argument: dataset\n       mapping = aes(x = cyl, y = mpg)) +  # Required: aesthetics\n  geom_point(color = \"blue\", size = 3)     # Optional arguments inside geom_point()",
@@ -310,8 +310,8 @@
     ]
   },
   {
-    "objectID": "R basics.html#piping",
-    "href": "R basics.html#piping",
+    "objectID": "3_R basics.html#piping",
+    "href": "3_R basics.html#piping",
     "title": "4  R Basics",
     "section": "4.4 Piping (%>%)",
     "text": "4.4 Piping (%&gt;%)\nInstead of nesting functions inside each other, you can write code step by step, which is often easier to read.\n%&gt;% (the “then” operator): pipes send an object from function to function.\nUsing Tidyverse + %&gt;% you can do complex tasks in easy-to-read, step-by-step code.\nTidyverse is is a collection of R packages designed to work well together.\nExample without a pipe\n\n# Find the average mpg of cars with 6 cylinders\nmean(subset(my.data, cyl == 6)$mpg)\n\n[1] 19.74286\n\n\nExample with a pipe\n\nmy.data %&gt;%\n  filter(cyl == 6) %&gt;%\n  pull(mpg) %&gt;%\n  mean()\n\n[1] 19.74286\n\n# save the avg mpg as an object\navg.mpg &lt;- mtcars %&gt;%\n  filter(cyl == 6) %&gt;%\n  pull(mpg) %&gt;%\n  mean()\n\nclass(avg.mpg)\n\n[1] \"numeric\"",

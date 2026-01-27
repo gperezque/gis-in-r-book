@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; hello Quarto – GIS in R: Fundamentals and Economic Applications</title>
+<title>2&nbsp; Getting Started with R – GIS in R: Fundamentals and Economic Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./R basics.html" rel="next">
-<link href="./Ch1_getting started.html" rel="prev">
+<link href="./2_hello Quarto.html" rel="next">
+<link href="./0_syllabus.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -146,7 +146,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./hello.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hello Quarto</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_Getting started.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting Started with R</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -179,25 +179,25 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+  <a href="./0_syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Syllabus</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Ch1_getting started.html" class="sidebar-item-text sidebar-link">
+  <a href="./1_Getting started.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting Started with R</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hello.html" class="sidebar-item-text sidebar-link active">
+  <a href="./2_hello Quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hello Quarto</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./R basics.html" class="sidebar-item-text sidebar-link">
+  <a href="./3_R basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R Basics</span></span></a>
   </div>
 </li>
@@ -217,17 +217,14 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#headings" id="toc-headings" class="nav-link active" data-scroll-target="#headings"><span class="header-section-number">3.1</span> Headings</a>
-  <ul class="collapse">
-  <li><a href="#subsection" id="toc-subsection" class="nav-link" data-scroll-target="#subsection"><span class="header-section-number">3.1.1</span> subsection</a></li>
-  </ul></li>
-  <li><a href="#bold-and-italic-text" id="toc-bold-and-italic-text" class="nav-link" data-scroll-target="#bold-and-italic-text"><span class="header-section-number">3.2</span> Bold and italic text</a></li>
-  <li><a href="#adding-figures-and-links" id="toc-adding-figures-and-links" class="nav-link" data-scroll-target="#adding-figures-and-links"><span class="header-section-number">3.3</span> Adding figures and links</a></li>
-  <li><a href="#code-chuncks" id="toc-code-chuncks" class="nav-link" data-scroll-target="#code-chuncks"><span class="header-section-number">3.4</span> Code chuncks</a></li>
-  <li><a href="#common-chunck-options" id="toc-common-chunck-options" class="nav-link" data-scroll-target="#common-chunck-options"><span class="header-section-number">3.5</span> Common chunck options</a></li>
-  <li><a href="#installing-packages-run-once-and-loading-library" id="toc-installing-packages-run-once-and-loading-library" class="nav-link" data-scroll-target="#installing-packages-run-once-and-loading-library"><span class="header-section-number">3.6</span> Installing packages (run once) and loading library</a></li>
-  <li><a href="#create-an-object" id="toc-create-an-object" class="nav-link" data-scroll-target="#create-an-object"><span class="header-section-number">3.7</span> Create an object</a></li>
-  <li><a href="#using-built-in-datasets-in-r" id="toc-using-built-in-datasets-in-r" class="nav-link" data-scroll-target="#using-built-in-datasets-in-r"><span class="header-section-number">3.8</span> Using built-in datasets in R</a></li>
+  <li><a href="#why-use-r" id="toc-why-use-r" class="nav-link active" data-scroll-target="#why-use-r"><span class="header-section-number">2.1</span> Why use R?</a></li>
+  <li><a href="#installation-r-and-rstudio" id="toc-installation-r-and-rstudio" class="nav-link" data-scroll-target="#installation-r-and-rstudio"><span class="header-section-number">2.2</span> Installation: R and RStudio</a></li>
+  <li><a href="#navigating-rstudio" id="toc-navigating-rstudio" class="nav-link" data-scroll-target="#navigating-rstudio"><span class="header-section-number">2.3</span> Navigating RStudio</a></li>
+  <li><a href="#scripts" id="toc-scripts" class="nav-link" data-scroll-target="#scripts"><span class="header-section-number">2.4</span> Scripts</a></li>
+  <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto"><span class="header-section-number">2.5</span> Quarto</a></li>
+  <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory"><span class="header-section-number">2.6</span> Working directory</a></li>
+  <li><a href="#create-your-r-project" id="toc-create-your-r-project" class="nav-link" data-scroll-target="#create-your-r-project"><span class="header-section-number">2.7</span> Create your R project</a></li>
+  <li><a href="#quarto-file-.qmd-overview" id="toc-quarto-file-.qmd-overview" class="nav-link" data-scroll-target="#quarto-file-.qmd-overview"><span class="header-section-number">2.8</span> Quarto file (<code>.qmd</code>) overview</a></li>
   </ul>
 </nav>
     </div>
@@ -236,7 +233,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hello Quarto</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting Started with R</span></h1>
 </div>
 
 
@@ -253,133 +250,116 @@ window.Quarto = {
 </header>
 
 
-<section id="headings" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="headings"><span class="header-section-number">3.1</span> Headings</h2>
-<p>In this paper….</p>
-<section id="subsection" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="subsection"><span class="header-section-number">3.1.1</span> subsection</h3>
-<p>Some more text… This is <strong>bold</strong> text</p>
-<p>My name is <strong>Gaby…</strong></p>
-<p>Use <code>#</code> symbols for section titles. Leave a blank line after headings for readability.</p>
-<p>## Section title</p>
-<p>### Subsection title</p>
-<p>#### Smaller heading (more # = smaller heading)</p>
+<section id="why-use-r" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="why-use-r"><span class="header-section-number">2.1</span> Why use R?</h2>
+<p>As stated on the <a href="https://www.r-project.org">R Project website</a>, R is a programming language and environment for statistical computing and graphics. It’s flexible, easy to build on, and supported by a large, welcoming community.</p>
+<p><strong>Cost</strong></p>
+<p>R is free and open-source for everyone.</p>
+<p><strong>Reproducibility</strong></p>
+<p>Using a programming language for data management and analysis, rather than relying on Excel or other point-and-click tools, makes your work easier to reproduce, helps you catch mistakes more quickly, and can save you a lot of time and effort.</p>
+<p><strong>Community</strong></p>
+<p>The R community is huge and supportive. New packages and tools to tackle real-world problems are developed all the time, and the community helps test, improve, and share them.</p>
 </section>
+<section id="installation-r-and-rstudio" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="installation-r-and-rstudio"><span class="header-section-number">2.2</span> Installation: R and RStudio</h2>
+<p>To get started, you’ll need to have R running on your computer. There are a few options, but <strong>RStudio</strong> is a popular choice that makes working with R much easier.</p>
+<p>Installing RStudio takes two steps. First, you’ll need to install the R language itself.</p>
+<p><strong>How to install R</strong></p>
+<p>Visit this website <a href="https://www.r-project.org" class="uri">https://www.r-project.org</a> and download the latest version of R suitable for your computer. <em>Note</em>: Any mirror will work fine, but perhaps pick one close to you.</p>
+<p>Once that’s done, you can <strong>install RStudio</strong></p>
+<p>Go to this website <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a> and download the latest free Desktop version of RStudio suitable for your computer.</p>
 </section>
-<section id="bold-and-italic-text" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="bold-and-italic-text"><span class="header-section-number">3.2</span> Bold and italic text</h2>
-<p>If you are using <code>Source</code>: <strong>text</strong> and <em>italic</em></p>
-<p>If you are using <code>Visual</code>: Click Format <span class="math inline">\(\rightarrow\)</span> Bold</p>
+<section id="navigating-rstudio" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="navigating-rstudio"><span class="header-section-number">2.3</span> Navigating RStudio</h2>
+<p>Open RStudio. RStudio is divided into four main <em>panes</em>, each showing different information like your code, console, and files.</p>
+<p><strong>The source pane</strong></p>
+<p>By default, this pane appears in the upper-left corner. It’s where you can write, run, and save your scripts (your scripts are basically the sets of commands you want R to execute. You can also use this pane to view your datasets (data frames) while working.</p>
+<p><strong>The R console pane</strong></p>
+<p>The R Console (usually in the lower-left pane) is where the R “engine” lives. When you run commands here, you’ll see results, warnings, or error messages right away. You can type commands directly in the Console, but unlike scripts, these commands won’t be saved for later, so it’s best for quick tests or checks.</p>
+<p><strong>The environment pane</strong></p>
+<p>By default, this pane appears in the upper-right. It’s mainly used to get a quick look at the objects in your R environment during the current session. These objects can include datasets you’ve imported, created, or modified, as well as parameters or vectors and lists you’ve defined. You can click the little arrow next to a data frame to explore its variables.</p>
+<p><strong>Plots, Viewer, Packages, and Help pane</strong></p>
+<p>The lower-right pane contains several useful tabs. The <em>Plots</em> tab displays your charts, graphs, and maps, while the <em>Viewer</em> tab shows interactive or HTML outputs. The <em>Help</em> tab gives access to R documentation and help files, and the <em>Files</em> tab works like a mini file explorer, letting you open, move, or delete files. Finally, the <em>Packages</em> tab lets you see which R packages are installed, add new ones, update or remove them, and load or unload them for your session.</p>
 </section>
-<section id="adding-figures-and-links" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="adding-figures-and-links"><span class="header-section-number">3.3</span> Adding figures and links</h2>
-<p>Find any image and save it as <code>.png</code> in your R project.</p>
-<p>The figure below shows that…</p>
-<p><img src="map1.png" class="img-fluid"></p>
-<p>You can learn more about this paper <a href="https://www.journals.uchicago.edu/doi/full/10.1086/726156">here</a>.</p>
-<p><strong>How to include figures and links when using <code>Visual</code>?</strong></p>
-</section>
-<section id="code-chuncks" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="code-chuncks"><span class="header-section-number">3.4</span> Code chuncks</h2>
-<p>R code chunks are marked with <code>{r}</code>. Type the chunk by hand or using keyboard shortcut.</p>
-<p>Mac: Command + Option + I</p>
-<p>Windows: Ctrl + Alt + I</p>
+<section id="scripts" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="scripts"><span class="header-section-number">2.4</span> Scripts</h2>
+<p>Scripts are a fundamental part of programming. They’re files that store the commands you want R to run, like creating or modifying datasets and generating visualizations. You can save a script and run it again later, which comes with some big advantages:</p>
+<p><em>Portability</em>: you can easily share your work with others by sending them your script.</p>
+<p><em>Reproducibility</em>: using scripts makes it clear exactly what steps you took, so you, or anyone else, can repeat your analysis with confidence.</p>
+<p><em>Example script</em></p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your R code goes here</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># comment</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span> <span class="co"># you can annotate around your code!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="common-chunck-options" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="common-chunck-options"><span class="header-section-number">3.5</span> Common chunck options</h2>
+<section id="quarto" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="quarto"><span class="header-section-number">2.5</span> Quarto</h2>
+<p><a href="https://quarto.org/docs/get-started/hello/rstudio.html">Quarto</a> is a tool that lets you combine your R code, text, and visualizations in a single document. It’s perfect for creating reports, tutorials, or assignments where you want your analysis and explanations to live side by side. With Quarto, you can run your code, include the results, and produce a polished document; all in one place, making your work easy to share and easy to reproduce.</p>
+<p>We will use Quarto document (.qmd) to write and edit your code!</p>
+<p><em>Free online resources</em>:</p>
+<p><a href="https://quarto.org/docs/get-started/hello/rstudio.html">Tutorial: Hello Quarto</a></p>
+<p><a href="https://r4ds.hadley.nz/quarto.html">R for Data Science: Quarto</a></p>
+</section>
+<section id="working-directory" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="working-directory"><span class="header-section-number">2.6</span> Working directory</h2>
+<p>The working directory (wd) is the root folder location used by R for your work, where R looks for and save files by default. R will save new files and outputs to this location, and will look for files to import (e.g.&nbsp;datasets) here as well.</p>
+<p>The <code>wd</code> information appears at the top pf the Console pane. You can also print the current <code>wd</code> by running <code>getwd()</code> function.</p>
+<p><img src="pics/wd.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/gperezqu/Library/CloudStorage/OneDrive-UniversityofTennessee/University of Tennessee/Teaching/R as GIS for Economists/GIS R course book"</code></pre>
+</div>
+</div>
+<p>A recommended (and very efficient) approach is to use <a href="https://r4ds.hadley.nz/workflow-scripts.html#rstudio-projects">R projects</a>. When you work inside the R project, your <code>wd</code> is automatically set to the project’s root folder, which contains the <code>.rproj</code> file. This happens whenever you open RStudio by double-clicking the “.rproj” file, so you don’t need to set the working directory yourself.</p>
+</section>
+<section id="create-your-r-project" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="create-your-r-project"><span class="header-section-number">2.7</span> Create your R project</h2>
+<ol type="1">
+<li>Create a folder in your computer (e.g., Project1)</li>
+<li>Open RStudio</li>
+<li>Click File <span class="math inline">\(\rightarrow\)</span> New Project</li>
+<li>Click Browse</li>
+<li>Select the folder you created (<code>Project1</code>)</li>
+<li>Click Create Project</li>
+</ol>
+<p>RStudio will now:</p>
 <ul>
-<li>eval = FALSE <span class="math inline">\(\rightarrow\)</span> show code, don’t run it</li>
-<li>echo = FALSE <span class="math inline">\(\rightarrow\)</span> run code, don’t show it</li>
-<li>include = FALSE <span class="math inline">\(\rightarrow\)</span> run code, show nothing</li>
-<li>message = FALSE <span class="math inline">\(\rightarrow\)</span> hide package messages</li>
-<li>warning = FALSE <span class="math inline">\(\rightarrow\)</span> hide warnings</li>
+<li>Open the project</li>
+<li>Create a <code>.rproj</code> in the folder</li>
+<li>Set the <code>wd</code> automatically</li>
 </ul>
-<p>Example:</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">8</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>d1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 12</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 12</code></pre>
-</div>
-</div>
+<ol start="7" type="1">
+<li>Confirm you’re in the project</li>
+</ol>
+<p>You should see:</p>
+<ul>
+<li>the project name in the top-right corner of RStudio</li>
+<li>a file ending in <code>.rproj</code> in the Files pane</li>
+</ul>
+<ol start="8" type="1">
+<li>Create your first <code>Quarto</code> document</li>
+</ol>
+<ul>
+<li>Click File <span class="math inline">\(\rightarrow\)</span> New File <span class="math inline">\(\rightarrow\)</span> Quarto Document…</li>
+<li>Choose: Format: HTML; Engine: Knitr</li>
+<li>Click Create</li>
+<li>Save as <span class="math inline">\(\rightarrow\)</span> <code>hello</code></li>
+</ul>
+<p>Always open your project <strong>by double-clicking</strong> the <code>.rproj</code> file, not by opening RStudio first and setting the <code>wd</code> manually.</p>
 </section>
-<section id="installing-packages-run-once-and-loading-library" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="installing-packages-run-once-and-loading-library"><span class="header-section-number">3.6</span> Installing packages (run once) and loading library</h2>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("tidyverse")</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Load packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-</div>
-</section>
-<section id="create-an-object" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="create-an-object"><span class="header-section-number">3.7</span> Create an object</h2>
-<p>Everything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.</p>
-<p>After an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining an object (&lt;-)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">4</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>d1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 6</code></pre>
-</div>
-</div>
-</section>
-<section id="using-built-in-datasets-in-r" class="level2" data-number="3.8">
-<h2 data-number="3.8" class="anchored" data-anchor-id="using-built-in-datasets-in-r"><span class="header-section-number">3.8</span> Using built-in datasets in R</h2>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data() # list of datasets</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars) <span class="co"># load mtcars</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create an object</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> mtcars</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect it</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
-Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
-</div>
-</div>
+<section id="quarto-file-.qmd-overview" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="quarto-file-.qmd-overview"><span class="header-section-number">2.8</span> Quarto file (<code>.qmd</code>) overview</h2>
+<p>Below is a Quarto document (the <code>.qmd</code> file on the left) and its rendered output as an HTML page (on the right). The <code>.qmd</code> file is where you write your content and code, and when you render it, Quarto turns it into a polished document. You’re not limited to HTML, you can also render the same file as a PDF, a Word document, and more.</p>
+<p><img src="pics/qmd-doc.png" class="img-fluid"></p>
+<ul>
+<li>Select <code>Preview in Viewer Pane</code> if you want to see the rendered output on the <code>Viewer Pane</code>.</li>
+<li>Click on the <code>Render</code> button to render the file and preview the output.</li>
+<li>Two modes of the RStudio editor: <code>visual</code> (on the left) and <code>source</code> (on the right). <code>visual</code>: what-you-see-is-what-you-mean (WYSIWYM) experience, so you can format text without worrying about markdown syntax. <code>source</code>: plain-text markdown code.</li>
+</ul>
 
 
 </section>
@@ -791,13 +771,13 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Ch1_getting started.html" class="pagination-link" aria-label="Getting Started with R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting Started with R</span></span>
+      <a href="./0_syllabus.html" class="pagination-link" aria-label="Syllabus">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Syllabus</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./R basics.html" class="pagination-link" aria-label="R Basics">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R Basics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./2_hello Quarto.html" class="pagination-link" aria-label="hello Quarto">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hello Quarto</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
