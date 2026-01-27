@@ -192,91 +192,131 @@
   {
     "objectID": "hello.html",
     "href": "hello.html",
-    "title": "3  hello",
+    "title": "3  hello Quarto",
     "section": "",
     "text": "3.1 Headings\nIn this paper….",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello Quarto</span>"
     ]
   },
   {
     "objectID": "hello.html#headings",
     "href": "hello.html#headings",
-    "title": "3  hello",
+    "title": "3  hello Quarto",
     "section": "",
     "text": "3.1.1 subsection\nSome more text… This is bold text\nMy name is Gaby…\nUse # symbols for section titles. Leave a blank line after headings for readability.\n## Section title\n### Subsection title\n#### Smaller heading (more # = smaller heading)",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello Quarto</span>"
     ]
   },
   {
     "objectID": "hello.html#bold-and-italic-text",
     "href": "hello.html#bold-and-italic-text",
-    "title": "3  hello",
+    "title": "3  hello Quarto",
     "section": "3.2 Bold and italic text",
     "text": "3.2 Bold and italic text\nIf you are using Source: text and italic\nIf you are using Visual: Click Format \\(\\rightarrow\\) Bold",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello Quarto</span>"
     ]
   },
   {
     "objectID": "hello.html#adding-figures-and-links",
     "href": "hello.html#adding-figures-and-links",
-    "title": "3  hello",
+    "title": "3  hello Quarto",
     "section": "3.3 Adding figures and links",
     "text": "3.3 Adding figures and links\nFind any image and save it as .png in your R project.\nThe figure below shows that…\n\nYou can learn more about this paper here.\nHow to include figures and links when using Visual?",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello Quarto</span>"
     ]
   },
   {
     "objectID": "hello.html#code-chuncks",
     "href": "hello.html#code-chuncks",
-    "title": "3  hello",
+    "title": "3  hello Quarto",
     "section": "3.4 Code chuncks",
     "text": "3.4 Code chuncks\nR code chunks are marked with {r}. Type the chunk by hand or using keyboard shortcut.\nMac: Command + Option + I\nWindows: Ctrl + Alt + I\n\n\nCode\n# your R code goes here\n# comment",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello Quarto</span>"
     ]
   },
   {
     "objectID": "hello.html#common-chunck-options",
     "href": "hello.html#common-chunck-options",
-    "title": "3  hello",
+    "title": "3  hello Quarto",
     "section": "3.5 Common chunck options",
     "text": "3.5 Common chunck options\n\neval = FALSE \\(\\rightarrow\\) show code, don’t run it\necho = FALSE \\(\\rightarrow\\) run code, don’t show it\ninclude = FALSE \\(\\rightarrow\\) run code, show nothing\nmessage = FALSE \\(\\rightarrow\\) hide package messages\nwarning = FALSE \\(\\rightarrow\\) hide warnings\n\nExample:\n\n\nCode\nd1 &lt;- 4 + 8\nd1\n\n\n[1] 12\n\n\n\n\n[1] 12",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello Quarto</span>"
     ]
   },
   {
     "objectID": "hello.html#installing-packages-run-once-and-loading-library",
     "href": "hello.html#installing-packages-run-once-and-loading-library",
-    "title": "3  hello",
+    "title": "3  hello Quarto",
     "section": "3.6 Installing packages (run once) and loading library",
     "text": "3.6 Installing packages (run once) and loading library\n\n\nCode\n#install.packages(\"tidyverse\")\nlibrary(tidyverse) # Load packages\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.4     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello Quarto</span>"
     ]
   },
   {
     "objectID": "hello.html#create-an-object",
     "href": "hello.html#create-an-object",
-    "title": "3  hello",
+    "title": "3  hello Quarto",
     "section": "3.7 Create an object",
     "text": "3.7 Create an object\nEverything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.\nAfter an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).\n\n\nCode\n# Defining an object (&lt;-)\nd1 &lt;- 2 + 4\nd1\n\n\n[1] 6",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello Quarto</span>"
     ]
   },
   {
     "objectID": "hello.html#using-built-in-datasets-in-r",
     "href": "hello.html#using-built-in-datasets-in-r",
-    "title": "3  hello",
+    "title": "3  hello Quarto",
     "section": "3.8 Using built-in datasets in R",
     "text": "3.8 Using built-in datasets in R\n\n\nCode\n#data() # list of datasets\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\n\n# Inspect it\nhead(my.data)\n\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "R basics.html",
+    "href": "R basics.html",
+    "title": "4  R Basics",
+    "section": "",
+    "text": "4.1 Create an object\nEverything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.\nAfter an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).\n# Defining an object (&lt;-)\nd1 &lt;- 2 + 4\nd1\n\n[1] 6\n# Using built-in datasets in R\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\n\n# Inspect it\nhead(my.data)\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>R Basics</span>"
+    ]
+  },
+  {
+    "objectID": "R basics.html#object-structure",
+    "href": "R basics.html#object-structure",
+    "title": "4  R Basics",
+    "section": "4.2 Object structure",
+    "text": "4.2 Object structure\nObjects can be as simple as a single value (e.g., d1), or they can hold more structured data, such as vectors, tables, or datasets, like the examples shown in the figure below (borrowed from this online R tutorial).\n\n\n4.2.1 Data types\nIn this course, we will be using mostly vector and data frame.\nVector: a collection of values of the same type (e.g., numbers or text) stored together in one object.\n\n# Numeric vector\nnumbers &lt;- c(1, 2, 3, 4, 5)\nclass(numbers)\n\n[1] \"numeric\"\n\n# Character vector\nnames &lt;- c(\"Alice\", \"Bob\", \"Charlie\")\nclass(names)\n\n[1] \"character\"\n\n\ndata.frame: a table of data where each column is a vector, and all columns have the same number of rows.\n\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\nclass(my.data)\n\n[1] \"data.frame\"\n\n\n\n\n4.2.2 Variables types\n\n\n\nVariable\nDescription\nExample\n\n\n\n\ninteger\nWhole numbers\n5, 160, -30\n\n\nnumeric\nDecimals\n0.5, -0.38, 234.567\n\n\ncharacter\nText\n“A”, “Nice”, “welcome”\n\n\nlogical\nBooleans\nTRUE or FALSE\n\n\nfactor\nCategorical\n“green”, “blue”, “red”\n\n\nempty\n–\nNULL\n\n\n\nExamples\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.4     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nclass(d1)\n\n[1] \"numeric\"\n\n# Numeric (decimal)\nnum &lt;- 3.14\nnum2 &lt;- 56 # R treats all numbers without a decimal as numeric by default\n\nclass(num)\n\n[1] \"numeric\"\n\nclass(num2)\n\n[1] \"numeric\"\n\n# Integer\nint &lt;- as.integer(num)\nclass(int)\n\n[1] \"integer\"\n\nint &lt;- 56L # L tells R to store this as an integer\nclass(int)\n\n[1] \"integer\"\n\n# Character (text)\nchar_var &lt;- \"welcome\"\n\n# Logical (TRUE/FALSE)\nlog_var &lt;- TRUE\n\n# Factor (categorical)\nfact_var &lt;- factor(c(\"green\", \"blue\", \"red\"))\n\n# variables type in my.data\nclass(my.data$hp)\n\n[1] \"numeric\"\n\nclass(my.data$mpg)\n\n[1] \"numeric\"",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>R Basics</span>"
+    ]
+  },
+  {
+    "objectID": "R basics.html#functions",
+    "href": "R basics.html#functions",
+    "title": "4  R Basics",
+    "section": "4.3 Functions",
+    "text": "4.3 Functions\nFunctions are at the core of using R. Want to calculate, plot, or transform something? There’s probably a function for it. R comes with lots built in, you can add more with packages, and you can even make your own! Learn more here.\nA function is like a little machine: you give it some inputs, it does something with them, and then it gives you an output. What comes out depends on the function you’re using.\nInputs \\(\\rightarrow\\) [ function ] \\(\\rightarrow\\) Output\nSimple functions\n\n# Function: sum()\n# Inputs: numbers\n# Action: adds them together\n# Output: the total\nresult &lt;- sum(4, 7, 10)\nresult\n\n[1] 21\n\n\n\n# Function: as.numeric()\n# Inputs: char_nums\n# Action: convert to numeric\n# Output: num_nums\n\n# Convert a character vector to numeric\nchar_nums &lt;- c(\"1\", \"2\", \"3\", \"4\")\nclass(char_nums)\n\n[1] \"character\"\n\n# Convert to numeric\nnum_nums &lt;- as.numeric(char_nums)\nclass(num_nums)\n\n[1] \"numeric\"\n\n\nCustom function\n\n# Define a function that doubles a number\ndouble_it &lt;- function(x) {\n  x * 2\n}\n\n# Use the function\ndouble_it(5)\n\n[1] 10\n\n\n\n# Functions with multiple arguments\n# Load ggplot2 package (install first if you don't have it)\nlibrary(ggplot2)\n\n# Use the built-in dataset 'mtcars'\n# We'll plot miles per gallon (mpg) vs number of cylinders (cyl)\nggplot(data = mtcars,              # Required argument: dataset\n       mapping = aes(x = cyl, y = mpg)) +  # Required: aesthetics\n  geom_point(color = \"blue\", size = 3)     # Optional arguments inside geom_point()",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>R Basics</span>"
+    ]
+  },
+  {
+    "objectID": "R basics.html#piping",
+    "href": "R basics.html#piping",
+    "title": "4  R Basics",
+    "section": "4.4 Piping (%>%)",
+    "text": "4.4 Piping (%&gt;%)\nInstead of nesting functions inside each other, you can write code step by step, which is often easier to read.\n%&gt;% (the “then” operator): pipes send an object from function to function.\nUsing Tidyverse + %&gt;% you can do complex tasks in easy-to-read, step-by-step code.\nTidyverse is is a collection of R packages designed to work well together.\nExample without a pipe\n\n# Find the average mpg of cars with 6 cylinders\nmean(subset(mtcars, cyl == 6)$mpg)\n\n[1] 19.74286\n\n\nExample with a pipe\n\nmtcars %&gt;%\n  filter(cyl == 6) %&gt;%\n  pull(mpg) %&gt;%\n  mean()\n\n[1] 19.74286\n\n# save the avg mpg as an object\navg.mpg &lt;- mtcars %&gt;%\n  filter(cyl == 6) %&gt;%\n  pull(mpg) %&gt;%\n  mean()",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>R Basics</span>"
     ]
   }
 ]
