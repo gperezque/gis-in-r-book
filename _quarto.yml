@@ -10,6 +10,7 @@ book:
     - syllabus.qmd
     - Ch1_getting started.qmd
     - hello.qmd
+    - R basics.qmd
     - references.qmd
 
 bibliography: references.bib

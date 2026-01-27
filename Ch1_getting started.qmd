@@ -50,7 +50,7 @@ By default, this pane appears in the upper-right. It’s mainly used to get a qu
 
 **Plots, Viewer, Packages, and Help pane**
 
-The lower-right pane contains several useful tabs. The *Plots* tab displays your charts, graphs, and maps, while the *Viewer* tab shows interactive or HTML outputs. The *Help* tab gives access to R documentation and help files, and the *Files* tab works like a mini file explorer, letting you open, move, or delete files. Finally, the *Packages* tab lets you see which R packages are installed, add new ones, update or remove them, and load or unload them for your session.
+The lower-right pane contains several useful tabs. The *Plots* tab displays your charts, graphs, and maps, while the *Viewer* tab shows interactive or HTML outputs. The *Help* tab gives access to R documentation and help files, and the *Files* tab works like a mini file explorer, letting you open, move, or delete files. Finally, the *Packages* tab lets you see which R packages are installed, add new ones, update or remove them, and load or unload them for your session.
 
 ## Scripts
 
@@ -132,7 +132,4 @@ Below is a Quarto document (the `.qmd` file on the left) and its rendered output
 
 -   Select `Preview in Viewer Pane` if you want to see the rendered output on the `Viewer Pane`.
 -   Click on the `Render` button to render the file and preview the output.
--   Two modes of the RStudio editor: `visual` (on the left) and `source` (on the right).
-`visual`: what-you-see-is-what-you-mean (WYSIWYM) experience, so you can format text without worrying about markdown syntax.
-`source`: plain-text markdown code.
-
+-   Two modes of the RStudio editor: `visual` (on the left) and `source` (on the right). `visual`: what-you-see-is-what-you-mean (WYSIWYM) experience, so you can format text without worrying about markdown syntax. `source`: plain-text markdown code.
