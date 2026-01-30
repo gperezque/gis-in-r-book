@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; hello Quarto – GIS in R: Fundamentals and Economic Applications</title>
+<title>5&nbsp; Data Wrangling – GIS in R: Fundamentals and Economic Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./3_R basics.html" rel="next">
-<link href="./1_Getting started.html" rel="prev">
+<link href="./references.html" rel="next">
+<link href="./3_R basics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -105,35 +105,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -146,7 +117,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2_hello Quarto.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hello Quarto</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4_Data Wrangling.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Wrangling</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -191,7 +162,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_hello Quarto.html" class="sidebar-item-text sidebar-link active">
+  <a href="./2_hello Quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hello Quarto</span></span></a>
   </div>
 </li>
@@ -203,7 +174,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_Data Wrangling.html" class="sidebar-item-text sidebar-link">
+  <a href="./4_Data Wrangling.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Wrangling</span></span></a>
   </div>
 </li>
@@ -223,17 +194,13 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#headings" id="toc-headings" class="nav-link active" data-scroll-target="#headings"><span class="header-section-number">3.1</span> Headings</a>
-  <ul class="collapse">
-  <li><a href="#subsection" id="toc-subsection" class="nav-link" data-scroll-target="#subsection"><span class="header-section-number">3.1.1</span> subsection</a></li>
-  </ul></li>
-  <li><a href="#bold-and-italic-text" id="toc-bold-and-italic-text" class="nav-link" data-scroll-target="#bold-and-italic-text"><span class="header-section-number">3.2</span> Bold and italic text</a></li>
-  <li><a href="#adding-figures-and-links" id="toc-adding-figures-and-links" class="nav-link" data-scroll-target="#adding-figures-and-links"><span class="header-section-number">3.3</span> Adding figures and links</a></li>
-  <li><a href="#code-chuncks" id="toc-code-chuncks" class="nav-link" data-scroll-target="#code-chuncks"><span class="header-section-number">3.4</span> Code chuncks</a></li>
-  <li><a href="#common-chunck-options" id="toc-common-chunck-options" class="nav-link" data-scroll-target="#common-chunck-options"><span class="header-section-number">3.5</span> Common chunck options</a></li>
-  <li><a href="#installing-packages-run-once-and-loading-library" id="toc-installing-packages-run-once-and-loading-library" class="nav-link" data-scroll-target="#installing-packages-run-once-and-loading-library"><span class="header-section-number">3.6</span> Installing packages (run once) and loading library</a></li>
-  <li><a href="#create-an-object" id="toc-create-an-object" class="nav-link" data-scroll-target="#create-an-object"><span class="header-section-number">3.7</span> Create an object</a></li>
-  <li><a href="#using-built-in-datasets-in-r" id="toc-using-built-in-datasets-in-r" class="nav-link" data-scroll-target="#using-built-in-datasets-in-r"><span class="header-section-number">3.8</span> Using built-in datasets in R</a></li>
+  <li><a href="#loading-data-from-a-file" id="toc-loading-data-from-a-file" class="nav-link active" data-scroll-target="#loading-data-from-a-file"><span class="header-section-number">5.1</span> Loading data from a file</a></li>
+  <li><a href="#looking-at-the-data" id="toc-looking-at-the-data" class="nav-link" data-scroll-target="#looking-at-the-data"><span class="header-section-number">5.2</span> Looking at the data</a></li>
+  <li><a href="#cleaning-variable-names" id="toc-cleaning-variable-names" class="nav-link" data-scroll-target="#cleaning-variable-names"><span class="header-section-number">5.3</span> Cleaning variable names</a></li>
+  <li><a href="#selecting-and-filtering-data" id="toc-selecting-and-filtering-data" class="nav-link" data-scroll-target="#selecting-and-filtering-data"><span class="header-section-number">5.4</span> Selecting and filtering data</a></li>
+  <li><a href="#creating-variables" id="toc-creating-variables" class="nav-link" data-scroll-target="#creating-variables"><span class="header-section-number">5.5</span> Creating variables</a></li>
+  <li><a href="#aggregating-data" id="toc-aggregating-data" class="nav-link" data-scroll-target="#aggregating-data"><span class="header-section-number">5.6</span> Aggregating data</a></li>
+  <li><a href="#multi-row-calculations" id="toc-multi-row-calculations" class="nav-link" data-scroll-target="#multi-row-calculations"><span class="header-section-number">5.7</span> Multi-row calculations</a></li>
   </ul>
 </nav>
     </div>
@@ -242,7 +209,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hello Quarto</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Wrangling</span></h1>
 </div>
 
 
@@ -259,79 +226,43 @@ window.Quarto = {
 </header>
 
 
-<section id="headings" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="headings"><span class="header-section-number">3.1</span> Headings</h2>
-<p>In this paper….</p>
-<section id="subsection" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="subsection"><span class="header-section-number">3.1.1</span> subsection</h3>
-<p>Some more text… This is <strong>bold</strong> text</p>
-<p>My name is <strong>Gaby…</strong></p>
-<p>Use <code>#</code> symbols for section titles. Leave a blank line after headings for readability.</p>
-<p>## Section title</p>
-<p>### Subsection title</p>
-<p>#### Smaller heading (more # = smaller heading)</p>
-</section>
-</section>
-<section id="bold-and-italic-text" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="bold-and-italic-text"><span class="header-section-number">3.2</span> Bold and italic text</h2>
-<p>If you are using <code>Source</code>: <strong>text</strong> and <em>italic</em></p>
-<p>If you are using <code>Visual</code>: Click Format <span class="math inline">\(\rightarrow\)</span> Bold</p>
-</section>
-<section id="adding-figures-and-links" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="adding-figures-and-links"><span class="header-section-number">3.3</span> Adding figures and links</h2>
-<p>Find any image and save it as <code>.png</code> in your R project.</p>
-<p>The figure below shows that…</p>
-<p><img src="pics/map1.png" class="img-fluid"></p>
-<p>You can learn more about this paper <a href="https://www.journals.uchicago.edu/doi/full/10.1086/726156">here</a>.</p>
-<p><strong>How to include figures and links when using <code>Visual</code>?</strong></p>
-</section>
-<section id="code-chuncks" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="code-chuncks"><span class="header-section-number">3.4</span> Code chuncks</h2>
-<p>R code chunks are marked with <code>{r}</code>. Type the chunk by hand or using keyboard shortcut.</p>
-<p>Mac: Command + Option + I</p>
-<p>Windows: Ctrl + Alt + I</p>
+<p>This chapter walks through the most common steps involved in taking raw data and turning it into analysis-ready data. You’ll learn how to import datasets, clean and transform variables, handle missing values, combine multiple data sources, and filter data to answer specific questions. Along the way, we’ll introduce essential R data-management functions-mostly from the <strong>tidyverse</strong>-and show how to chain them together using pipes to create clear, readable workflows.</p>
+<section id="loading-data-from-a-file" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="loading-data-from-a-file"><span class="header-section-number">5.1</span> Loading data from a file</h2>
+<p>Often your data will be stored in a file that you need to load into R. Common examples include:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>File type</th>
+<th>Extension</th>
+<th>Common function</th>
+<th>Package</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Excel spreadsheet</td>
+<td><code>.xlsx</code></td>
+<td><code>read_excel()</code></td>
+<td><strong>readxl</strong></td>
+</tr>
+<tr class="even">
+<td>Comma-separated values</td>
+<td><code>.csv</code></td>
+<td><code>read_csv()</code></td>
+<td><strong>readr</strong></td>
+</tr>
+<tr class="odd">
+<td>Stata dataset</td>
+<td><code>.dta</code></td>
+<td><code>read_dta()</code></td>
+<td><strong>haven</strong></td>
+</tr>
+</tbody>
+</table>
+<p><em>Note</em>: You can use read_csv() and read_excel() after loading tidyverse. You can also use <strong>rio</strong> package, which has an <code>import()</code> function that works for just about any data file type you might want.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your R code goes here</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># comment</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section>
-<section id="common-chunck-options" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="common-chunck-options"><span class="header-section-number">3.5</span> Common chunck options</h2>
-<ul>
-<li>eval = FALSE <span class="math inline">\(\rightarrow\)</span> show code, don’t run it</li>
-<li>echo = FALSE <span class="math inline">\(\rightarrow\)</span> run code, don’t show it</li>
-<li>include = FALSE <span class="math inline">\(\rightarrow\)</span> run code, show nothing</li>
-<li>message = FALSE <span class="math inline">\(\rightarrow\)</span> hide package messages</li>
-<li>warning = FALSE <span class="math inline">\(\rightarrow\)</span> hide warnings</li>
-</ul>
-<p>Example:</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">8</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>d1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 12</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 12</code></pre>
-</div>
-</div>
-</section>
-<section id="installing-packages-run-once-and-loading-library" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="installing-packages-run-once-and-loading-library"><span class="header-section-number">3.6</span> Installing packages (run once) and loading library</h2>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("tidyverse")</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Load packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -344,47 +275,174 @@ window.Quarto = {
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/water_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 76736 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (6): year, field, price_water, q_water, center_pivot, county
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#water &lt;- read_csv("water_data.csv")</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "center_pivot" "county"       "field"        "price_water"  "q_water"     
+[6] "year"        </code></pre>
+</div>
 </div>
 </section>
-<section id="create-an-object" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="create-an-object"><span class="header-section-number">3.7</span> Create an object</h2>
-<p>Everything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.</p>
-<p>After an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).</p>
+<section id="looking-at-the-data" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="looking-at-the-data"><span class="header-section-number">5.2</span> Looking at the data</h2>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining an object (&lt;-)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">4</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>d1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+   year field price_water q_water center_pivot county
+  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+1  1992     1       0.585    14.6            0     12
+2  1993     1       0.639    10.8            0     12
+3  1994     1       0.644    17.0            1     12
+4  1995     1       0.570    18.7            1     12
+5  1996     1       0.760    21.4            1     12
+6  1997     1       0.768    15              1     12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>water <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 76,736
+Columns: 6
+$ year         &lt;dbl&gt; 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 200…
+$ field        &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, …
+$ price_water  &lt;dbl&gt; 0.5845152, 0.6391169, 0.6440908, 0.5702707, 0.7600425, 0.…
+$ q_water      &lt;dbl&gt; 14.58335, 10.79831, 17.02275, 18.71972, 21.36000, 15.0000…
+$ center_pivot &lt;dbl&gt; 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ county       &lt;dbl&gt; 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 1…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      year          field        price_water         q_water         
+ Min.   :1992   Min.   :    1   Min.   :0.01553   Min.   : 0.000005  
+ 1st Qu.:1996   1st Qu.: 6015   1st Qu.:0.20199   1st Qu.:10.110240  
+ Median :2000   Median :12099   Median :0.51795   Median :14.066380  
+ Mean   :2000   Mean   :12058   Mean   :0.71312   Mean   :14.048993  
+ 3rd Qu.:2004   3rd Qu.:18118   3rd Qu.:0.98047   3rd Qu.:17.824100  
+ Max.   :2007   Max.   :24086   Max.   :5.42991   Max.   :30.000000  
+  center_pivot        county     
+ Min.   :0.0000   Min.   : 1.00  
+ 1st Qu.:1.0000   1st Qu.: 7.00  
+ Median :1.0000   Median :22.00  
+ Mean   :0.9261   Mean   :20.83  
+ 3rd Qu.:1.0000   3rd Qu.:33.00  
+ Max.   :1.0000   Max.   :41.00  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 76736</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
 </div>
-</section>
-<section id="using-built-in-datasets-in-r" class="level2" data-number="3.8">
-<h2 data-number="3.8" class="anchored" data-anchor-id="using-built-in-datasets-in-r"><span class="header-section-number">3.8</span> Using built-in datasets in R</h2>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data() # list of datasets</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars) <span class="co"># load mtcars</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create an object</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> mtcars</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect it</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># type of variables in water</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(water<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
-Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<pre><code>[1] "numeric"</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(water<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006
+[16] 2007</code></pre>
+</div>
+</div>
+</section>
+<section id="cleaning-variable-names" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="cleaning-variable-names"><span class="header-section-number">5.3</span> Cleaning variable names</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">county_code =</span> county) <span class="co">#rename</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="selecting-and-filtering-data" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="selecting-and-filtering-data"><span class="header-section-number">5.4</span> Selecting and filtering data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a subset with only two variables: year and county_code</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sub1 <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, county_code)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Get rid of the field variable</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>sub2 <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>field)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a subset containing only year=2000</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>sub<span class="fl">.2000</span> <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-variables" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="creating-variables"><span class="header-section-number">5.5</span> Creating variables</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year2 =</span> year <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">year3 =</span> year2 <span class="sc">+</span> <span class="dv">3</span>) <span class="co"># takes our year variable and adds 1 to it</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create a subset center_pivot == 1 and create a new variable = total cost</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>cost <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(center_pivot <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tot.cost =</span> price_water<span class="sc">*</span>q_water)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cost<span class="sc">$</span>tot.cost)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
+  0.000001   2.452759   6.182512  11.046254  15.240035 141.681762 </code></pre>
+</div>
+</div>
+</section>
+<section id="aggregating-data" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="aggregating-data"><span class="header-section-number">5.6</span> Aggregating data</h2>
+<p>A dataset’s observation level is simply what each row of the data represents. For example, <code>water</code> dataset contains one row per field for a given year, then the observation level is field-year.</p>
+<p>Each row corresponds to one field in one specific year. Sometimes your data are more detailed than what you need for your analysis, and you may want to zoom out. For instance, you might start with field-year data but want to analyze outcomes at the field level overall. To do that, you need to aggregate the data.</p>
+<p>In the tidyverse, this is usually done with <code>group_by()</code>, which tells R to perform calculations separately within each group. You’ll then typically use <code>summarize()</code> to combine multiple rows into a single row per group. The resulting dataset will have an observation level based on whatever variable(s) you used in <code>group_by()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get average total water cost by field</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># averaged over all the years</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>avg.cost <span class="ot">&lt;-</span> cost <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(field) <span class="sc">%&gt;%</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg.cost =</span> <span class="fu">mean</span>(tot.cost)) <span class="co"># add sum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="multi-row-calculations" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="multi-row-calculations"><span class="header-section-number">5.7</span> Multi-row calculations</h2>
+<p>It’s pretty common to need to use more than one row of data (but not the entire dataset) to calculate something you care about. For example, to calculate statistics by group, we can use <code>group_by()</code> to do by-group calculations. However, if we want to calculate by group and create a new column with that calculation rather than change the observation level, we want to follow that <code>group_by()</code> with a <code>mutate()</code> instead of a summarize.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>cost <span class="ot">&lt;-</span> cost <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(field) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg.cost =</span> <span class="fu">mean</span>(tot.cost, <span class="at">na.rm =</span> T),</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">tot.use =</span> <span class="fu">sum</span>(q_water))</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># What if I need the avg cost and total use by field-year?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your time to practice</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Create a subset that inlcudes only years &gt; 1999</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) create a new variable: q_water10 = (q_water + 10)</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) create a two new variables: min.use and min.price by year</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1999</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q_water10 =</span> q_water <span class="sc">+</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">min.use =</span> <span class="fu">min</span>(q_water),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">min.price =</span> <span class="fu">min</span>(price_water))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -797,13 +855,13 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./1_Getting started.html" class="pagination-link" aria-label="Getting Started with R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting Started with R</span></span>
+      <a href="./3_R basics.html" class="pagination-link" aria-label="R Basics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R Basics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./3_R basics.html" class="pagination-link" aria-label="R Basics">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R Basics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
