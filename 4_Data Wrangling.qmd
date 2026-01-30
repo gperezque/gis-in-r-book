@@ -9,20 +9,23 @@ This chapter walks through the most common steps involved in taking raw data and
 
 ## Loading data from a file
 
-Often your data will be stared in a file that you need to load into R. Common examples include:
+Often your data will be stored in a file that you need to load into R. Common examples include:
 
-| File type | Extension | Common function | Package |
-|----------|-----------|-----------------|---------|
-| Excel spreadsheet | `.xlsx` | `read_excel()` | **readxl** |
-| Comma-separated values | `.csv` | `read_csv()` | **readr** |
-| Stata dataset | `.dta` | `read_dta()` | **haven** |
+| File type              | Extension | Common function | Package    |
+|------------------------|-----------|-----------------|------------|
+| Excel spreadsheet      | `.xlsx`   | `read_excel()`  | **readxl** |
+| Comma-separated values | `.csv`    | `read_csv()`    | **readr**  |
+| Stata dataset          | `.dta`    | `read_dta()`    | **haven**  |
 
 *Note*: You can use read_csv() and read_excel() after loading tidyverse. You can also use **rio** package, which has an `import()` function that works for just about any data file type you might want.
 
 ```{r}
 library(tidyverse)
 
-water <- read_csv("water_data.csv")
+water <- read_csv("../data/water_data.csv")
+
+#water <- read_csv("water_data.csv")
+
 ls(water)
 ```
 
@@ -47,11 +50,86 @@ unique(water$year)
 
 ```{r}
 water <- water %>%
-  rename(county_code = county)
+  rename(county_code = county) #rename
 ```
 
 ## Selecting and filtering data
+```{r}
+# Create a subset with only two variables: year and county_code
+sub1 <- water %>%
+  select(year, county_code)
 
+# Get rid of the field variable
+sub2 <- water %>%
+  select(-field)
+
+# Create a subset containing only year=2000
+sub.2000 <- water %>%
+  filter(year == 2000)
+```
+
+## Creating variables
+
+```{r}
+water <- water %>%
+  mutate(year2 = year + 1,
+         year3 = year2 + 3) # takes our year variable and adds 1 to it
+
+# create a subset center_pivot == 1 and create a new variable = total cost
+cost <- water %>%
+  filter(center_pivot == 1) %>%
+  mutate(tot.cost = price_water*q_water)
+
+options(scipen = 999)
+summary(cost$tot.cost)
+```
+
+## Aggregating data
+
+A dataset’s observation level is simply what each row of the data represents. For example, `water` dataset contains one row per field for a given year, then the observation level is field-year.
+
+Each row corresponds to one field in one specific year. Sometimes your data are more detailed than what you need for your analysis, and you may want to zoom out. For instance, you might start with field-year data but want to analyze outcomes at the field level overall. To do that, you need to aggregate the data.
+
+In the tidyverse, this is usually done with `group_by()`, which tells R to perform calculations separately within each group. You’ll then typically use `summarize()` to combine multiple rows into a single row per group. The resulting dataset will have an observation level based on whatever variable(s) you used in `group_by()`.
+
+```{r}
+# get average total water cost by field
+# averaged over all the years
+avg.cost <- cost %>%
+  group_by(field) %>%
+  summarize(avg.cost = mean(tot.cost)) # add sum
+```
+
+## Multi-row calculations
+
+It’s pretty common to need to use more than one row of data (but not the entire dataset) to calculate something you care about. For example, to calculate statistics by group, we can use `group_by()` to do by-group calculations. However, if we want to calculate by group and create a new column with that calculation rather than change the observation level, we want to follow that `group_by()` with a `mutate()` instead of a summarize.
+
+```{r}
+cost <- cost %>%
+  group_by(field) %>%
+  mutate(avg.cost = mean(tot.cost, na.rm = T),
+         tot.use = sum(q_water))
+
+# What if I need the avg cost and total use by field-year?
+```
+
+
+```{r}
+# Your time to practice
+# 1) Create a subset that inlcudes only years > 1999
+# 2) create a new variable: q_water10 = (q_water + 10)
+# 3) create a two new variables: min.use and min.price by year
+
+```
+
+```{r}
+data1 <- water %>%
+  filter(year > 1999) %>%
+  mutate(q_water10 = q_water + 10) %>%
+  group_by(year) %>%
+  mutate(min.use = min(q_water),
+         min.price = min(price_water))
+```
 
 
 

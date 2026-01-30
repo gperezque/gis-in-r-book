@@ -1,5 +1,6 @@
 project:
   type: book
+  execute-dir: project # to make sure the wd is the project folder
 
 book:
   title: "GIS in R: Fundamentals and Economic Applications"
@@ -7,10 +8,10 @@ book:
   date: "Spring 2026"
   chapters:
     - index.qmd
-    - syllabus.qmd
-    - Ch1_getting started.qmd
-    - hello.qmd
-    - R basics.qmd
+    - 0_syllabus.qmd
+    - 1_Getting started.qmd
+    - 2_hello Quarto.qmd
+    - 3_R basics.qmd
     - references.qmd
 
 bibliography: references.bib
