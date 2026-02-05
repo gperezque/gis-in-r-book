@@ -201,7 +201,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#creating-variables" id="toc-creating-variables" class="nav-link" data-scroll-target="#creating-variables"><span class="header-section-number">5.5</span> Creating variables</a></li>
   <li><a href="#aggregating-data" id="toc-aggregating-data" class="nav-link" data-scroll-target="#aggregating-data"><span class="header-section-number">5.6</span> Aggregating data</a></li>
   <li><a href="#multi-row-calculations" id="toc-multi-row-calculations" class="nav-link" data-scroll-target="#multi-row-calculations"><span class="header-section-number">5.7</span> Multi-row calculations</a></li>
-  <li><a href="#joining-data" id="toc-joining-data" class="nav-link" data-scroll-target="#joining-data"><span class="header-section-number">5.8</span> Joining data</a></li>
+  <li><a href="#re-code-values-using-logic-and-conditions" id="toc-re-code-values-using-logic-and-conditions" class="nav-link" data-scroll-target="#re-code-values-using-logic-and-conditions"><span class="header-section-number">5.8</span> Re-code values using logic and conditions</a></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values"><span class="header-section-number">5.9</span> Missing values</a></li>
+  <li><a href="#joining-data" id="toc-joining-data" class="nav-link" data-scroll-target="#joining-data"><span class="header-section-number">5.10</span> Joining data</a></li>
   </ul>
 </nav>
     </div>
@@ -446,28 +448,112 @@ $ county       &lt;dbl&gt; 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 1
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">min.price =</span> <span class="fu">min</span>(price_water))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="joining-data" class="level2" data-number="5.8">
-<h2 data-number="5.8" class="anchored" data-anchor-id="joining-data"><span class="header-section-number">5.8</span> Joining data</h2>
+<section id="re-code-values-using-logic-and-conditions" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="re-code-values-using-logic-and-conditions"><span class="header-section-number">5.8</span> Re-code values using logic and conditions</h2>
+<p><strong>Specific values</strong></p>
+<p>To re-code with simple logical criteria, you can use <code>replace()</code> within mutate().</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># avg cost is changed for field = 24</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>avg.cost <span class="ot">&lt;-</span> avg.cost <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg.cost =</span> <span class="fu">replace</span>(avg.cost, field <span class="sc">==</span> <span class="dv">24</span>, <span class="fl">8.564</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Another function for simple logic is <code>ifelse()</code>. It applies a simple condition to a whole vector at once and return one value if the condition is true and another if it’s false. It’s especially useful for creating or transforming variables based on rules.</p>
+<p>Let’s create a new variable, <code>type</code>, that takes the value 1 when <code>q_water</code>&gt; mean(q_water), and 0 otherwise.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the mean of q_water</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(water<span class="sc">$</span>q_water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ 0.000005 10.110240 14.066380 14.048993 17.824100 30.000000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">ifelse</span>(q_water <span class="sc">&gt;</span> <span class="fl">14.05</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(water<span class="sc">$</span>type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert type to factor variable and create labels.</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"high"</span>)))</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>?factor</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(water<span class="sc">$</span>type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+<p><strong>Complex logic</strong></p>
+<p>Use <code>case_when()</code> when you need to recode a variable into many groups or apply more complex logical rules. The function checks each row of the data and assigns a new value based on the conditions you specify.</p>
+<p>Each <code>case_when()</code> rule has a condition on the left and a value on the right, separated by a tilde (~):</p>
+<ul>
+<li>Conditions go on the left-hand side (LHS)</li>
+<li>Assigned values go on the right-hand side (RHS)</li>
+<li>Rules are separated by commas</li>
+</ul>
+<p>Now, we want to create <code>type2</code> but taking three values, low, medium and high.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(water<span class="sc">$</span>q_water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ 0.000005 10.110240 14.066380 14.048993 17.824100 30.000000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type2 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    q_water <span class="sc">&lt;</span> <span class="dv">12</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    q_water <span class="sc">&gt;=</span> <span class="dv">12</span> <span class="sc">&amp;</span> q_water <span class="sc">&lt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    q_water <span class="sc">&gt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="dv">2</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># using ifelse()</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type.test =</span> <span class="fu">ifelse</span>(q_water <span class="sc">&lt;</span> <span class="dv">12</span>, <span class="dv">0</span>, <span class="fu">ifelse</span>(q_water <span class="sc">&gt;=</span> <span class="dv">12</span> <span class="sc">&amp;</span> q_water <span class="sc">&lt;</span> <span class="dv">15</span>, <span class="dv">1</span>,<span class="dv">2</span>)))</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert type to factor variable and create labels.</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type_fac =</span> <span class="fu">factor</span>(type2, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"medium"</span>, <span class="st">"high"</span>)))</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="co"># or create a factor variable directly</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type2 =</span> <span class="fu">factor</span>(<span class="fu">case_when</span>(</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>    q_water <span class="sc">&lt;</span> <span class="dv">12</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>    q_water <span class="sc">&gt;=</span> <span class="dv">12</span> <span class="sc">&amp;</span> q_water <span class="sc">&lt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>    q_water <span class="sc">&gt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="dv">2</span>),</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"medium"</span>, <span class="st">"high"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="missing-values" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="missing-values"><span class="header-section-number">5.9</span> Missing values</h2>
+<p>When we are cleaning our data, we need to handle missing values.</p>
+</section>
+<section id="joining-data" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="joining-data"><span class="header-section-number">5.10</span> Joining data</h2>
 <p>Often, you’ll work with multiple datasets that describe the same observations (for example, the same people, places, or time periods). To combine these datasets, you use a merge (or join) based on one or more key variables that appear in both datasets. These key variables act like an ID that tells R which rows belong together. At least one of the datasets should have only one row per key value, so R knows exactly how to match the observations without ambiguity.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># let's create a new dataset to merge with water</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>water<span class="fl">.2</span> <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, field) <span class="sc">%&gt;%</span> <span class="co"># IDs variables</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>()),</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># let's create a new dataset to merge with water</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>water<span class="fl">.2</span> <span class="ot">&lt;-</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, field) <span class="sc">%&gt;%</span> <span class="co"># IDs variables</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>()),</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We now have a second dataset that includes variables <code>x</code> and <code>y</code>, and we want to bring those variables back into our original <code>water</code> dataset. To do this, we use <code>joins</code> functions, which are provided by the <strong>dplyr</strong> package (included in the <strong>tidyverse</strong>).</p>
 <p>Join functions can be used in two ways: as standalone commands that create a new data frame, or inside a pipe (<code>%&gt;%</code>) as part of a larger data-cleaning workflow.</p>
 <p>In this example, we use <code>left_join()</code> as a standalone command to create a new data frame called <code>joined_data</code>. The first data frame listed (<code>water</code>) is the baseline dataset we want to keep, and the second data frame (<code>water.2</code>) is joined to it.</p>
 <p>The <code>by =</code> argument tells R which columns to use to match rows between the two datasets. These columns must exist in both data frames and should uniquely identify the observations so the rows line up correctly.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(water, water<span class="fl">.2</span>, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"field"</span>)) <span class="co"># note we use two IDs variables to uniquely identify the observations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(water, water<span class="fl">.2</span>, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"field"</span>)) <span class="co"># note we use two IDs variables to uniquely identify the observations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Left and right joins</strong></p>
 <p><code>left_join()</code>, <code>right_join()</code></p>
 <p>Left and right joins are commonly used to add new information to an existing dataset.</p>
-<p>The order of the datasets matters: - In a left join, the first dataset is the baseline. - In a right join, the second dataset is the baseline.</p>
+<p>The order of the datasets matters:</p>
+<ul>
+<li>In a left join, the first dataset is the baseline.</li>
+<li>In a right join, the second dataset is the baseline.</li>
+</ul>
 <p>All rows from the baseline dataset are kept. Data from the other dataset is added only when there is a match on the identifier column(s). Rows in the secondary dataset that do not match are dropped.</p>
 <p>If one row in the secondary dataset matches multiple baseline rows, the same information is added to each matching row. If a baseline row matches multiple rows in the secondary dataset, new rows will be created, increasing the size of the data.</p>
 <p><em>Should we use a left join or a right join?</em> To answer this question, ask yourself: Which dataset do I want to keep all rows from?</p>
