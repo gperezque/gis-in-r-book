@@ -1,0 +1,203 @@
+---
+title: "R Basics"
+format: html
+#code-fold: true
+editor: visual
+---
+
+## Create an object
+
+Everything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.
+
+After an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).
+
+```{r}
+library(tidyverse)
+# Defining an object (<-)
+d1 <- 2 + 4
+d1
+```
+
+```{r}
+#data()
+# Using built-in datasets in R
+data(mtcars) # load mtcars
+
+# create an object
+my.data <- mtcars
+# Inspect it
+head(my.data)
+```
+
+## Object structure
+
+Objects can be as simple as a single value (e.g., `d1`), or they can hold more structured data, such as vectors, tables, or datasets, like the examples shown in the figure below (borrowed from this online [R tutorial](https://www.epirhandbook.com/en/new_pages/basics.html#object-structure)).
+
+![](pics/data_structures.png)
+
+### Data types
+
+In this course, we will be using mostly vector and data frame.
+
+**Vector**: a collection of values of the same type (e.g., numbers or text) stored together in one object.
+
+```{r}
+# Numeric vector
+numbers <- c(1, 2, 3, 4, 5)
+numbers
+class(numbers)
+
+# Character vector
+names <- c("Alice", "Bob", "Charlie")
+class(names)
+```
+
+**data.frame**: a table of data where each column is a vector, and all columns have the same number of rows.
+
+```{r}
+data(mtcars) # load mtcars
+
+# create an object
+my.data <- mtcars
+class(my.data)
+```
+
+### Variables types
+
+| Variable  | Description   | Example                |
+|-----------|---------------|------------------------|
+| integer   | Whole numbers | 5, 160, -30            |
+| numeric   | Decimals      | 0.5, -0.38, 234.567    |
+| character | Text          | "A", "Nice", "welcome" |
+| logical   | Booleans      | TRUE or FALSE          |
+| factor    | Categorical   | "green", "blue", "red" |
+| empty     | –             | NULL                   |
+
+**Examples**
+
+```{r}
+class(d1)
+
+# Numeric (decimal)
+num <- 3.14
+num2 <- 56 # R treats all numbers without a decimal as numeric by default
+
+class(num)
+class(num2)
+
+# Integer
+int <- as.integer(num)
+class(int)
+
+int <- 56L # L tells R to store this as an integer
+class(int)
+
+x <- 89
+x <- 289
+
+# Character (text)
+char_var <- "welcome"
+
+# Logical (TRUE/FALSE)
+log_var <- TRUE
+
+# Factor (categorical)
+fact_var <- factor(c("green", "blue", "red"))
+
+# variables type in my.data
+class(my.data$hp)
+class(my.data$mpg)
+```
+
+## Functions
+
+Functions are at the core of using R. Want to calculate, plot, or transform something? There’s probably a function for it. R comes with lots built in, you can add more with packages, and you can even make your own! Learn more [here](https://r4ds.had.co.nz/functions.html).
+
+A function is like a little machine: you give it some inputs, it does something with them, and then it gives you an output. What comes out depends on the function you’re using.
+
+Inputs $\rightarrow$ \[ function \] $\rightarrow$ Output
+
+**Simple functions**
+
+```{r}
+# Function: sum()
+# Inputs: numbers
+# Action: adds them together
+# Output: the total
+sum(4, 7, 10)
+result <- sum(4, 7, 10)
+result
+```
+
+```{r}
+# Function: as.numeric()
+# Inputs: char_nums
+# Action: convert to numeric
+# Output: num_nums
+
+# Convert a character vector to numeric
+char_nums <- c("1", "2", "3", "4")
+class(char_nums)
+
+# Convert to numeric
+num_nums <- as.numeric(char_nums)
+class(num_nums)
+```
+
+**Custom function**
+
+```{r}
+# Define a function that doubles a number
+double_it <- function(x) {
+  x * 2
+}
+
+# Use the function
+double_it(4576)
+```
+
+```{r}
+# Functions with multiple arguments
+# Load ggplot2 package (install first if you don't have it)
+library(ggplot2)
+
+# Use the built-in dataset 'mtcars'
+# We'll plot miles per gallon (mpg) vs number of cylinders (cyl)
+ggplot(data = mtcars,              # Required argument: dataset
+       mapping = aes(x = cyl, y = mpg)) +  # Required: aesthetics
+  geom_point(color = "blue", size = 3)     # Optional arguments inside geom_point()
+```
+
+## Piping (`%>%`)
+
+Instead of nesting functions inside each other, you can write code step by step, which is often easier to read.
+
+`%>%` (the "then" operator): pipes send an object from function to function.
+
+Using **Tidyverse** + `%>%` you can do complex tasks in easy-to-read, step-by-step code.
+
+[Tidyverse](https://tidyverse.org) is is a collection of R packages designed to work well together.
+
+**Example without a pipe**
+
+```{r}
+# Find the average mpg of cars with 6 cylinders
+mean(subset(my.data, cyl == 6)$mpg)
+```
+
+**Example with a pipe**
+
+```{r}
+my.data %>%
+  filter(cyl == 6) %>%
+  pull(mpg) %>%
+  mean()
+
+# save the avg mpg as an object
+avg.mpg <- mtcars %>%
+  filter(cyl == 6) %>%
+  pull(mpg) %>%
+  mean()
+
+class(avg.mpg)
+```
