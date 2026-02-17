@@ -110,8 +110,8 @@
     ]
   },
   {
-    "objectID": "1_Getting started.html",
-    "href": "1_Getting started.html",
+    "objectID": "1_Getting-started.html",
+    "href": "1_Getting-started.html",
     "title": "2  Getting Started with R",
     "section": "",
     "text": "2.1 Why use R?\nAs stated on the R Project website, R is a programming language and environment for statistical computing and graphics. It’s flexible, easy to build on, and supported by a large, welcoming community.\nCost\nR is free and open-source for everyone.\nReproducibility\nUsing a programming language for data management and analysis, rather than relying on Excel or other point-and-click tools, makes your work easier to reproduce, helps you catch mistakes more quickly, and can save you a lot of time and effort.\nCommunity\nThe R community is huge and supportive. New packages and tools to tackle real-world problems are developed all the time, and the community helps test, improve, and share them.",
@@ -120,8 +120,8 @@
     ]
   },
   {
-    "objectID": "1_Getting started.html#installation-r-and-rstudio",
-    "href": "1_Getting started.html#installation-r-and-rstudio",
+    "objectID": "1_Getting-started.html#installation-r-and-rstudio",
+    "href": "1_Getting-started.html#installation-r-and-rstudio",
     "title": "2  Getting Started with R",
     "section": "2.2 Installation: R and RStudio",
     "text": "2.2 Installation: R and RStudio\nTo get started, you’ll need to have R running on your computer. There are a few options, but RStudio is a popular choice that makes working with R much easier.\nInstalling RStudio takes two steps. First, you’ll need to install the R language itself.\nHow to install R\nVisit this website https://www.r-project.org and download the latest version of R suitable for your computer. Note: Any mirror will work fine, but perhaps pick one close to you.\nOnce that’s done, you can install RStudio\nGo to this website https://posit.co/download/rstudio-desktop/ and download the latest free Desktop version of RStudio suitable for your computer.",
@@ -130,8 +130,8 @@
     ]
   },
   {
-    "objectID": "1_Getting started.html#navigating-rstudio",
-    "href": "1_Getting started.html#navigating-rstudio",
+    "objectID": "1_Getting-started.html#navigating-rstudio",
+    "href": "1_Getting-started.html#navigating-rstudio",
     "title": "2  Getting Started with R",
     "section": "2.3 Navigating RStudio",
     "text": "2.3 Navigating RStudio\nOpen RStudio. RStudio is divided into four main panes, each showing different information like your code, console, and files.\nThe source pane\nBy default, this pane appears in the upper-left corner. It’s where you can write, run, and save your scripts (your scripts are basically the sets of commands you want R to execute. You can also use this pane to view your datasets (data frames) while working.\nThe R console pane\nThe R Console (usually in the lower-left pane) is where the R “engine” lives. When you run commands here, you’ll see results, warnings, or error messages right away. You can type commands directly in the Console, but unlike scripts, these commands won’t be saved for later, so it’s best for quick tests or checks.\nThe environment pane\nBy default, this pane appears in the upper-right. It’s mainly used to get a quick look at the objects in your R environment during the current session. These objects can include datasets you’ve imported, created, or modified, as well as parameters or vectors and lists you’ve defined. You can click the little arrow next to a data frame to explore its variables.\nPlots, Viewer, Packages, and Help pane\nThe lower-right pane contains several useful tabs. The Plots tab displays your charts, graphs, and maps, while the Viewer tab shows interactive or HTML outputs. The Help tab gives access to R documentation and help files, and the Files tab works like a mini file explorer, letting you open, move, or delete files. Finally, the Packages tab lets you see which R packages are installed, add new ones, update or remove them, and load or unload them for your session.",
@@ -140,8 +140,8 @@
     ]
   },
   {
-    "objectID": "1_Getting started.html#scripts",
-    "href": "1_Getting started.html#scripts",
+    "objectID": "1_Getting-started.html#scripts",
+    "href": "1_Getting-started.html#scripts",
     "title": "2  Getting Started with R",
     "section": "2.4 Scripts",
     "text": "2.4 Scripts\nScripts are a fundamental part of programming. They’re files that store the commands you want R to run, like creating or modifying datasets and generating visualizations. You can save a script and run it again later, which comes with some big advantages:\nPortability: you can easily share your work with others by sending them your script.\nReproducibility: using scripts makes it clear exactly what steps you took, so you, or anyone else, can repeat your analysis with confidence.\nExample script\n\n3 + 4\n\n[1] 7\n\na &lt;- 3 + 4 # you can annotate around your code!",
@@ -150,8 +150,8 @@
     ]
   },
   {
-    "objectID": "1_Getting started.html#quarto",
-    "href": "1_Getting started.html#quarto",
+    "objectID": "1_Getting-started.html#quarto",
+    "href": "1_Getting-started.html#quarto",
     "title": "2  Getting Started with R",
     "section": "2.5 Quarto",
     "text": "2.5 Quarto\nQuarto is a tool that lets you combine your R code, text, and visualizations in a single document. It’s perfect for creating reports, tutorials, or assignments where you want your analysis and explanations to live side by side. With Quarto, you can run your code, include the results, and produce a polished document; all in one place, making your work easy to share and easy to reproduce.\nWe will use Quarto document (.qmd) to write and edit your code!\nFree online resources:\nTutorial: Hello Quarto\nR for Data Science: Quarto",
@@ -160,8 +160,8 @@
     ]
   },
   {
-    "objectID": "1_Getting started.html#working-directory",
-    "href": "1_Getting started.html#working-directory",
+    "objectID": "1_Getting-started.html#working-directory",
+    "href": "1_Getting-started.html#working-directory",
     "title": "2  Getting Started with R",
     "section": "2.6 Working directory",
     "text": "2.6 Working directory\nThe working directory (wd) is the root folder location used by R for your work, where R looks for and save files by default. R will save new files and outputs to this location, and will look for files to import (e.g. datasets) here as well.\nThe wd information appears at the top pf the Console pane. You can also print the current wd by running getwd() function.\n\n\ngetwd()\n\n[1] \"/Users/gperezqu/Library/CloudStorage/OneDrive-UniversityofTennessee/University of Tennessee/Teaching/R as GIS for Economists/GIS R course book\"\n\n\nA recommended (and very efficient) approach is to use R projects. When you work inside the R project, your wd is automatically set to the project’s root folder, which contains the .rproj file. This happens whenever you open RStudio by double-clicking the “.rproj” file, so you don’t need to set the working directory yourself.",
@@ -170,8 +170,8 @@
     ]
   },
   {
-    "objectID": "1_Getting started.html#create-your-r-project",
-    "href": "1_Getting started.html#create-your-r-project",
+    "objectID": "1_Getting-started.html#create-your-r-project",
+    "href": "1_Getting-started.html#create-your-r-project",
     "title": "2  Getting Started with R",
     "section": "2.7 Create your R project",
     "text": "2.7 Create your R project\n\nCreate a folder in your computer (e.g., Project1)\nOpen RStudio\nClick File \\(\\rightarrow\\) New Project\nClick Browse\nSelect the folder you created (Project1)\nClick Create Project\n\nRStudio will now:\n\nOpen the project\nCreate a .rproj in the folder\nSet the wd automatically\n\n\nConfirm you’re in the project\n\nYou should see:\n\nthe project name in the top-right corner of RStudio\na file ending in .rproj in the Files pane\n\n\nCreate your first Quarto document\n\n\nClick File \\(\\rightarrow\\) New File \\(\\rightarrow\\) Quarto Document…\nChoose: Format: HTML; Engine: Knitr\nClick Create\nSave as \\(\\rightarrow\\) hello\n\nAlways open your project by double-clicking the .rproj file, not by opening RStudio first and setting the wd manually.",
@@ -180,8 +180,8 @@
     ]
   },
   {
-    "objectID": "1_Getting started.html#quarto-file-.qmd-overview",
-    "href": "1_Getting started.html#quarto-file-.qmd-overview",
+    "objectID": "1_Getting-started.html#quarto-file-.qmd-overview",
+    "href": "1_Getting-started.html#quarto-file-.qmd-overview",
     "title": "2  Getting Started with R",
     "section": "2.8 Quarto file (.qmd) overview",
     "text": "2.8 Quarto file (.qmd) overview\nBelow is a Quarto document (the .qmd file on the left) and its rendered output as an HTML page (on the right). The .qmd file is where you write your content and code, and when you render it, Quarto turns it into a polished document. You’re not limited to HTML, you can also render the same file as a PDF, a Word document, and more.\n\n\nSelect Preview in Viewer Pane if you want to see the rendered output on the Viewer Pane.\nClick on the Render button to render the file and preview the output.\nTwo modes of the RStudio editor: visual (on the left) and source (on the right). visual: what-you-see-is-what-you-mean (WYSIWYM) experience, so you can format text without worrying about markdown syntax. source: plain-text markdown code.",
@@ -190,8 +190,8 @@
     ]
   },
   {
-    "objectID": "2_hello Quarto.html",
-    "href": "2_hello Quarto.html",
+    "objectID": "2_helloQuarto.html",
+    "href": "2_helloQuarto.html",
     "title": "3  hello Quarto",
     "section": "",
     "text": "3.1 Headings\nIn this paper….",
@@ -200,8 +200,8 @@
     ]
   },
   {
-    "objectID": "2_hello Quarto.html#headings",
-    "href": "2_hello Quarto.html#headings",
+    "objectID": "2_helloQuarto.html#headings",
+    "href": "2_helloQuarto.html#headings",
     "title": "3  hello Quarto",
     "section": "",
     "text": "3.1.1 subsection\nSome more text… This is bold text\nMy name is Gaby…\nUse # symbols for section titles. Leave a blank line after headings for readability.\n## Section title\n### Subsection title\n#### Smaller heading (more # = smaller heading)",
@@ -210,8 +210,8 @@
     ]
   },
   {
-    "objectID": "2_hello Quarto.html#bold-and-italic-text",
-    "href": "2_hello Quarto.html#bold-and-italic-text",
+    "objectID": "2_helloQuarto.html#bold-and-italic-text",
+    "href": "2_helloQuarto.html#bold-and-italic-text",
     "title": "3  hello Quarto",
     "section": "3.2 Bold and italic text",
     "text": "3.2 Bold and italic text\nIf you are using Source: text and italic\nIf you are using Visual: Click Format \\(\\rightarrow\\) Bold",
@@ -220,8 +220,8 @@
     ]
   },
   {
-    "objectID": "2_hello Quarto.html#adding-figures-and-links",
-    "href": "2_hello Quarto.html#adding-figures-and-links",
+    "objectID": "2_helloQuarto.html#adding-figures-and-links",
+    "href": "2_helloQuarto.html#adding-figures-and-links",
     "title": "3  hello Quarto",
     "section": "3.3 Adding figures and links",
     "text": "3.3 Adding figures and links\nFind any image and save it as .png in your R project.\nThe figure below shows that…\n\nYou can learn more about this paper here.\nHow to include figures and links when using Visual?",
@@ -230,8 +230,8 @@
     ]
   },
   {
-    "objectID": "2_hello Quarto.html#code-chuncks",
-    "href": "2_hello Quarto.html#code-chuncks",
+    "objectID": "2_helloQuarto.html#code-chuncks",
+    "href": "2_helloQuarto.html#code-chuncks",
     "title": "3  hello Quarto",
     "section": "3.4 Code chuncks",
     "text": "3.4 Code chuncks\nR code chunks are marked with {r}. Type the chunk by hand or using keyboard shortcut.\nMac: Command + Option + I\nWindows: Ctrl + Alt + I\n\n\nCode\n# your R code goes here\n# comment",
@@ -240,8 +240,8 @@
     ]
   },
   {
-    "objectID": "2_hello Quarto.html#common-chunck-options",
-    "href": "2_hello Quarto.html#common-chunck-options",
+    "objectID": "2_helloQuarto.html#common-chunck-options",
+    "href": "2_helloQuarto.html#common-chunck-options",
     "title": "3  hello Quarto",
     "section": "3.5 Common chunck options",
     "text": "3.5 Common chunck options\n\neval = FALSE \\(\\rightarrow\\) show code, don’t run it\necho = FALSE \\(\\rightarrow\\) run code, don’t show it\ninclude = FALSE \\(\\rightarrow\\) run code, show nothing\nmessage = FALSE \\(\\rightarrow\\) hide package messages\nwarning = FALSE \\(\\rightarrow\\) hide warnings\n\nExample:\n\n\nCode\nd1 &lt;- 4 + 8\nd1\n\n\n[1] 12\n\n\n\n\n[1] 12",
@@ -250,8 +250,8 @@
     ]
   },
   {
-    "objectID": "2_hello Quarto.html#installing-packages-run-once-and-loading-library",
-    "href": "2_hello Quarto.html#installing-packages-run-once-and-loading-library",
+    "objectID": "2_helloQuarto.html#installing-packages-run-once-and-loading-library",
+    "href": "2_helloQuarto.html#installing-packages-run-once-and-loading-library",
     "title": "3  hello Quarto",
     "section": "3.6 Installing packages (run once) and loading library",
     "text": "3.6 Installing packages (run once) and loading library\n\n\nCode\n#install.packages(\"tidyverse\")\nlibrary(tidyverse) # Load packages\n\n\nWarning: package 'tibble' was built under R version 4.5.2\n\n\nWarning: package 'purrr' was built under R version 4.5.2\n\n\nWarning: package 'dplyr' was built under R version 4.5.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.0     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.3.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.2.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
@@ -260,8 +260,8 @@
     ]
   },
   {
-    "objectID": "2_hello Quarto.html#create-an-object",
-    "href": "2_hello Quarto.html#create-an-object",
+    "objectID": "2_helloQuarto.html#create-an-object",
+    "href": "2_helloQuarto.html#create-an-object",
     "title": "3  hello Quarto",
     "section": "3.7 Create an object",
     "text": "3.7 Create an object\nEverything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.\nAfter an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).\n\n\nCode\n# Defining an object (&lt;-)\nd1 &lt;- 2 + 4\nd1\n\n\n[1] 6",
@@ -270,8 +270,8 @@
     ]
   },
   {
-    "objectID": "2_hello Quarto.html#using-built-in-datasets-in-r",
-    "href": "2_hello Quarto.html#using-built-in-datasets-in-r",
+    "objectID": "2_helloQuarto.html#using-built-in-datasets-in-r",
+    "href": "2_helloQuarto.html#using-built-in-datasets-in-r",
     "title": "3  hello Quarto",
     "section": "3.8 Using built-in datasets in R",
     "text": "3.8 Using built-in datasets in R\n\n\nCode\n#data() # list of datasets\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\n\n# Inspect it\nhead(my.data)\n\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1",
@@ -280,8 +280,8 @@
     ]
   },
   {
-    "objectID": "3_R basics.html",
-    "href": "3_R basics.html",
+    "objectID": "3_R-basics.html",
+    "href": "3_R-basics.html",
     "title": "4  R Basics",
     "section": "",
     "text": "4.1 Create an object\nEverything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.\nAfter an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).\nlibrary(tidyverse)\n\nWarning: package 'tibble' was built under R version 4.5.2\n\n\nWarning: package 'purrr' was built under R version 4.5.2\n\n\nWarning: package 'dplyr' was built under R version 4.5.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.0     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.3.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.2.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n# Defining an object (&lt;-)\nd1 &lt;- 2 + 4\nd1\n\n[1] 6\n#data()\n# Using built-in datasets in R\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\n# Inspect it\nhead(my.data)\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1",
@@ -290,8 +290,8 @@
     ]
   },
   {
-    "objectID": "3_R basics.html#object-structure",
-    "href": "3_R basics.html#object-structure",
+    "objectID": "3_R-basics.html#object-structure",
+    "href": "3_R-basics.html#object-structure",
     "title": "4  R Basics",
     "section": "4.2 Object structure",
     "text": "4.2 Object structure\nObjects can be as simple as a single value (e.g., d1), or they can hold more structured data, such as vectors, tables, or datasets, like the examples shown in the figure below (borrowed from this online R tutorial).\n\n\n4.2.1 Data types\nIn this course, we will be using mostly vector and data frame.\nVector: a collection of values of the same type (e.g., numbers or text) stored together in one object.\n\n# Numeric vector\nnumbers &lt;- c(1, 2, 3, 4, 5)\nnumbers\n\n[1] 1 2 3 4 5\n\nclass(numbers)\n\n[1] \"numeric\"\n\n# Character vector\nnames &lt;- c(\"Alice\", \"Bob\", \"Charlie\")\nclass(names)\n\n[1] \"character\"\n\n\ndata.frame: a table of data where each column is a vector, and all columns have the same number of rows.\n\ndata(mtcars) # load mtcars\n\n# create an object\nmy.data &lt;- mtcars\nclass(my.data)\n\n[1] \"data.frame\"\n\n\n\n\n4.2.2 Variables types\n\n\n\nVariable\nDescription\nExample\n\n\n\n\ninteger\nWhole numbers\n5, 160, -30\n\n\nnumeric\nDecimals\n0.5, -0.38, 234.567\n\n\ncharacter\nText\n“A”, “Nice”, “welcome”\n\n\nlogical\nBooleans\nTRUE or FALSE\n\n\nfactor\nCategorical\n“green”, “blue”, “red”\n\n\nempty\n–\nNULL\n\n\n\nExamples\n\nclass(d1)\n\n[1] \"numeric\"\n\n# Numeric (decimal)\nnum &lt;- 3.14\nnum2 &lt;- 56 # R treats all numbers without a decimal as numeric by default\n\nclass(num)\n\n[1] \"numeric\"\n\nclass(num2)\n\n[1] \"numeric\"\n\n# Integer\nint &lt;- as.integer(num)\nclass(int)\n\n[1] \"integer\"\n\nint &lt;- 56L # L tells R to store this as an integer\nclass(int)\n\n[1] \"integer\"\n\nx &lt;- 89\nx &lt;- 289\n\n# Character (text)\nchar_var &lt;- \"welcome\"\n\n# Logical (TRUE/FALSE)\nlog_var &lt;- TRUE\n\n# Factor (categorical)\nfact_var &lt;- factor(c(\"green\", \"blue\", \"red\"))\n\n# variables type in my.data\nclass(my.data$hp)\n\n[1] \"numeric\"\n\nclass(my.data$mpg)\n\n[1] \"numeric\"",
@@ -300,8 +300,8 @@
     ]
   },
   {
-    "objectID": "3_R basics.html#functions",
-    "href": "3_R basics.html#functions",
+    "objectID": "3_R-basics.html#functions",
+    "href": "3_R-basics.html#functions",
     "title": "4  R Basics",
     "section": "4.3 Functions",
     "text": "4.3 Functions\nFunctions are at the core of using R. Want to calculate, plot, or transform something? There’s probably a function for it. R comes with lots built in, you can add more with packages, and you can even make your own! Learn more here.\nA function is like a little machine: you give it some inputs, it does something with them, and then it gives you an output. What comes out depends on the function you’re using.\nInputs \\(\\rightarrow\\) [ function ] \\(\\rightarrow\\) Output\nSimple functions\n\n# Function: sum()\n# Inputs: numbers\n# Action: adds them together\n# Output: the total\nsum(4, 7, 10)\n\n[1] 21\n\nresult &lt;- sum(4, 7, 10)\nresult\n\n[1] 21\n\n\n\n# Function: as.numeric()\n# Inputs: char_nums\n# Action: convert to numeric\n# Output: num_nums\n\n# Convert a character vector to numeric\nchar_nums &lt;- c(\"1\", \"2\", \"3\", \"4\")\nclass(char_nums)\n\n[1] \"character\"\n\n# Convert to numeric\nnum_nums &lt;- as.numeric(char_nums)\nclass(num_nums)\n\n[1] \"numeric\"\n\n\nCustom function\n\n# Define a function that doubles a number\ndouble_it &lt;- function(x) {\n  x * 2\n}\n\n# Use the function\ndouble_it(4576)\n\n[1] 9152\n\n\n\n# Functions with multiple arguments\n# Load ggplot2 package (install first if you don't have it)\nlibrary(ggplot2)\n\n# Use the built-in dataset 'mtcars'\n# We'll plot miles per gallon (mpg) vs number of cylinders (cyl)\nggplot(data = mtcars,              # Required argument: dataset\n       mapping = aes(x = cyl, y = mpg)) +  # Required: aesthetics\n  geom_point(color = \"blue\", size = 3)     # Optional arguments inside geom_point()",
@@ -310,8 +310,8 @@
     ]
   },
   {
-    "objectID": "3_R basics.html#piping",
-    "href": "3_R basics.html#piping",
+    "objectID": "3_R-basics.html#piping",
+    "href": "3_R-basics.html#piping",
     "title": "4  R Basics",
     "section": "4.4 Piping (%>%)",
     "text": "4.4 Piping (%&gt;%)\nInstead of nesting functions inside each other, you can write code step by step, which is often easier to read.\n%&gt;% (the “then” operator): pipes send an object from function to function.\nUsing Tidyverse + %&gt;% you can do complex tasks in easy-to-read, step-by-step code.\nTidyverse is is a collection of R packages designed to work well together.\nExample without a pipe\n\n# Find the average mpg of cars with 6 cylinders\nmean(subset(my.data, cyl == 6)$mpg)\n\n[1] 19.74286\n\n\nExample with a pipe\n\nmy.data %&gt;%\n  filter(cyl == 6) %&gt;%\n  pull(mpg) %&gt;%\n  mean()\n\n[1] 19.74286\n\n# save the avg mpg as an object\navg.mpg &lt;- mtcars %&gt;%\n  filter(cyl == 6) %&gt;%\n  pull(mpg) %&gt;%\n  mean()\n\nclass(avg.mpg)\n\n[1] \"numeric\"",
@@ -320,8 +320,8 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html",
-    "href": "4_Data Wrangling.html",
+    "objectID": "4_Data-Wrangling.html",
+    "href": "4_Data-Wrangling.html",
     "title": "5  Data Wrangling",
     "section": "",
     "text": "5.1 Loading data from a file\nThis chapter walks through the most common steps involved in taking raw data and turning it into analysis-ready data. You’ll learn how to import datasets, clean and transform variables, handle missing values, combine multiple data sources, and filter data to answer specific questions. Along the way, we’ll introduce essential R data-management functions-mostly from the tidyverse-and show how to chain them together using pipes to create clear, readable workflows.\nOften your data will be stored in a file that you need to load into R. Common examples include:\nNote: You can use read_csv() and read_excel() after loading tidyverse. You can also use rio package, which has an import() function that works for just about any data file type you might want.\nlibrary(tidyverse)\n\nWarning: package 'tibble' was built under R version 4.5.2\n\n\nWarning: package 'purrr' was built under R version 4.5.2\n\n\nWarning: package 'dplyr' was built under R version 4.5.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.0     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.3.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.2.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nwater &lt;- read_csv(\"../data/water_data.csv\")\n\nRows: 76736 Columns: 6\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (6): year, field, price_water, q_water, center_pivot, county\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n#water &lt;- read_csv(\"water_data.csv\")\n\nls(water)\n\n[1] \"center_pivot\" \"county\"       \"field\"        \"price_water\"  \"q_water\"     \n[6] \"year\"",
@@ -330,8 +330,8 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html#loading-data-from-a-file",
-    "href": "4_Data Wrangling.html#loading-data-from-a-file",
+    "objectID": "4_Data-Wrangling.html#loading-data-from-a-file",
+    "href": "4_Data-Wrangling.html#loading-data-from-a-file",
     "title": "5  Data Wrangling",
     "section": "",
     "text": "File type\nExtension\nCommon function\nPackage\n\n\n\n\nExcel spreadsheet\n.xlsx\nread_excel()\nreadxl\n\n\nComma-separated values\n.csv\nread_csv()\nreadr\n\n\nStata dataset\n.dta\nread_dta()\nhaven",
@@ -340,8 +340,8 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html#looking-at-the-data",
-    "href": "4_Data Wrangling.html#looking-at-the-data",
+    "objectID": "4_Data-Wrangling.html#looking-at-the-data",
+    "href": "4_Data-Wrangling.html#looking-at-the-data",
     "title": "5  Data Wrangling",
     "section": "5.2 Looking at the data",
     "text": "5.2 Looking at the data\n\nclass(water)\n\n[1] \"spec_tbl_df\" \"tbl_df\"      \"tbl\"         \"data.frame\" \n\nhead(water)\n\n# A tibble: 6 × 6\n   year field price_water q_water center_pivot county\n  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt;\n1  1992     1       0.585    14.6            0     12\n2  1993     1       0.639    10.8            0     12\n3  1994     1       0.644    17.0            1     12\n4  1995     1       0.570    18.7            1     12\n5  1996     1       0.760    21.4            1     12\n6  1997     1       0.768    15              1     12\n\nwater %&gt;% glimpse()\n\nRows: 76,736\nColumns: 6\n$ year         &lt;dbl&gt; 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 200…\n$ field        &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, …\n$ price_water  &lt;dbl&gt; 0.5845152, 0.6391169, 0.6440908, 0.5702707, 0.7600425, 0.…\n$ q_water      &lt;dbl&gt; 14.58335, 10.79831, 17.02275, 18.71972, 21.36000, 15.0000…\n$ center_pivot &lt;dbl&gt; 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …\n$ county       &lt;dbl&gt; 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 1…\n\nsummary(water)\n\n      year          field        price_water         q_water         \n Min.   :1992   Min.   :    1   Min.   :0.01553   Min.   : 0.000005  \n 1st Qu.:1996   1st Qu.: 6015   1st Qu.:0.20199   1st Qu.:10.110240  \n Median :2000   Median :12099   Median :0.51795   Median :14.066380  \n Mean   :2000   Mean   :12058   Mean   :0.71312   Mean   :14.048993  \n 3rd Qu.:2004   3rd Qu.:18118   3rd Qu.:0.98047   3rd Qu.:17.824100  \n Max.   :2007   Max.   :24086   Max.   :5.42991   Max.   :30.000000  \n  center_pivot        county     \n Min.   :0.0000   Min.   : 1.00  \n 1st Qu.:1.0000   1st Qu.: 7.00  \n Median :1.0000   Median :22.00  \n Mean   :0.9261   Mean   :20.83  \n 3rd Qu.:1.0000   3rd Qu.:33.00  \n Max.   :1.0000   Max.   :41.00  \n\nnrow(water)\n\n[1] 76736\n\nncol(water)\n\n[1] 6\n\n\n\n# type of variables in water\nclass(water$year)\n\n[1] \"numeric\"\n\nunique(water$year)\n\n [1] 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006\n[16] 2007",
@@ -350,8 +350,8 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html#cleaning-variable-names",
-    "href": "4_Data Wrangling.html#cleaning-variable-names",
+    "objectID": "4_Data-Wrangling.html#cleaning-variable-names",
+    "href": "4_Data-Wrangling.html#cleaning-variable-names",
     "title": "5  Data Wrangling",
     "section": "5.3 Cleaning variable names",
     "text": "5.3 Cleaning variable names\n\nwater &lt;- water %&gt;%\n  rename(county_code = county) #rename",
@@ -360,8 +360,8 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html#selecting-and-filtering-data",
-    "href": "4_Data Wrangling.html#selecting-and-filtering-data",
+    "objectID": "4_Data-Wrangling.html#selecting-and-filtering-data",
+    "href": "4_Data-Wrangling.html#selecting-and-filtering-data",
     "title": "5  Data Wrangling",
     "section": "5.4 Selecting and filtering data",
     "text": "5.4 Selecting and filtering data\n\n# Create a subset with only two variables: year and county_code\nsub1 &lt;- water %&gt;%\n  select(year, county_code)\n\n# Get rid of the field variable\nsub2 &lt;- water %&gt;%\n  select(-field)\n\n# Create a subset containing only year=2000\nsub.2000 &lt;- water %&gt;%\n  filter(year == 2000)",
@@ -370,8 +370,8 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html#creating-variables",
-    "href": "4_Data Wrangling.html#creating-variables",
+    "objectID": "4_Data-Wrangling.html#creating-variables",
+    "href": "4_Data-Wrangling.html#creating-variables",
     "title": "5  Data Wrangling",
     "section": "5.5 Creating variables",
     "text": "5.5 Creating variables\n\nwater &lt;- water %&gt;%\n  mutate(year2 = year + 1,\n         year3 = year2 + 3) # takes our year variable and adds 1 to it\n\n# create a subset center_pivot == 1 and create a new variable = total cost\ncost &lt;- water %&gt;%\n  filter(center_pivot == 1) %&gt;%\n  mutate(tot.cost = price_water*q_water)\n\noptions(scipen = 999)\nsummary(cost$tot.cost)\n\n      Min.    1st Qu.     Median       Mean    3rd Qu.       Max. \n  0.000001   2.452759   6.182512  11.046254  15.240035 141.681762",
@@ -380,8 +380,8 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html#aggregating-data",
-    "href": "4_Data Wrangling.html#aggregating-data",
+    "objectID": "4_Data-Wrangling.html#aggregating-data",
+    "href": "4_Data-Wrangling.html#aggregating-data",
     "title": "5  Data Wrangling",
     "section": "5.6 Aggregating data",
     "text": "5.6 Aggregating data\nA dataset’s observation level is simply what each row of the data represents. For example, water dataset contains one row per field for a given year, then the observation level is field-year.\nEach row corresponds to one field in one specific year. Sometimes your data are more detailed than what you need for your analysis, and you may want to zoom out. For instance, you might start with field-year data but want to analyze outcomes at the field level overall. To do that, you need to aggregate the data.\nIn the tidyverse, this is usually done with group_by(), which tells R to perform calculations separately within each group. You’ll then typically use summarize() to combine multiple rows into a single row per group. The resulting dataset will have an observation level based on whatever variable(s) you used in group_by().\n\n# get average total water cost by field\n# averaged over all the years\navg.cost &lt;- cost %&gt;%\n  group_by(field) %&gt;%\n  summarize(avg.cost = mean(tot.cost)) # add sum",
@@ -390,8 +390,8 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html#multi-row-calculations",
-    "href": "4_Data Wrangling.html#multi-row-calculations",
+    "objectID": "4_Data-Wrangling.html#multi-row-calculations",
+    "href": "4_Data-Wrangling.html#multi-row-calculations",
     "title": "5  Data Wrangling",
     "section": "5.7 Multi-row calculations",
     "text": "5.7 Multi-row calculations\nIt’s pretty common to need to use more than one row of data (but not the entire dataset) to calculate something you care about. For example, to calculate statistics by group, we can use group_by() to do by-group calculations. However, if we want to calculate by group and create a new column with that calculation rather than change the observation level, we want to follow that group_by() with a mutate() instead of a summarize.\n\ncost &lt;- cost %&gt;%\n  group_by(field) %&gt;%\n  mutate(avg.cost = mean(tot.cost, na.rm = T),\n         tot.use = sum(q_water))\n\n# What if I need the avg cost and total use by field-year?\n\n\n# Your time to practice\n# 1) Create a subset that includes only years &gt; 1999\n# 2) create a new variable: q_water10 = (q_water + 10)\n# 3) create a two new variables: min.use and min.price by year\n\n\ndata1 &lt;- water %&gt;%\n  filter(year &gt; 1999) %&gt;%\n  mutate(q_water10 = q_water + 10) %&gt;%\n  group_by(year) %&gt;%\n  mutate(min.use = min(q_water),\n         min.price = min(price_water))",
@@ -400,8 +400,8 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html#re-code-values-using-logic-and-conditions",
-    "href": "4_Data Wrangling.html#re-code-values-using-logic-and-conditions",
+    "objectID": "4_Data-Wrangling.html#re-code-values-using-logic-and-conditions",
+    "href": "4_Data-Wrangling.html#re-code-values-using-logic-and-conditions",
     "title": "5  Data Wrangling",
     "section": "5.8 Re-code values using logic and conditions",
     "text": "5.8 Re-code values using logic and conditions\nSpecific values\nTo re-code with simple logical criteria, you can use replace() within mutate().\n\n# avg cost is changed for field = 24\n\navg.cost &lt;- avg.cost %&gt;%\n  mutate(avg.cost = replace(avg.cost, field == 24, 8.564))\n\nAnother function for simple logic is ifelse(). It applies a simple condition to a whole vector at once and return one value if the condition is true and another if it’s false. It’s especially useful for creating or transforming variables based on rules.\nLet’s create a new variable, type, that takes the value 1 when q_water&gt; mean(q_water), and 0 otherwise.\n\n# calculate the mean of q_water\nsummary(water$q_water)\n\n     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. \n 0.000005 10.110240 14.066380 14.048993 17.824100 30.000000 \n\nwater &lt;- water %&gt;%\n  mutate(type = ifelse(q_water &gt; 14.05, 1, 0))\n\nclass(water$type)\n\n[1] \"numeric\"\n\n# Convert type to factor variable and create labels.\nwater &lt;- water %&gt;%\n  mutate(type = factor(type, levels = c(0, 1), labels = c(\"low\", \"high\")))\n\n?factor\nclass(water$type)\n\n[1] \"factor\"\n\n\nComplex logic\nUse case_when() when you need to recode a variable into many groups or apply more complex logical rules. The function checks each row of the data and assigns a new value based on the conditions you specify.\nEach case_when() rule has a condition on the left and a value on the right, separated by a tilde (~):\n\nConditions go on the left-hand side (LHS)\nAssigned values go on the right-hand side (RHS)\nRules are separated by commas\n\nNow, we want to create type2 but taking three values, low, medium and high.\n\nsummary(water$q_water)\n\n     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. \n 0.000005 10.110240 14.066380 14.048993 17.824100 30.000000 \n\nwater &lt;- water %&gt;%\n  mutate(type2 = case_when(\n    q_water &lt; 12 ~ 0,\n    q_water &gt;= 12 & q_water &lt; 15 ~ 1,\n    q_water &gt;= 15 ~ 2\n  ))\n\n# using ifelse\nwater &lt;- water %&gt;%\n  mutate(type.test = ifelse(q_water &lt; 12, 0, ifelse(q_water &gt;= 12 & q_water &lt; 15, 1,2)))\n\n# Convert type to factor variable and create labels.\nwater &lt;- water %&gt;%\n  mutate(type_fac = factor(type2, levels = c(0, 1, 2), labels = c(\"low\", \"medium\", \"high\")))\n\n# or create a factor variable directly\nwater &lt;- water %&gt;%\n  mutate(type2 = factor(case_when(\n    q_water &lt; 12 ~ 0,\n    q_water &gt;= 12 & q_water &lt; 15 ~ 1,\n    q_water &gt;= 15 ~ 2),\n    levels = c(0, 1, 2), \n    labels = c(\"low\", \"medium\", \"high\")))",
@@ -410,8 +410,8 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html#missing-values",
-    "href": "4_Data Wrangling.html#missing-values",
+    "objectID": "4_Data-Wrangling.html#missing-values",
+    "href": "4_Data-Wrangling.html#missing-values",
     "title": "5  Data Wrangling",
     "section": "5.9 Missing values",
     "text": "5.9 Missing values\nWhen we are cleaning our data, we need to handle missing values. They are represented by special values: NA, NULL, NaN and Inf.\nExamples\n\n\n\nR command\nOutcome\n\n\n\n\n5 / 0\nInf\n\n\n0 / 0\nNaN\n\n\n5 / NA\nNA\n\n\n\nUseful functions\nLet’s build an example dataset and use some important functions to deal with missing values.\n\ndf &lt;- tibble(\n  id     = 1:10,\n  score  = c(10, 9, NA, 7, 6, NA, 8, 9, NA, 5),\n  group  = c(\"A\", \"A\", \"A\", \"B\", \"B\", \"B\", \"A\", \"A\", \"B\", \"B\"))\n\ndf\n\n# A tibble: 10 × 3\n      id score group\n   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;\n 1     1    10 A    \n 2     2     9 A    \n 3     3    NA A    \n 4     4     7 B    \n 5     5     6 B    \n 6     6    NA B    \n 7     7     8 A    \n 8     8     9 A    \n 9     9    NA B    \n10    10     5 B    \n\n\nDetect missing values is.na()\n\ndf %&gt;%\n  mutate(score_na = is.na(score))\n\n# A tibble: 10 × 4\n      id score group score_na\n   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; &lt;lgl&gt;   \n 1     1    10 A     FALSE   \n 2     2     9 A     FALSE   \n 3     3    NA A     TRUE    \n 4     4     7 B     FALSE   \n 5     5     6 B     FALSE   \n 6     6    NA B     TRUE    \n 7     7     8 A     FALSE   \n 8     8     9 A     FALSE   \n 9     9    NA B     TRUE    \n10    10     5 B     FALSE   \n\nis.na(df)\n\n         id score group\n [1,] FALSE FALSE FALSE\n [2,] FALSE FALSE FALSE\n [3,] FALSE  TRUE FALSE\n [4,] FALSE FALSE FALSE\n [5,] FALSE FALSE FALSE\n [6,] FALSE  TRUE FALSE\n [7,] FALSE FALSE FALSE\n [8,] FALSE FALSE FALSE\n [9,] FALSE  TRUE FALSE\n[10,] FALSE FALSE FALSE\n\n\nKeep only complete values !is.na(), drop_na()\n\ndf_comp &lt;- df %&gt;%\n  filter(!is.na(score))\n\ndf_comp &lt;- df %&gt;%\n  drop_na(score)\n\nIgnore missing values in calculations na.rm = TRUE\n\ndf %&gt;% \n  summarise(mean_socre = mean(score))\n\n# A tibble: 1 × 1\n  mean_socre\n       &lt;dbl&gt;\n1         NA\n\ndf %&gt;% \n  summarise(mean_socre = mean(score, na.rm = T))\n\n# A tibble: 1 × 1\n  mean_socre\n       &lt;dbl&gt;\n1       7.71\n\n\nYour turn to practice: calculate the average score by group.\n\ndf %&gt;%\n  group_by(group) %&gt;%\n  summarise(group_socre = mean(score, na.rm = T))\n\n# A tibble: 2 × 2\n  group group_socre\n  &lt;chr&gt;       &lt;dbl&gt;\n1 A               9\n2 B               6\n\n# if you want to save the outcome\ngroup_socre &lt;- df %&gt;%\n  group_by(group) %&gt;%\n  summarise(group_socre = mean(score, na.rm = T))",
@@ -420,13 +420,23 @@
     ]
   },
   {
-    "objectID": "4_Data Wrangling.html#joining-data",
-    "href": "4_Data Wrangling.html#joining-data",
+    "objectID": "4_Data-Wrangling.html#joining-data",
+    "href": "4_Data-Wrangling.html#joining-data",
     "title": "5  Data Wrangling",
     "section": "5.10 Joining data",
     "text": "5.10 Joining data\nOften, you’ll work with multiple datasets that describe the same observations (for example, the same people, places, or time periods). To combine these datasets, you use a merge (or join) based on one or more key variables that appear in both datasets. These key variables act like an ID that tells R which rows belong together. At least one of the datasets should have only one row per key value, so R knows exactly how to match the observations without ambiguity.\n\n# let's create a new dataset to merge with water\nwater2 &lt;- water %&gt;%\n  select(year, field) %&gt;% # IDs variables\n  mutate(\n    x = rnorm(n()),\n    y = rnorm(n()))\n\nWe now have a second dataset that includes variables x and y, and we want to bring those variables back into our original water dataset. To do this, we use joins functions, which are provided by the dplyr package (included in the tidyverse).\nJoin functions can be used in two ways: as standalone commands that create a new data frame, or inside a pipe (%&gt;%) as part of a larger data-cleaning workflow.\nIn this example, we use left_join() as a standalone command to create a new data frame called joined_data. The first data frame listed (water) is the baseline dataset we want to keep, and the second data frame (water.2) is joined to it.\nThe by = argument tells R which columns to use to match rows between the two datasets. These columns must exist in both data frames and should uniquely identify the observations so the rows line up correctly.\n\njoined_data &lt;- left_join(water, water2, by = c(\"year\", \"field\")) # note we use two IDs variables to uniquely identify the observations\n\nLeft and right joins\nleft_join(), right_join()\nLeft and right joins are commonly used to add new information to an existing dataset.\nThe order of the datasets matters:\n\nIn a left join, the first dataset is the baseline.\nIn a right join, the second dataset is the baseline.\n\nAll rows from the baseline dataset are kept. Data from the other dataset is added only when there is a match on the identifier column(s). Rows in the secondary dataset that do not match are dropped.\nIf one row in the secondary dataset matches multiple baseline rows, the same information is added to each matching row. If a baseline row matches multiple rows in the secondary dataset, new rows will be created, increasing the size of the data.\nShould we use a left join or a right join? To answer this question, ask yourself: Which dataset do I want to keep all rows from?\n\n\n\nSource: Datacamp\n\n\n\n\n\nSource: Datacamp\n\n\nFull joins\nfull_join()\nA full join is the most inclusive type of join. It keeps all rows from both datasets.\nIf a row appears in one dataset but not the other, it is still included in the result. Any missing information created by these unmatched rows is filled in with NA. Because full joins can increase both the number of rows and columns, it’s a good idea to keep an eye on the output to catch issues like mismatched variable names, case sensitivity, or small differences in character values.\nIn a full join, the dataset listed first in the command is treated as the baseline. While this does not change which rows are returned, it can affect the order of rows and columns and which identifier columns are kept.\n\n\n\nSource: Datacamp\n\n\nInner join\ninner_join()\nAn inner join is the most restrictive type of join—it keeps only rows that have matching values in both datasets.\nBecause of this, the number of rows in the resulting dataset may be smaller than in the original (baseline) dataset.\n\n\n\nSource: Datacamp",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling</span>"
+    ]
+  },
+  {
+    "objectID": "5_Data-Visualization.html",
+    "href": "5_Data-Visualization.html",
+    "title": "6  Data Visualization",
+    "section": "",
+    "text": "7 Introducing ggplot\nggplot2 is the most widely used data-visualization package in R. At the heart of it is the ggplot() function. The “gg” stands for the grammar of graphics, a way of building plots by combining clear components (data, mappings, geometric shapes, scales, and more). Instead of drawing a figure in one step, you assemble it layer by layer. This might feel unusual at first, but it gives you enormous flexibility.\nAnother big advantage is that ggplot2 works beautifully with the tidyverse ecosystem. Many companion packages extend what you can do—adding new themes, annotations, color systems, interactivity, and specialized plot types.\nThere are several resources and tutorials where you can learn more about ggplot:\n\nggplot2\nThe R Graph Gallery\ndataviz\nR for Data Science\n\nInstallation\nThe easiest way to get ggplot2 is to install the whole tidyverse (install.packages(“tidyverse”)). Alternatively, install just ggplot2 (install.packages(“ggplot2”)).\n\n\n8 Basics of ggplot\nPlotting with ggplot2 is based on building a figure by adding layers. Each new part of the plot is added to the previous ones using the plus sign (+).\nInstead of drawing everything in a single command, you start with a base plot and then keep improving it step by step. The final result is a plot object that you can save, print, modify, or export.\nEven though ggplot figures can become very sophisticated, most of them follow a simple structure.\nBasic skeleton code:\n\n# plot data from my_data columns as red points\nggplot(data = my_data)+                   # use the dataset \"my_data\"\n  geom_point(                             # add a layer of points (dots)\n    mapping = aes(x = var1, y = var2),    # \"map\" data column to axes\n    color = \"red\")+                       # other specification for the geom\n  labs()+                                 # here you add titles, axes labels, etc.\n  theme()                                 # here you adjust color, font, size etc of non-data plot elements (axes, title, etc.) \n\n\n\n9 Total population data from tidycensus\nNow that we want to look at population data for many years, it would be tedious and repetitive to call get_acs() separately for each year. Instead of doing it manually, we can automate the process by “mapping” a function over a vector of years. This way, the same code runs for each year, and we can collect all the results in a single dataset efficiently.\nIn purrr package, map() is a tool for repeating a function over a list or vector of inputs. Instead of writing a loop, you can apply a function to every element and get a list of results. It makes your code shorter, cleaner, and easier to read. See additional resources: Purrr in R and map functions.\nSometimes, the output of map() is a list of data frames. That’s useful, but often we want a single, combined data frame to work with in tidyverse pipelines. That’s where map_df() comes in.\nmap_df() does the same job as map(), but it automatically binds all the results together row-wise into one tidy data frame. This is perfect for our population example, where we pull data for multiple years and want a single dataset with a “year” column.\nThe map() function takes the following arguments:\n\n.x: The data structure to which the function to be applied will be applied\n.f: The function to apply\n…: Additional arguments required by the function\n\nIn the code below:\n\nwe map a function over every year in years\nfor each year, we pull total population with get_acs()\nmap_df() combines all the results into one single data frame pop_state\n\n\nlibrary(tidycensus) # load packages\n\nWarning: package 'tidycensus' was built under R version 4.5.2\n\nlibrary(tidyverse)\n\nWarning: package 'tibble' was built under R version 4.5.2\n\n\nWarning: package 'purrr' was built under R version 4.5.2\n\n\nWarning: package 'dplyr' was built under R version 4.5.2\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.0     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.3.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.2.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(purrr)\n\nGet the data we will plot:\n\n# choose the years you want\nyears &lt;- 2012:2022\n\npop_state &lt;- map_df(years, function(y) {\n  get_acs(\n     geography = \"state\",\n     variables = \"B01003_001\",\n     year = y,\n     survey = \"acs5\") %&gt;%\n     select(GEOID, NAME, estimate) %&gt;%\n     mutate(year = y)})\n\nGetting data from the 2008-2012 5-year ACS\n\n\nGetting data from the 2009-2013 5-year ACS\n\n\nGetting data from the 2010-2014 5-year ACS\n\n\nGetting data from the 2011-2015 5-year ACS\n\n\nGetting data from the 2012-2016 5-year ACS\n\n\nGetting data from the 2013-2017 5-year ACS\n\n\nGetting data from the 2014-2018 5-year ACS\n\n\nGetting data from the 2015-2019 5-year ACS\n\n\nGetting data from the 2016-2020 5-year ACS\n\n\nGetting data from the 2017-2021 5-year ACS\n\n\nGetting data from the 2018-2022 5-year ACS\n\nunique(pop_state$year)\n\n [1] 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022\n\n\nSimplified example using map_df():\n\ninput vector: 1, 2, 3\nfunction: square of x\noutput: a single data frame; map_df() stacks them\n\n\nmap_df(1:3, function(x) {tibble(number = x, square = x^2) })\n\n# A tibble: 3 × 2\n  number square\n   &lt;int&gt;  &lt;dbl&gt;\n1      1      1\n2      2      4\n3      3      9\n\n\nLet’s create a few subset of the data:\n\ntn &lt;- pop_state %&gt;% # only TN\n  filter(NAME == \"Tennessee\") %&gt;%\n  rename(pop = estimate)\n\n# select 3 states\ntn_ga_sc &lt;- pop_state %&gt;%\n  filter(NAME %in% c(\"Tennessee\", \"Georgia\", \"South Carolina\")) %&gt;%\n  rename(pop = estimate)\n\n\n\n10 Creating a ggplot\nWhen working with ggplot2, every plot starts with the ggplot() function. Think of this as setting up a blank canvas. Inside ggplot(), the first thing we tell R is which dataset we want to use (e.g., tn).\nThe code below creates an empty plot that’s connected to the tn dataset. Right now, nothing appears on the screen. This is because we’ve told R what data to use, but we haven’t told it how to display it yet.\nThe magic of ggplot happens when we start adding layers to show the data visually.\n\nggplot(tn)\n\n\n\n\n\n\n\n\nNext, we need to tell ggplot() how we want our data to appear on the graph. This is where aesthetic mappings come in. In ggplot, we use the aes() function (short for “aesthetics”) to explain how variables in our dataset should be connected to visual elements in the plot.\n\nggplot(data = tn,\n       mapping = aes(x = year, y = pop)) # what happen with year?\n\n\n\n\n\n\n\nggplot(data = tn,\n       mapping = aes(x = year, y = pop)) +\n  scale_x_continuous(breaks = seq(min(tn$year), max(tn$year), by = 2))\n\n\n\n\n\n\n\n\nNow we need to choose a geom (short for geometric object). A geom is simply the type of shape that ggplot uses to display your data.\nIn ggplot2, geoms are added with functions that start with geom_. For example: - Bar charts use geom_bar() - Line charts use geom_line() - Boxplots use geom_boxplot() - Scatterplots use geom_point()\nSo when you decide what kind of plot you want, you’re really deciding which geom to add.\n\nggplot(\n  data = tn,\n  mapping = aes(x = year, y = pop)) +\n  scale_x_continuous(breaks = seq(min(tn$year), max(tn$year), by = 1)) +\n  geom_line()\n\n\n\n\n\n\n\nggplot(\n  data = tn,\n  mapping = aes(x = year, y = pop)) +\n  scale_x_continuous(breaks = seq(min(tn$year), max(tn$year), by = 1)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\n11 Adding aesthetics and layers\nNow, we want to change the appearance of the line and the axis labels. Note that:\n\nWhen we put color = \"blue\" inside geom_line() but outside aes(), we are setting a fixed color\nIf we put color inside aes(), ggplot would expect a variable and would color lines based on data\n\n\nggplot(\n  data = tn,\n  mapping = aes(x = year, y = pop)) +\n  scale_x_continuous(breaks = seq(min(tn$year), max(tn$year), by = 1)) +\n  geom_line(color = \"blue\") +\n  labs(x = \"Year\", y = \"Population\")\n\n\n\n\n\n\n\n\nNow, instead of looking at just one state, we’re using a dataset that includes three states. We want one line for each state so we can compare them over time.\n\nggplot(\n  data = tn_ga_sc,\n  mapping = aes(x = year, y = pop, colour = NAME)) +\n  scale_x_continuous(breaks = seq(min(tn$year), max(tn$year), by = 1)) +\n  geom_line() +\n  labs(x = \"Year\", y = \"Population\")\n\n\n\n\n\n\n\n\nLarge numbers can make a graph harder to read. So, instead of plotting large values, we can rescale the data to make the axis cleaner and easier to interpret.\n\nsummary(tn_ga_sc$pop)\n\n    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. \n 4630351  5078903  6597381  7239605  9907756 10722325 \n\ntn_ga_sc &lt;- tn_ga_sc %&gt;%\n  mutate(pop2 = pop/1000) \n\nggplot(\n  data = tn_ga_sc,\n  mapping = aes(x = year, y = pop2, colour = NAME)) +\n  scale_x_continuous(breaks = seq(min(tn$year), max(tn$year), by = 1)) +\n  geom_line() +\n  labs(x = \"Year\", y = \"Population (thousands)\")\n\n\n\n\n\n\n\n\nWhat if we want to move the legend to the bottom? We can use theme() function.\n\nggplot(\n  data = tn_ga_sc,\n  mapping = aes(x = year, y = pop2, colour = NAME)) +\n  scale_x_continuous(breaks = seq(min(tn$year), max(tn$year), by = 1)) +\n  geom_line() +\n  labs(x = \"Year\", y = \"Population (thousands)\") + \n  theme(legend.position = \"bottom\")",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data Visualization</span>"
     ]
   }
 ]
