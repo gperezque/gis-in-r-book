@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; hello Quarto – GIS in R: Fundamentals and Economic Applications</title>
+<title>7&nbsp; GIS Fundamentals – GIS in R: Fundamentals and Economic Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./3_R-basics.html" rel="next">
-<link href="./1_Getting-started.html" rel="prev">
+<link href="./references.html" rel="next">
+<link href="./5_Data-Visualization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -147,7 +147,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2_helloQuarto.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hello Quarto</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./6_GIS-Fundamentals.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">GIS Fundamentals</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -194,7 +194,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_helloQuarto.html" class="sidebar-item-text sidebar-link active">
+  <a href="./2_helloQuarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hello Quarto</span></span></a>
   </div>
 </li>
@@ -218,7 +218,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./6_GIS-Fundamentals.html" class="sidebar-item-text sidebar-link">
+  <a href="./6_GIS-Fundamentals.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">GIS Fundamentals</span></span></a>
   </div>
 </li>
@@ -238,17 +238,16 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#headings" id="toc-headings" class="nav-link active" data-scroll-target="#headings"><span class="header-section-number">3.1</span> Headings</a>
+  <li><a href="#why-spatial-analysis" id="toc-why-spatial-analysis" class="nav-link active" data-scroll-target="#why-spatial-analysis"><span class="header-section-number">8</span> Why Spatial Analysis?</a></li>
+  <li><a href="#types-of-spatial-data-in-r" id="toc-types-of-spatial-data-in-r" class="nav-link" data-scroll-target="#types-of-spatial-data-in-r"><span class="header-section-number">9</span> Types of spatial data in R</a>
   <ul class="collapse">
-  <li><a href="#subsection" id="toc-subsection" class="nav-link" data-scroll-target="#subsection"><span class="header-section-number">3.1.1</span> subsection</a></li>
+  <li><a href="#vector-data" id="toc-vector-data" class="nav-link" data-scroll-target="#vector-data"><span class="header-section-number">9.1</span> Vector data</a>
+  <ul class="collapse">
+  <li><a href="#shapefile" id="toc-shapefile" class="nav-link" data-scroll-target="#shapefile"><span class="header-section-number">9.1.1</span> Shapefile</a></li>
   </ul></li>
-  <li><a href="#bold-and-italic-text" id="toc-bold-and-italic-text" class="nav-link" data-scroll-target="#bold-and-italic-text"><span class="header-section-number">3.2</span> Bold and italic text</a></li>
-  <li><a href="#adding-figures-and-links" id="toc-adding-figures-and-links" class="nav-link" data-scroll-target="#adding-figures-and-links"><span class="header-section-number">3.3</span> Adding figures and links</a></li>
-  <li><a href="#code-chuncks" id="toc-code-chuncks" class="nav-link" data-scroll-target="#code-chuncks"><span class="header-section-number">3.4</span> Code chuncks</a></li>
-  <li><a href="#common-chunck-options" id="toc-common-chunck-options" class="nav-link" data-scroll-target="#common-chunck-options"><span class="header-section-number">3.5</span> Common chunck options</a></li>
-  <li><a href="#installing-packages-run-once-and-loading-library" id="toc-installing-packages-run-once-and-loading-library" class="nav-link" data-scroll-target="#installing-packages-run-once-and-loading-library"><span class="header-section-number">3.6</span> Installing packages (run once) and loading library</a></li>
-  <li><a href="#create-an-object" id="toc-create-an-object" class="nav-link" data-scroll-target="#create-an-object"><span class="header-section-number">3.7</span> Create an object</a></li>
-  <li><a href="#using-built-in-datasets-in-r" id="toc-using-built-in-datasets-in-r" class="nav-link" data-scroll-target="#using-built-in-datasets-in-r"><span class="header-section-number">3.8</span> Using built-in datasets in R</a></li>
+  <li><a href="#raster-data" id="toc-raster-data" class="nav-link" data-scroll-target="#raster-data"><span class="header-section-number">9.2</span> Raster data</a></li>
+  </ul></li>
+  <li><a href="#coordinate-reference-systems-crs" id="toc-coordinate-reference-systems-crs" class="nav-link" data-scroll-target="#coordinate-reference-systems-crs"><span class="header-section-number">10</span> Coordinate Reference Systems (CRS)</a></li>
   </ul>
 </nav>
     </div>
@@ -257,7 +256,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">hello Quarto</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">GIS Fundamentals</span></h1>
 </div>
 
 
@@ -274,142 +273,215 @@ window.Quarto = {
 </header>
 
 
-<section id="headings" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="headings"><span class="header-section-number">3.1</span> Headings</h2>
-<p>In this paper….</p>
-<section id="subsection" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="subsection"><span class="header-section-number">3.1.1</span> subsection</h3>
-<p>Some more text… This is <strong>bold</strong> text</p>
-<p>My name is <strong>Gaby…</strong></p>
-<p>Use <code>#</code> symbols for section titles. Leave a blank line after headings for readability.</p>
-<p>## Section title</p>
-<p>### Subsection title</p>
-<p>#### Smaller heading (more # = smaller heading)</p>
+<p>This chapter introduces the basic skills of spatial analysis with R. By the end of this chapter, you’ll understand how geographic data is structured and stored.</p>
+<section id="why-spatial-analysis" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Why Spatial Analysis?</h1>
+<p>Imagine you’re an agricultural economist trying to understand why crop yields vary across a region. Or an environmental economist mapping the communities most exposed to water pollution to study its effects on local property values. Or a researcher tracking how land-use change over a decade is affecting ecosystem services like water filtration and carbon storage.</p>
+<p>All of these problems share something in common <span class="math inline">\(\rightarrow\)</span> location matters.</p>
+<p>That’s what spatial analysis is about: using the geographic dimension of data to find patterns, relationships, and answers that you simply couldn’t see in a regular spreadsheet. Soil quality gradients, rainfall distribution, proximity to markets, land tenure boundaries, these are all inherently spatial questions.</p>
+<p>R, traditionally known as a statistical programming language, has grown into a fully capable GIS (Geographic Information System) environment. With packages like <strong>sf</strong>, <strong>terra</strong>, and <strong>tmap</strong>, R can do everything from mapping agricultural land cover to overlaying farm boundaries with climate data for econometric analysis.</p>
 </section>
-</section>
-<section id="bold-and-italic-text" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="bold-and-italic-text"><span class="header-section-number">3.2</span> Bold and italic text</h2>
-<p>If you are using <code>Source</code>: <strong>text</strong> and <em>italic</em></p>
-<p>If you are using <code>Visual</code>: Click Format <span class="math inline">\(\rightarrow\)</span> Bold</p>
-</section>
-<section id="adding-figures-and-links" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="adding-figures-and-links"><span class="header-section-number">3.3</span> Adding figures and links</h2>
-<p>Find any image and save it as <code>.png</code> in your R project.</p>
-<p>The figure below shows that…</p>
-<p><img src="pics/map1.png" class="img-fluid"></p>
-<p>You can learn more about this paper <a href="https://www.journals.uchicago.edu/doi/full/10.1086/726156">here</a>.</p>
-<p><strong>How to include figures and links when using <code>Visual</code>?</strong></p>
-</section>
-<section id="code-chuncks" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="code-chuncks"><span class="header-section-number">3.4</span> Code chuncks</h2>
-<p>R code chunks are marked with <code>{r}</code>. Type the chunk by hand or using keyboard shortcut.</p>
-<p>Mac: Command + Option + I</p>
-<p>Windows: Ctrl + Alt + I</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your R code goes here</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># comment</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-</section>
-<section id="common-chunck-options" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="common-chunck-options"><span class="header-section-number">3.5</span> Common chunck options</h2>
+<section id="types-of-spatial-data-in-r" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Types of spatial data in R</h1>
+<p>Spatial data powers decision-making across fields. Whether you’re estimating the economic impact of a drought, evaluating the spread of a pest outbreak, or identifying which farming communities are most vulnerable to groundwater depletion, you need data that tells you not just what is happening, but where and when.</p>
+<p><strong>Where Does Spatial Data Come From?</strong></p>
+<p><em>Remote Sensing &amp; Satellites</em></p>
+<p>Satellites orbiting the Earth continuously capture imagery and measurements that are invaluable for agricultural and environmental research. For example:</p>
 <ul>
-<li>eval = FALSE <span class="math inline">\(\rightarrow\)</span> show code, don’t run it</li>
-<li>echo = FALSE <span class="math inline">\(\rightarrow\)</span> run code, don’t show it</li>
-<li>include = FALSE <span class="math inline">\(\rightarrow\)</span> run code, show nothing</li>
-<li>message = FALSE <span class="math inline">\(\rightarrow\)</span> hide package messages</li>
-<li>warning = FALSE <span class="math inline">\(\rightarrow\)</span> hide warnings</li>
+<li>Land use and land cover (LULC) maps derived from satellite imagery can reveal how agricultural land is being converted to urban development over time (<a href="https://developers.google.com/earth-engine/datasets/tags/agriculture">Datasets</a>)</li>
+<li>Vegetation indices like <a href="https://www.usgs.gov/landsat-missions/landsat-normalized-difference-vegetation-index">NDVI</a> (Normalized Difference Vegetation Index) allow researchers to monitor crop health, detect drought stress, and estimate yields before harvest</li>
+<li>Evapotranspiration estimates from remote sensing help quantify how much water crops are consuming, critical for irrigation management and water rights policy. <a href="https://etdata.org">OpenET</a></li>
 </ul>
-<p>Example:</p>
+<p><em>Ground-Based Monitoring Stations</em></p>
+<p>Fixed monitoring stations placed at specific locations collect high-resolution data on environmental and climatic conditions over time. In agricultural and environmental economics, common applications include:</p>
+<ul>
+<li>Weather stations recording temperature, precipitation, and humidity</li>
+<li>Stream gauges and groundwater wells tracking surface water flows and aquifer levels</li>
+<li>Air and water quality sensors monitoring pollution levels near agricultural or industrial zones</li>
+</ul>
+<p>Before jumping into code, we need to understand how geographic information is actually represented. Spatial data can be represented using vector and raster data.</p>
+<section id="vector-data" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="vector-data"><span class="header-section-number">9.1</span> Vector data</h2>
+<p>Vector data is used to display points, lines, and polygons. Vector data may represent, for example, locations of monitoring stations, road networks, or counties of a country. Moreover, these data can also have associated information such as temperature values measured at monitoring stations or number of people living in counties.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Geometry Type</th>
+<th>What It Represents</th>
+<th>Real-World Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Point</strong></td>
+<td>A single location</td>
+<td>A weather station, an irrigation well, a soil sampling site</td>
+</tr>
+<tr class="even">
+<td><strong>Line</strong></td>
+<td>A connected path</td>
+<td>An irrigation canal, a river, a farm road</td>
+</tr>
+<tr class="odd">
+<td><strong>Polygon</strong></td>
+<td>An enclosed area</td>
+<td>A farm parcel, a watershed, a county boundary</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>sf</strong> package allows us to work with vector data which is used to represent points, lines, and polygons.</p>
+<section id="shapefile" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="shapefile"><span class="header-section-number">9.1.1</span> Shapefile</h3>
+<p>Vector data is commonly stored in a format called a shapefile. Despite the name, a shapefile is actually a collection of multiple files that must be kept together to work properly. The three essential files are:</p>
+<ul>
+<li><code>.shp</code>: the geometry itself (the points, lines, or polygons)</li>
+<li><code>.shx</code>: an index file that helps software navigate the geometry quickly</li>
+<li><code>.dbf</code>: a table storing the attributes (e.g., farm name, crop type, area)</li>
+</ul>
+<p>You may also encounter supporting files like <code>.prj</code> (the coordinate reference system) and <code>.shp.xml</code> (metadata).</p>
+<p><strong>Common mistake:</strong>If you download a shapefile and only keep the <code>.shp</code> file, R won’t be able to read it properly. Always transfer, move, or share all files in the shapefile folder together.</p>
+<p><strong>Attributes:</strong></p>
+<p>Every spatial feature can carry non-spatial information called attributes — stored in a table, just like a spreadsheet. A polygon representing a U.S. county might have attributes like population, median income, or area.</p>
+<p>The code below demonstrates how to download and visualize polygon data using the <strong>tigris</strong> package (learn more <a href="https://github.com/walkerke/tigris">here</a>), which provides direct access to U.S. Census Bureau geographic boundary files.</p>
+<p>We download the county boundaries for Tennessee using the <code>counties()</code> function and store them as an sf object — the standard spatial data format in R. We then use <strong>ggplot2</strong> with <code>geom_sf()</code> to produce a simple map of all 95 Tennessee counties.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">8</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>d1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tigris_use_cache =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tigris)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download Tennessee county boundaries</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>tn_counties <span class="ot">&lt;-</span> <span class="fu">counties</span>(<span class="at">state =</span> <span class="st">"TN"</span>, <span class="at">cb =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(tn_counties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 12</code></pre>
+<pre><code>[1] "sf"         "data.frame"</code></pre>
 </div>
-</div>
-<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tn_counties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 12</code></pre>
+<pre><code>Simple feature collection with 6 features and 12 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -90.31045 ymin: 34.99419 xmax: -81.93302 ymax: 36.65244
+Geodetic CRS:  NAD83
+    STATEFP COUNTYFP COUNTYNS        GEOIDFQ GEOID     NAME        NAMELSAD
+119      47      157 01639790 0500000US47157 47157   Shelby   Shelby County
+120      47      165 01639794 0500000US47165 47165   Sumner   Sumner County
+121      47      019 01639730 0500000US47019 47019   Carter   Carter County
+122      47      123 01639776 0500000US47123 47123   Monroe   Monroe County
+123      47      013 01639728 0500000US47013 47013 Campbell Campbell County
+237      47      001 01639722 0500000US47001 47001 Anderson Anderson County
+    STUSPS STATE_NAME LSAD      ALAND   AWATER                       geometry
+119     TN  Tennessee   06 1949650933 74596358 MULTIPOLYGON (((-90.31045 3...
+120     TN  Tennessee   06 1371278937 38053791 MULTIPOLYGON (((-86.7548 36...
+121     TN  Tennessee   06  883854427 16670692 MULTIPOLYGON (((-82.34228 3...
+122     TN  Tennessee   06 1646646990 43545177 MULTIPOLYGON (((-84.52585 3...
+123     TN  Tennessee   06 1243685305 46425147 MULTIPOLYGON (((-84.37563 3...
+237     TN  Tennessee   06  873359909 19657734 MULTIPOLYGON (((-84.44988 3...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tn_counties) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Tennessee Counties"</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-tn-counties" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tn-counties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="6_GIS-Fundamentals_files/figure-html/fig-tn-counties-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tn-counties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.1: Tennessee counties downloaded using the <code>tigris</code> package.
+</figcaption>
+</figure>
+</div>
 </div>
 </div>
 </section>
-<section id="installing-packages-run-once-and-loading-library" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="installing-packages-run-once-and-loading-library"><span class="header-section-number">3.6</span> Installing packages (run once) and loading library</h2>
+</section>
+<section id="raster-data" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="raster-data"><span class="header-section-number">9.2</span> Raster data</h2>
+<p>Raster data (also referred to as grid data) is a spatial data structure that divides the region of study into rectangles of the same size called cells or pixels, and that can store one or more values for each of these cells. Raster data is used to represent spatially continuous phenomena, such as elevation, temperature, or air pollution values.</p>
+<p>Raster data often come in GeoTIFF format which has extension <code>.tif</code>.</p>
+<p><strong>terra</strong> is the main package to work with raster data, which also has functionality to work with vector data.</p>
+<p><em>When to use which?</em></p>
+<ul>
+<li>Use vector when you care about distinct features with boundaries (roads, buildings, counties)</li>
+<li>Use raster when you’re dealing with continuous surfaces (temperature, elevation, rainfall)</li>
+</ul>
+<p>Raster data can be downloaded directly in R using the <strong>CropScapeR</strong> package, which provides access to the USDA National Agricultural Statistics Service (NASS) Cropland Data Layer (CDL) — an annual, satellite-derived land use dataset covering the entire continental United States.</p>
+<p>The <code>GetCDLData()</code> function retrieves the CDL raster for Shelby County in TN (identified by its FIPS code, 47157) for the year 2022, where each pixel represents a 30×30 meter area classified into a land use category such as corn, soybeans, pasture, or forest. We then use <code>plot()</code> to produce a quick visualization of the resulting SpatRaster object.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("tidyverse")</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Load packages</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'tibble' was built under R version 4.5.2</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CropScapeR)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download land use data for Shelby County, TN (FIPS code: 47157)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>shelby_landuse <span class="ot">&lt;-</span> <span class="fu">GetCDLData</span>(<span class="at">aoi =</span> <span class="dv">47157</span>, <span class="at">year =</span> <span class="dv">2022</span>, <span class="at">type =</span> <span class="st">"f"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(shelby_landuse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "RasterLayer"
+attr(,"package")
+[1] "raster"</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'purrr' was built under R version 4.5.2</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(shelby_landuse, <span class="at">main =</span> <span class="st">"Shelby County, TN Land Use (2022)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-shelby-landuse" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-shelby-landuse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="6_GIS-Fundamentals_files/figure-html/fig-shelby-landuse-1.png" class="img-fluid figure-img" width="672">
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'dplyr' was built under R version 4.5.2</code></pre>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-shelby-landuse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.2: Shelby County, TN land use data downloaded using the <code>CropScapeR</code> package.
+</figcaption>
+</figure>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.2.0     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.3.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.2.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 </div>
 </section>
-<section id="create-an-object" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="create-an-object"><span class="header-section-number">3.7</span> Create an object</h2>
-<p>Everything in R is an object, and R is an object-oriented language. An object exists once you assign a value to it.</p>
-<p>After an object is created, it appears in the Environment pane. From there, you can use the object in your code (inspect it, manipulate it, change it, or redefine it by assigning it a new value).</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining an object (&lt;-)</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">4</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>d1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 6</code></pre>
-</div>
-</div>
 </section>
-<section id="using-built-in-datasets-in-r" class="level2" data-number="3.8">
-<h2 data-number="3.8" class="anchored" data-anchor-id="using-built-in-datasets-in-r"><span class="header-section-number">3.8</span> Using built-in datasets in R</h2>
+<section id="coordinate-reference-systems-crs" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Coordinate Reference Systems (CRS)</h1>
+<p>The Earth is a 3D sphere, but your screen is flat. A Coordinate Reference System (CRS) is the mathematical framework used to translate locations on the Earth’s curved surface onto a flat map. CRS of spatial data specifies the origin and the unit of measurement of the spatial coordinates.</p>
+<p>Locations on the Earth can be referenced using two CRS types:</p>
+<ul>
+<li>Geographic CRS (unprojected): latitude and longitude values are used to identify locations on the Earth’s three-dimensional ellipsoid surface</li>
+<li>Projected CRS: uses Cartesian coordinates to reference a location on a two-dimensional representation of the Earth</li>
+</ul>
+<p><strong>Tip</strong>: Always check that your data layers share the same CRS before doing any analysis.</p>
+<p>Every CRS has a unique numeric identifier called an EPSG code (tells your software exactly how coordinates should be interpreted). Most common CRSs can be specified by providing their EPSG (European Petroleum Survey Group) codes or their Proj4 strings.</p>
+<p>Common spatial projections can be found at https://spatialreference.org/ref/. For example, the EPSG code 4326 refers to the WGS84 longitude/latitude projection, which is the default for most downloaded datasets, web maps, and GPS devices. Details of a given projection can be inspected using the <code>st_crs()</code> function of the <strong>sf</strong> package.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data() # list of datasets</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars) <span class="co"># load mtcars</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create an object</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> mtcars</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect it</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my.data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(tn_counties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
-Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<pre><code>Coordinate Reference System:
+  User input: NAD83 
+  wkt:
+GEOGCRS["NAD83",
+    DATUM["North American Datum 1983",
+        ELLIPSOID["GRS 1980",6378137,298.257222101,
+            LENGTHUNIT["metre",1]]],
+    PRIMEM["Greenwich",0,
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["latitude",north,
+            ORDER[1],
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["longitude",east,
+            ORDER[2],
+            ANGLEUNIT["degree",0.0174532925199433]],
+    ID["EPSG",4269]]</code></pre>
 </div>
 </div>
+<p>EPSG code: 4269, which uniquely identifies the name of the CRS, NAD83, which stands for North American Datum 1983. It is the standard geographic coordinate system used by U.S. federal agencies, including the Census Bureau.</p>
 
 
 </section>
@@ -822,13 +894,13 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./1_Getting-started.html" class="pagination-link" aria-label="Getting Started with R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting Started with R</span></span>
+      <a href="./5_Data-Visualization.html" class="pagination-link" aria-label="Data Visualization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Visualization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./3_R-basics.html" class="pagination-link" aria-label="R Basics">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R Basics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
