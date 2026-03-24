@@ -248,6 +248,13 @@ window.Quarto = {
   <li><a href="#spatial-data-structure" id="toc-spatial-data-structure" class="nav-link" data-scroll-target="#spatial-data-structure"><span class="header-section-number">10</span> Spatial data structure</a></li>
   <li><a href="#reading-and-writing-vector-data" id="toc-reading-and-writing-vector-data" class="nav-link" data-scroll-target="#reading-and-writing-vector-data"><span class="header-section-number">11</span> Reading and writing vector data</a></li>
   <li><a href="#projection-with-a-different-coordinate-reference-systems" id="toc-projection-with-a-different-coordinate-reference-systems" class="nav-link" data-scroll-target="#projection-with-a-different-coordinate-reference-systems"><span class="header-section-number">12</span> Projection with a different Coordinate Reference Systems</a></li>
+  <li><a href="#map-extent-and-bounding-box" id="toc-map-extent-and-bounding-box" class="nav-link" data-scroll-target="#map-extent-and-bounding-box"><span class="header-section-number">13</span> Map Extent and Bounding Box</a></li>
+  <li><a href="#introducing-tmap" id="toc-introducing-tmap" class="nav-link" data-scroll-target="#introducing-tmap"><span class="header-section-number">14</span> Introducing tmap</a>
+  <ul class="collapse">
+  <li><a href="#maps-mode" id="toc-maps-mode" class="nav-link" data-scroll-target="#maps-mode"><span class="header-section-number">14.1</span> Maps mode</a></li>
+  <li><a href="#quick-maps" id="toc-quick-maps" class="nav-link" data-scroll-target="#quick-maps"><span class="header-section-number">14.2</span> Quick maps</a></li>
+  <li><a href="#regular-maps" id="toc-regular-maps" class="nav-link" data-scroll-target="#regular-maps"><span class="header-section-number">14.3</span> Regular maps</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -309,8 +316,9 @@ window.Quarto = {
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  data.table, <span class="co"># data wrangling</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  tmap, <span class="co"># make maps</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  mapview, <span class="co"># create an interactive map</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  patchwork <span class="co"># arranging maps</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  patchwork, <span class="co"># arranging maps</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  tigris</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>First, we check whether the <strong>pacman</strong> package is installed. If it is not installed yet, R installs it automatically.</p>
 <p>The <code>pacman::p_load()</code> function is convenient because it installs packages (if needed) and loads them at the same time. This avoids having to run <code>install.packages()</code> and <code>library()</code> separately for each package.</p>
@@ -527,7 +535,7 @@ Writing 95 features with 25 fields and geometry type Multi Polygon.</code></pre>
 <pre><code>Reading layer `tn_co' from data source 
   `/Users/gperezqu/Library/CloudStorage/OneDrive-UniversityofTennessee/University of Tennessee/Teaching/R as GIS for Economists/data/vector data/tn_co.geojson' 
   using driver `GeoJSON'
-Simple feature collection with 1140 features and 25 fields
+Simple feature collection with 2470 features and 25 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XY
 Bounding box:  xmin: 677977.3 ymin: 236914.2 xmax: 3245808 ymax: 860022.9
@@ -702,7 +710,7 @@ GEOGCRS["NAD27",
 </div>
 <p>If we want both objects, <code>tn_co_4326</code> and <code>nc</code>, to use the same CRS, we can transform <code>nc</code> so that it matches the CRS of tn_co_4326.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_transform</span>(nc, sf<span class="sc">::</span><span class="fu">st_crs</span>(tn_co_4326))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(nc, <span class="fu">st_crs</span>(tn_co_4326))</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(nc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -738,8 +746,238 @@ GEOGCRS["WGS 84",
     ID["EPSG",4326]]</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>) <span class="co"># static map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ tmap mode set to "plot".</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_co_4326) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">border.col =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+── tmap v3 code detected ───────────────────────────────────────────────────────
+[v3-&gt;v4] `tm_polygons()`: use 'fill' for the fill color of polygons/symbols
+(instead of 'col'), and 'col' for the outlines (instead of 'border.col').[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nc) <span class="sc">+</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightgreen"</span>, <span class="at">border.col =</span> <span class="st">"darkgreen"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+── tmap v3 code detected ───────────────────────────────────────────────────────
+[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;- extent is set here (Tennessee only)</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_co_4326) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">border.col =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nc) <span class="sc">+</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightgreen"</span>, <span class="at">border.col =</span> <span class="st">"darkgreen"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+── tmap v3 code detected ───────────────────────────────────────────────────────
+[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-17-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;- NC gets clipped to TN extent</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nc) <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightgreen"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_co_4326) <span class="sc">+</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+── tmap v3 code detected ───────────────────────────────────────────────────────
+[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-17-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="map-extent-and-bounding-box" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Map Extent and Bounding Box</h1>
+<p>When plotting spatial data in R, the <code>extent</code> of the map determines what portion of the world is visible. Essentially, the extent defines the “window” through which you view your spatial layers.</p>
+<p>A <code>bounding box</code> is the simplest way to describe a layer’s extent. It is a rectangle that fully encloses a spatial object and is defined by the minimum and maximum coordinates in both the x (longitude) and y (latitude) directions. Think of it as a tight-fitting box around your data.</p>
+<p>In <strong>sf</strong>, the <code>st_bbox()</code> function calculates the bounding box of a spatial object. Example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bounding box of NC polygons</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>nc_bbox <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(nc) <span class="co"># the input of the function is any sf object</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(nc_bbox) <span class="co"># This rectangle fully contains all of North Carolina</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     xmin      ymin      xmax      ymax 
+-84.32377  33.88212 -75.45662  36.58973 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>nc_bbox</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     xmin      ymin      xmax      ymax 
+-84.32377  33.88212 -75.45662  36.58973 </code></pre>
+</div>
+</div>
+<p><strong>Using Bounding Box in tmap</strong></p>
+<p><code>tmap</code> uses the extent of the first <code>tm_shape()</code> layer to set the plot window by default. If you want to ensure multiple layers fit together, you can explicitly define the bounding box using <code>st_union()</code> to combine layers, then <code>st_bbox()</code>.</p>
+<p>To improve our previous map of TN and NC, we use <code>st_union()</code> to merge the spatial objects to get a single combined shape, and <code>st_bbox()</code> calculates the bounding box that encloses both layers. This ensures that both TN and NC are fully visible in the plot.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;- extent is set here (Tennessee only)</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_co_4326) <span class="sc">+</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">border.col =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nc) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightgreen"</span>, <span class="at">border.col =</span> <span class="st">"darkgreen"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.
+[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#union &lt;- st_union(nc, tn_co_4326)</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co">#bbox_all &lt;- st_bbox(union)</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>bbox_all <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(<span class="fu">st_union</span>(nc, tn_co_4326))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
+all geometries</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>bbox_all</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     xmin      ymin      xmax      ymax 
+-90.31030  33.88212 -75.45662  36.67825 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nc, <span class="at">bbox =</span> bbox_all) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightgreen"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_co_4326) <span class="sc">+</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.
+[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"view"</span>) <span class="co"># interactive map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ tmap mode set to "view".</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ tmap mode set to "plot".</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nc, <span class="at">bbox =</span> bbox_all) <span class="sc">+</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightgreen"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_co_4326) <span class="sc">+</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+── tmap v3 code detected ───────────────────────────────────────────────────────
+[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="introducing-tmap" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Introducing tmap</h1>
+<p><strong>tmap</strong> is an R package designed specifically for thematic mapping. While <strong>ggplot2</strong> is a general-purpose plotting system, <strong>tmap</strong> is optimized for working with spatial data. You can learn more about the package <a href="https://tmap.geocompx.org/nutshell#sec-facets-section">here</a>.</p>
+<p>The <strong>tmap</strong> package creates thematic maps with great flexibility. It accepts spatial data in various formats. Additionally, with <strong>tmap</strong> it is possible to create facet maps and map animations. Finally, <strong>tmap</strong> has an interactive mode that allows users to zoom in and out, pan the map, or click on map objects to get more information – this can be done without any additional code. The goal of this chapter is to provide a brief overview of the main <strong>tmap</strong> features.</p>
+<section id="maps-mode" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="maps-mode"><span class="header-section-number">14.1</span> Maps mode</h2>
+<p>Every map you create with <strong>tmap</strong> can be viewed in different modes, with the two main ones being “plot” and “view”.</p>
+<ul>
+<li><p>Plot mode is the default. It creates static maps, similar to the ones you have already seen in this chapter. These maps are perfect for scientific papers, reports, or printing, and support almost all of tmap’s features, such as custom legends, scale bars, and north arrows.</p></li>
+<li><p>View mode creates interactive maps. With this mode, you can zoom, pan, switch basemaps, and click on map features to see more information. Interactive maps are great for exploring data on your screen.</p></li>
+</ul>
+<p>The best part? You don’t need to write separate code for static and interactive maps. You can use the same tmap commands in both modes. Simply switch between them with the <code>tmap_mode()</code> function</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tmap_mode("plot")  # static map</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tmap_mode("view")  # interactive map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="quick-maps" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="quick-maps"><span class="header-section-number">14.2</span> Quick maps</h2>
+<p>The <code>qtm()</code> function is a quick way to create maps, but it has some limitations. It supports only one shape object at a time and does not allow for much customization.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ tmap mode set to "plot".</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(nc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="regular-maps" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="regular-maps"><span class="header-section-number">14.3</span> Regular maps</h2>
+<p>At the core of <strong>tmap</strong> is a layered approach to map construction, similar to what you have already seen in <strong>ggplot2</strong>.</p>
+<p>Every map contains the following elements:</p>
+<ul>
+<li><code>tm_shape()</code>: specifies the spatial object to be displayed</li>
+<li><code>tm_*()</code>: defines how the data are visualized
+<ul>
+<li><code>tm_polygons()</code>: fills polygons</li>
+<li><code>tm_lines()</code>: draws line geometries</li>
+<li><code>tm_dots()</code>: represents point data</li>
+</ul></li>
+<li>These components can be combined through layering, where multiple spatial objects are added sequentially to the same map.</li>
+</ul>
+<p>Each new <code>tm_shape()</code> defines a new layer, allowing you to overlay different datasets and build complex maps step by step. This layered structure provides both flexibility and clarity, making it easy to control how each element of the map is displayed.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
