@@ -261,8 +261,12 @@ window.Quarto = {
   <li><a href="#working-with-sf-objects-like-a-data-frame" id="toc-working-with-sf-objects-like-a-data-frame" class="nav-link" data-scroll-target="#working-with-sf-objects-like-a-data-frame"><span class="header-section-number">16</span> Working with <code>sf</code> objects like a data frame</a></li>
   <li><a href="#geometrical-operations-useful-for-economists" id="toc-geometrical-operations-useful-for-economists" class="nav-link" data-scroll-target="#geometrical-operations-useful-for-economists"><span class="header-section-number">17</span> Geometrical operations useful for economists</a>
   <ul class="collapse">
-  <li><a href="#buffers-around-points-lines-or-the-border-of-polygons" id="toc-buffers-around-points-lines-or-the-border-of-polygons" class="nav-link" data-scroll-target="#buffers-around-points-lines-or-the-border-of-polygons"><span class="header-section-number">17.1</span> Buffers around points, lines or the border of polygons</a></li>
+  <li><a href="#buffers-around-points-or-the-border-of-polygons" id="toc-buffers-around-points-or-the-border-of-polygons" class="nav-link" data-scroll-target="#buffers-around-points-or-the-border-of-polygons"><span class="header-section-number">17.1</span> Buffers around points or the border of polygons</a></li>
+  <li><a href="#buffers-around-polygons" id="toc-buffers-around-polygons" class="nav-link" data-scroll-target="#buffers-around-polygons"><span class="header-section-number">17.2</span> Buffers around polygons</a></li>
+  <li><a href="#area-of-polygons" id="toc-area-of-polygons" class="nav-link" data-scroll-target="#area-of-polygons"><span class="header-section-number">17.3</span> Area of polygons</a></li>
+  <li><a href="#centroid-of-polygons" id="toc-centroid-of-polygons" class="nav-link" data-scroll-target="#centroid-of-polygons"><span class="header-section-number">17.4</span> Centroid of polygons</a></li>
   </ul></li>
+  <li><a href="#hands-on-exercise" id="toc-hands-on-exercise" class="nav-link" data-scroll-target="#hands-on-exercise"><span class="header-section-number">18</span> Hands-on exercise:</a></li>
   </ul>
 </nav>
     </div>
@@ -1860,9 +1864,9 @@ Geodetic CRS:  NAD83
 </section>
 <section id="geometrical-operations-useful-for-economists" class="level1" data-number="17">
 <h1 data-number="17"><span class="header-section-number">17</span> Geometrical operations useful for economists</h1>
-<section id="buffers-around-points-lines-or-the-border-of-polygons" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="buffers-around-points-lines-or-the-border-of-polygons"><span class="header-section-number">17.1</span> Buffers around points, lines or the border of polygons</h2>
-<p>We use <code>st_buffer()</code> function to create buffer zones around spatial features such as points, lines, or polygon boundaries.</p>
+<section id="buffers-around-points-or-the-border-of-polygons" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="buffers-around-points-or-the-border-of-polygons"><span class="header-section-number">17.1</span> Buffers around points or the border of polygons</h2>
+<p>We use <code>st::st_buffer()</code> function to create buffer zones around spatial features such as points, lines, or polygon boundaries.</p>
 <p>The following code creates buffers around points:</p>
 <div class="cell">
 <details class="code-fold">
@@ -1919,10 +1923,11 @@ GEOGCS["NAD83",
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb175"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a>wells.ks.buffer <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(wells.ks.un, <span class="at">dist =</span> <span class="dv">5000</span>)</span>
 <span id="cb175-2"><a href="#cb175-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb175-3"><a href="#cb175-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(wells.ks.buffer) <span class="sc">+</span> </span>
-<span id="cb175-4"><a href="#cb175-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb175-5"><a href="#cb175-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(wells.ks.un) <span class="sc">+</span></span>
-<span id="cb175-6"><a href="#cb175-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">size =</span> <span class="fl">0.05</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb175-3"><a href="#cb175-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-4"><a href="#cb175-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(wells.ks.buffer) <span class="sc">+</span> </span>
+<span id="cb175-5"><a href="#cb175-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb175-6"><a href="#cb175-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(wells.ks.un) <span class="sc">+</span></span>
+<span id="cb175-7"><a href="#cb175-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">size =</span> <span class="fl">0.05</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code></code></pre>
@@ -1941,9 +1946,302 @@ GEOGCS["NAD83",
 </div>
 </div>
 </div>
-
-
 </section>
+<section id="buffers-around-polygons" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="buffers-around-polygons"><span class="header-section-number">17.2</span> Buffers around polygons</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb179"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a>tn_co3 <span class="ot">&lt;-</span> tn_co_4326 <span class="sc">%&gt;%</span></span>
+<span id="cb179-2"><a href="#cb179-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(NAME <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Knox"</span>, <span class="st">"Anderson"</span>, <span class="st">"Blount"</span>))</span>
+<span id="cb179-3"><a href="#cb179-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-4"><a href="#cb179-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(tn_co3) <span class="co"># lon/lat; unit degree</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coordinate Reference System:
+  User input: EPSG:4326 
+  wkt:
+GEOGCRS["WGS 84",
+    ENSEMBLE["World Geodetic System 1984 ensemble",
+        MEMBER["World Geodetic System 1984 (Transit)"],
+        MEMBER["World Geodetic System 1984 (G730)"],
+        MEMBER["World Geodetic System 1984 (G873)"],
+        MEMBER["World Geodetic System 1984 (G1150)"],
+        MEMBER["World Geodetic System 1984 (G1674)"],
+        MEMBER["World Geodetic System 1984 (G1762)"],
+        MEMBER["World Geodetic System 1984 (G2139)"],
+        MEMBER["World Geodetic System 1984 (G2296)"],
+        ELLIPSOID["WGS 84",6378137,298.257223563,
+            LENGTHUNIT["metre",1]],
+        ENSEMBLEACCURACY[2.0]],
+    PRIMEM["Greenwich",0,
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["geodetic latitude (Lat)",north,
+            ORDER[1],
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["geodetic longitude (Lon)",east,
+            ORDER[2],
+            ANGLEUNIT["degree",0.0174532925199433]],
+    USAGE[
+        SCOPE["Horizontal component of 3D system."],
+        AREA["World."],
+        BBOX[-90,-180,90,180]],
+    ID["EPSG",4326]]</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb181"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(tn_co3)<span class="sc">$</span>units</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb183"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a>tn_co3 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(tn_co3, <span class="dv">5070</span>) <span class="co"># # NAD83 / Conus Albers (equal-area)</span></span>
+<span id="cb183-2"><a href="#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(tn_co3)<span class="sc">$</span>units</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "m"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb185"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a>tn_buffer <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(tn_co3, <span class="at">dist =</span> <span class="dv">2000</span>)</span>
+<span id="cb185-2"><a href="#cb185-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb185-3"><a href="#cb185-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_buffer) <span class="sc">+</span> </span>
+<span id="cb185-4"><a href="#cb185-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb185-5"><a href="#cb185-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_co3) <span class="sc">+</span></span>
+<span id="cb185-6"><a href="#cb185-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="area-of-polygons" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="area-of-polygons"><span class="header-section-number">17.3</span> Area of polygons</h2>
+<p>The <code>sf::st_area()</code> function calculates the area of polygons in the units of the coordinate reference system (CRS).</p>
+<ul>
+<li><p>If your data are in geographic CRS (like EPSG:4326, lat/long), results are not in square meters in a straightforward way</p></li>
+<li><p>Best practice: project to an equal-area CRS first</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb186"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb186-1"><a href="#cb186-1" aria-hidden="true" tabindex="-1"></a>tn_co3 <span class="ot">&lt;-</span> tn_co3 <span class="sc">%&gt;%</span></span>
+<span id="cb186-2"><a href="#cb186-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">area_co =</span> <span class="fu">st_area</span>(geometry))</span>
+<span id="cb186-3"><a href="#cb186-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-4"><a href="#cb186-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(tn_co3<span class="sc">$</span>area_co)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "units"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb188"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb188-1"><a href="#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="co">#let’s turn area_co into double so we can run numerical operations</span></span>
+<span id="cb188-2"><a href="#cb188-2" aria-hidden="true" tabindex="-1"></a>tn_co3 <span class="ot">&lt;-</span> tn_co3 <span class="sc">%&gt;%</span></span>
+<span id="cb188-3"><a href="#cb188-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">area_co =</span> <span class="fu">as.numeric</span>(area_co))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="centroid-of-polygons" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="centroid-of-polygons"><span class="header-section-number">17.4</span> Centroid of polygons</h2>
+<p>The <code>sf::st_centroid()</code> function computes the geometric centroid of each polygon.</p>
+<p>In practice, the centroid is calculated from the polygon’s coordinates and may not always lie inside the polygon, especially for irregular or concave shapes.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb189"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb189-1"><a href="#cb189-1" aria-hidden="true" tabindex="-1"></a>tn_co3_centroids <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(tn_co3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: st_centroid assumes attributes are constant over geometries</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb191"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tn_co3_centroids)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 3 features and 26 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 1049985 ymin: 1472430 xmax: 1080264 ymax: 1517278
+Projected CRS: NAD83 / Conus Albers
+     OBJECTID STATEFP COUNTYFP COUNTYNS GEOID NAME NAMELSAD LSAD CLASSFP MTFCC
+ [ reached 'max' / getOption("max.print") -- omitted 17 columns ]
+ [ reached 'max' / getOption("max.print") -- omitted 3 rows ]</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb193"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_co3) <span class="sc">+</span> </span>
+<span id="cb193-2"><a href="#cb193-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>() <span class="sc">+</span></span>
+<span id="cb193-3"><a href="#cb193-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_co3_centroids) <span class="sc">+</span></span>
+<span id="cb193-4"><a href="#cb193-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"red"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="hands-on-exercise" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Hands-on exercise:</h1>
+<ol type="1">
+<li>Using <code>gw_wells</code> dataset, create a subset <code>gw_wells_ks2011</code> that includes:</li>
+</ol>
+<ul>
+<li>wells from the year 2011</li>
+<li>with af_used &gt; 800</li>
+</ul>
+<ol start="2" type="1">
+<li>Map the results by overlaying KS counties boundaries and the filtered well locations</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb194"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb194-1"><a href="#cb194-1" aria-hidden="true" tabindex="-1"></a>gw_wells_ks2011 <span class="ot">&lt;-</span> gw_wells <span class="sc">%&gt;%</span></span>
+<span id="cb194-2"><a href="#cb194-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2011</span> <span class="sc">&amp;</span> af_used <span class="sc">&gt;</span> <span class="dv">800</span>)</span>
+<span id="cb194-3"><a href="#cb194-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb194-4"><a href="#cb194-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ks_co) <span class="sc">+</span> </span>
+<span id="cb194-5"><a href="#cb194-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>() <span class="sc">+</span></span>
+<span id="cb194-6"><a href="#cb194-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(gw_wells_ks2011) <span class="sc">+</span></span>
+<span id="cb194-7"><a href="#cb194-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"red"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>old-style crs object detected; please recreate object with a recent sf::st_crs()
+old-style crs object detected; please recreate object with a recent sf::st_crs()
+old-style crs object detected; please recreate object with a recent sf::st_crs()
+old-style crs object detected; please recreate object with a recent sf::st_crs()</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Create buffers around filtered wells</li>
+</ol>
+<ul>
+<li><p>Check the CRS of your data. If the data are in a geographic CRS (e.g., latitude/longitude), reproject them to a projected CRS using <code>EPSG:26914</code> before creating buffers</p></li>
+<li><p>Create buffer polygons around each well and store the result as <code>gw_wells_ks2011_buff</code></p></li>
+<li><p>Map the buffers together with the original well locations to verify that the buffers were created correctly</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb196"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb196-1"><a href="#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(gw_wells_ks2011)<span class="sc">$</span>units</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb198"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb198-1"><a href="#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(gw_wells_ks2011) <span class="co"># UNIT "degree"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coordinate Reference System:
+  User input: EPSG:4269 
+  wkt:
+GEOGCS["NAD83",
+    DATUM["North_American_Datum_1983",
+        SPHEROID["GRS 1980",6378137,298.257222101,
+            AUTHORITY["EPSG","7019"]],
+        TOWGS84[0,0,0,0,0,0,0],
+        AUTHORITY["EPSG","6269"]],
+    PRIMEM["Greenwich",0,
+        AUTHORITY["EPSG","8901"]],
+    UNIT["degree",0.0174532925199433,
+        AUTHORITY["EPSG","9122"]],
+    AUTHORITY["EPSG","4269"]]</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb200"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb200-1"><a href="#cb200-1" aria-hidden="true" tabindex="-1"></a>gw_wells_ks2011 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(gw_wells_ks2011, <span class="dv">26914</span>)</span>
+<span id="cb200-2"><a href="#cb200-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(gw_wells_ks2011)<span class="sc">$</span>units</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "m"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb202"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb202-1"><a href="#cb202-1" aria-hidden="true" tabindex="-1"></a>gw_wells_ks2011_buff <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(gw_wells_ks2011, <span class="at">dist =</span> <span class="dv">5000</span>)</span>
+<span id="cb202-2"><a href="#cb202-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb202-3"><a href="#cb202-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(gw_wells_ks2011_buff) <span class="sc">+</span> </span>
+<span id="cb202-4"><a href="#cb202-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">col =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb202-5"><a href="#cb202-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(gw_wells_ks2011) <span class="sc">+</span></span>
+<span id="cb202-6"><a href="#cb202-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">size =</span> <span class="fl">0.05</span>, <span class="at">fill =</span> <span class="st">"red"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Calculate the centroid of polygons</li>
+</ol>
+<ul>
+<li><p>Select 5 counties from KS (<code>ks_co5</code>)</p></li>
+<li><p>Check the CRS of your data. If the data are in a geographic CRS (e.g., latitude/longitude), reproject them to a projected CRS using <code>EPSG:26914</code> before creating centroid</p></li>
+<li><p>Calculate the centroid (<code>ks_co5_cent</code>)</p></li>
+<li><p>Create a map showing both, the original county boundaries, and their corresponding centroids</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb206"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb206-1"><a href="#cb206-1" aria-hidden="true" tabindex="-1"></a>ks_co5 <span class="ot">&lt;-</span> ks_co <span class="sc">%&gt;%</span></span>
+<span id="cb206-2"><a href="#cb206-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(GEOID <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">20025</span>, <span class="dv">20027</span>, <span class="dv">20029</span>, <span class="dv">20031</span>, <span class="dv">20033</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>old-style crs object detected; please recreate object with a recent sf::st_crs()</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb208"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb208-1"><a href="#cb208-1" aria-hidden="true" tabindex="-1"></a>ks_co5 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ks_co5, <span class="dv">26914</span>)</span>
+<span id="cb208-2"><a href="#cb208-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-3"><a href="#cb208-3" aria-hidden="true" tabindex="-1"></a>ks_co5_cent <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(ks_co5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: st_centroid assumes attributes are constant over geometries</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb210"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb210-1"><a href="#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ks_co5) <span class="sc">+</span> </span>
+<span id="cb210-2"><a href="#cb210-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>() <span class="sc">+</span></span>
+<span id="cb210-3"><a href="#cb210-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ks_co5_cent) <span class="sc">+</span></span>
+<span id="cb210-4"><a href="#cb210-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"green"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="7_Vector-Data_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
