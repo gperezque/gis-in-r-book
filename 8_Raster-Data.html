@@ -233,6 +233,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#basic-raster-operations" id="toc-basic-raster-operations" class="nav-link" data-scroll-target="#basic-raster-operations"><span class="header-section-number">11.4</span> Basic Raster Operations</a>
   <ul class="collapse">
   <li><a href="#extent-and-dimensions" id="toc-extent-and-dimensions" class="nav-link" data-scroll-target="#extent-and-dimensions"><span class="header-section-number">11.4.1</span> Extent and dimensions</a></li>
+  <li><a href="#get-cell-values" id="toc-get-cell-values" class="nav-link" data-scroll-target="#get-cell-values"><span class="header-section-number">11.4.2</span> Get cell values</a></li>
+  <li><a href="#access-one-layer" id="toc-access-one-layer" class="nav-link" data-scroll-target="#access-one-layer"><span class="header-section-number">11.4.3</span> Access one layer</a></li>
+  <li><a href="#arithmetic-operations-and-tidyterra" id="toc-arithmetic-operations-and-tidyterra" class="nav-link" data-scroll-target="#arithmetic-operations-and-tidyterra"><span class="header-section-number">11.4.4</span> Arithmetic operations and tidyterra</a></li>
+  <li><a href="#from-a-raster-object-to-a-data.frame" id="toc-from-a-raster-object-to-a-data.frame" class="nav-link" data-scroll-target="#from-a-raster-object-to-a-data.frame"><span class="header-section-number">11.4.5</span> From a raster object to a data.frame</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -313,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  tmap, <span class="co"># make maps</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  mapview, <span class="co"># create an interactive map</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  patchwork, <span class="co"># arranging maps</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  tigris, terra, raster, CropScapeR</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  tigris, terra, raster, CropScapeR, tidyterra</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
@@ -427,7 +431,7 @@ dimensions : 11671, 17795, 207685445, 2  (nrow, ncol, ncell, nlayers)
 resolution : 30, 30  (x, y)
 extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
 crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
-source     : r_tmp_2026-04-14_122643.272276_36619_85796.grd 
+source     : r_tmp_2026-04-14_133230.838059_55744_82461.grd 
 names      : Layer_1, IA_CDL_2016 
 min values :       0,           0 
 max values :     229,         241 </code></pre>
@@ -530,6 +534,188 @@ max values  :     229,         241 </code></pre>
 <h2 data-number="11.4" class="anchored" data-anchor-id="basic-raster-operations"><span class="header-section-number">11.4</span> Basic Raster Operations</h2>
 <section id="extent-and-dimensions" class="level3" data-number="11.4.1">
 <h3 data-number="11.4.1" class="anchored" data-anchor-id="extent-and-dimensions"><span class="header-section-number">11.4.1</span> Extent and dimensions</h3>
+<p>The spatial extent of a <code>SpatRaster</code> object can be thought of as the raster equivalent of a bounding box in an <code>sf</code> object. It defines the geographic limits of the raster dataset in terms of its minimum and maximum coordinates. The extent is commonly used to crop both SpatRaster and sf objects to a shared spatial window for analysis or visualization.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's use CDL data</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>cdl_lincoln23 <span class="ot">&lt;-</span> <span class="fu">GetCDLData</span>(</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">aoi =</span> <span class="st">"47103"</span>, <span class="co"># Lincoln County FIPS</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="st">"2023"</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"f"</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cdl_lincoln23)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="8_Raster-Data_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cdl_lincoln23)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "RasterLayer"
+attr(,"package")
+[1] "raster"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to a SpatRaster</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>cdl_lincoln_sr <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(cdl_lincoln23)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cdl_lincoln_sr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SpatRaster"
+attr(,"package")
+[1] "terra"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">ext</span>(cdl_lincoln_sr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SpatExtent : 826035, 874905, 1365855, 1410315 (xmin, xmax, ymin, ymax)</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">ncol</span>(cdl_lincoln_sr) <span class="co"># number of columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1629</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">nrow</span>(cdl_lincoln_sr) <span class="co"># number of rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1482</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">ncell</span>(cdl_lincoln_sr) <span class="co"># number of cells (1629*1482)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2414178</code></pre>
+</div>
+</div>
+</section>
+<section id="get-cell-values" class="level3" data-number="11.4.2">
+<h3 data-number="11.4.2" class="anchored" data-anchor-id="get-cell-values"><span class="header-section-number">11.4.2</span> Get cell values</h3>
+<p>You can extract the values stored in a <code>SpatRaster</code> object using the <code>terra::values()</code> function. These values correspond to the numeric content of each raster cell.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>values_from_sr <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">values</span>(cdl_lincoln_sr)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(values_from_sr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Layer_1
+[1,]       0
+[2,]       0
+[3,]       0
+[4,]       0
+[5,]       0
+[6,]       0</code></pre>
+</div>
+</div>
+<p>Next, we add a second layer of CDL data for 2022.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>cdl_lincoln22 <span class="ot">&lt;-</span> <span class="fu">GetCDLData</span>(</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">aoi =</span> <span class="st">"47103"</span>,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="st">"2022"</span>,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"f"</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># stack 2022 and 2023</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>cdl_lincoln <span class="ot">&lt;-</span> raster<span class="sc">::</span><span class="fu">stack</span>(cdl_lincoln22, cdl_lincoln23)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cdl_lincoln)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "RasterStack"
+attr(,"package")
+[1] "raster"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>cdl_lincoln</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class      : RasterStack 
+dimensions : 1482, 1629, 2414178, 2  (nrow, ncol, ncell, nlayers)
+resolution : 30, 30  (x, y)
+extent     : 826035, 874905, 1365855, 1410315  (xmin, xmax, ymin, ymax)
+crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs 
+names      : Layer_1.1, Layer_1.2 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to SpatRaster</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>cdl_lincoln_sr <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(cdl_lincoln)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cdl_lincoln_sr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SpatRaster"
+attr(,"package")
+[1] "terra"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>cdl_lincoln_sr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class       : SpatRaster 
+size        : 1482, 1629, 2  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : 826035, 874905, 1365855, 1410315  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs 
+sources     : CDL_2022_47103.tif  
+              CDL_2023_47103.tif  
+color table : 1, 2 
+names       : Layer_1.1, Layer_1.2 </code></pre>
+</div>
+</div>
+</section>
+<section id="access-one-layer" class="level3" data-number="11.4.3">
+<h3 data-number="11.4.3" class="anchored" data-anchor-id="access-one-layer"><span class="header-section-number">11.4.3</span> Access one layer</h3>
+<p>You can access specific layers in a multi-layer raster object by using the <code>subset()</code> function with either the name of the layers or their numerical indices specified.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(cdl_lincoln_sr, <span class="st">"Layer_1.1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class       : SpatRaster 
+size        : 1482, 1629, 1  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : 826035, 874905, 1365855, 1410315  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs 
+source      : CDL_2022_47103.tif 
+color table : 1 
+name        : Layer_1.1 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(cdl_lincoln_sr, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class       : SpatRaster 
+size        : 1482, 1629, 1  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : 826035, 874905, 1365855, 1410315  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs 
+source      : CDL_2022_47103.tif 
+color table : 1 
+name        : Layer_1.1 </code></pre>
+</div>
+</div>
+</section>
+<section id="arithmetic-operations-and-tidyterra" class="level3" data-number="11.4.4">
+<h3 data-number="11.4.4" class="anchored" data-anchor-id="arithmetic-operations-and-tidyterra"><span class="header-section-number">11.4.4</span> Arithmetic operations and tidyterra</h3>
+<p>You can do basic arithmetic operations (addition, subtraction, division, etc) using raster layers as long as they share the same spatial extent and resolution.</p>
+<p>The <a href="https://dieghernan.github.io/tidyterra/"><strong>tidyterra</strong> package</a> helps make working with spatial data more intuitive by allowing users to apply familiar <code>dplyr-style</code> verbs (such as filter(), mutate(), and select()) directly to SpatRaster and SpatVector objects. This improves code readability and makes spatial workflows more consistent with the tidyverse ecosystem.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cdl_lincoln_sr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Layer_1.1 Layer_1.2
+1         0         0
+2         0         0
+3         0         0
+4         0         0
+5         0         0
+6         0         0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cdl_lincoln_sr &lt;- cdl_lincoln_sr %&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#mutate(test = Layer_1.1 + Layer_1.2)</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install tidyterra</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("tidyterra")</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="co">#library(tidyterra)</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>cdl_lincoln_sr <span class="ot">&lt;-</span> cdl_lincoln_sr <span class="sc">%&gt;%</span></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">test =</span> Layer_1<span class="fl">.1</span> <span class="sc">+</span> Layer_1<span class="fl">.2</span>)</span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cdl_lincoln_sr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Layer_1.1 Layer_1.2 test
+1         0         0    0
+2         0         0    0
+3         0         0    0
+4         0         0    0
+5         0         0    0
+6         0         0    0</code></pre>
+</div>
+</div>
+</section>
+<section id="from-a-raster-object-to-a-data.frame" class="level3" data-number="11.4.5">
+<h3 data-number="11.4.5" class="anchored" data-anchor-id="from-a-raster-object-to-a-data.frame"><span class="header-section-number">11.4.5</span> From a raster object to a data.frame</h3>
+<p>You can use the <code>as.data.frame()</code> function with <code>xy = TRUE</code> option to construct a <code>data.frame</code> where each row represents a single cell that has cell values for each layer and its coordinates (the center of the cell).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>cdl_lincoln_sr_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cdl_lincoln_sr, <span class="at">xy =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>
