@@ -229,6 +229,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data"><span class="header-section-number">10.1</span> Data</a></li>
   <li><a href="#stst_intersects" id="toc-stst_intersects" class="nav-link" data-scroll-target="#stst_intersects"><span class="header-section-number">10.2</span> <code>st::st_intersects()</code></a></li>
+  <li><a href="#spatial-cropping" id="toc-spatial-cropping" class="nav-link" data-scroll-target="#spatial-cropping"><span class="header-section-number">10.3</span> Spatial cropping</a>
+  <ul class="collapse">
+  <li><a href="#bounding-box" id="toc-bounding-box" class="nav-link" data-scroll-target="#bounding-box"><span class="header-section-number">10.3.1</span> Bounding box</a></li>
+  <li><a href="#automatic-cropping-using-bounding-boxes-with-st_crop" id="toc-automatic-cropping-using-bounding-boxes-with-st_crop" class="nav-link" data-scroll-target="#automatic-cropping-using-bounding-boxes-with-st_crop"><span class="header-section-number">10.3.2</span> Automatic cropping using bounding boxes with <code>st_crop()</code></a></li>
+  </ul></li>
+  <li><a href="#spatial-subsetting" id="toc-spatial-subsetting" class="nav-link" data-scroll-target="#spatial-subsetting"><span class="header-section-number">10.4</span> Spatial subsetting</a>
+  <ul class="collapse">
+  <li><a href="#polygons-vs-polygons" id="toc-polygons-vs-polygons" class="nav-link" data-scroll-target="#polygons-vs-polygons"><span class="header-section-number">10.4.1</span> Polygons vs polygons</a></li>
+  <li><a href="#points-vs-polygons" id="toc-points-vs-polygons" class="nav-link" data-scroll-target="#points-vs-polygons"><span class="header-section-number">10.4.2</span> Points vs polygons</a></li>
+  <li><a href="#lines-vs-polygons" id="toc-lines-vs-polygons" class="nav-link" data-scroll-target="#lines-vs-polygons"><span class="header-section-number">10.4.3</span> Lines vs polygons</a></li>
+  <li><a href="#polygons-vs-points" id="toc-polygons-vs-points" class="nav-link" data-scroll-target="#polygons-vs-points"><span class="header-section-number">10.4.4</span> Polygons vs Points</a></li>
+  </ul></li>
+  <li><a href="#spatial-join" id="toc-spatial-join" class="nav-link" data-scroll-target="#spatial-join"><span class="header-section-number">10.5</span> Spatial join</a></li>
   </ul>
 </nav>
     </div>
@@ -255,17 +268,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>In this chapter, we learn how two spatial datasets (sf objects) can interact with each other. In other words, we explore how geographic features relate across datasets (We follow <a href="https://tmieno2.github.io/R-as-GIS-for-Economists-Quarto/chapters/04-SpatialInteractionVectorVector.html">R as GIS for Economists.</a>)</p>
-<p>We start by looking at topological relationships, which describe how spatial objects are positioned relative to one another. For example, we use functions like <code>sf::st_intersects()</code> to check whether two features overlap, and <code>sf::st_is_within_distance()</code> to see whether they are close to each other.</p>
+<p>We start by looking at topological relationships, which describe how spatial objects are positioned relative to one another. For example, we use functions like <code>sf::st_intersects()</code> to check whether two features overlap.</p>
 <p>The function <code>sf::st_intersects()</code> is especially important because it is the most commonly used relationship and is the default option when working with spatial filtering and joining in sf.</p>
 <p>Next, we move on to spatial subsetting, where we filter one dataset based on its geographic relationship with another dataset. For example, we might keep only the features that fall within a certain region.</p>
 <p>Finally, we cover spatial joins, which allow us to combine information from two spatial datasets. In this case, data from one dataset (such as attributes or variables) are added to another based on how their spatial features relate.</p>
 <p><strong>Packages</strong></p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: pacman</code></pre>
 </div>
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  sf, <span class="co"># vector data operations</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  dplyr, <span class="co"># data wrangling</span></span>
@@ -273,12 +291,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  ggplot2, <span class="co"># for map creation</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  tmap <span class="co"># for map creation</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <section id="data" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="data"><span class="header-section-number">10.1</span> Data</h2>
 <p>In this section, we work with three types of sf objects: points, lines, and polygons. To help you understand how spatial interaction functions work, we begin with simple, made-up datasets.</p>
 <p><strong>Points</strong></p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create points </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>point_1 <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>point_2 <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
@@ -292,6 +313,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">point_name =</span> <span class="fu">c</span>(<span class="st">"point 1"</span>, <span class="st">"point 2"</span>, <span class="st">"point 3"</span>))</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>points</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 3 features and 1 field
 Geometry type: POINT
@@ -306,6 +328,8 @@ CRS:           NA
 </div>
 <p><strong>Lines</strong></p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create lines </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>line_1 <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">0.5</span>)))</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>line_2 <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">0.5</span>), <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="dv">2</span>)))</span>
@@ -318,6 +342,7 @@ CRS:           NA
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">line_name =</span> <span class="fu">c</span>(<span class="st">"line 1"</span>, <span class="st">"line 2"</span>))</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>lines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 2 features and 1 field
 Geometry type: LINESTRING
@@ -332,6 +357,8 @@ CRS:           NA
 <p><strong>Polygons</strong></p>
 <p>In <code>sf::st_polygon()</code>, the first and last coordinates must be the same to “close” the polygon.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create polygons </span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>polygon_1 <span class="ot">&lt;-</span> <span class="fu">st_polygon</span>(<span class="fu">list</span>(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))))</span>
@@ -350,6 +377,7 @@ CRS:           NA
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">polygon_name =</span> <span class="fu">c</span>(<span class="st">"polygon 1"</span>, <span class="st">"polygon 2"</span>, <span class="st">"polygon 3"</span>))</span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>polygons</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 3 features and 1 field
 Geometry type: POLYGON
@@ -363,12 +391,15 @@ CRS:           NA
 </div>
 </div>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(polygons) <span class="sc">+</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"polygon_name"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">title =</span> <span class="st">"Polygons"</span>) <span class="sc">+</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(lines) <span class="sc">+</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>(<span class="at">col =</span> <span class="st">"line_name"</span>, <span class="at">title =</span> <span class="st">"Lines"</span>) <span class="sc">+</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(points) <span class="sc">+</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">shape =</span> <span class="st">"point_name"</span>, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">title =</span> <span class="st">"Points"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code></code></pre>
 </div>
@@ -402,7 +433,10 @@ This message is displayed once every 8 hours.</code></pre>
 <p>As shown in the output, the result is a list indicating which polygon(s) each point intersects with. The numbers in each entry refer to the row indices of the polygon object.</p>
 <p>For example, the values 1, 2, 3 in the first row mean that the first point (point 1) intersects with the first, second, and third polygons in the polygons object. In other words, point 1 falls within all three polygons.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(points, polygons)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparse geometry binary predicate list of length 3, where the predicate
 was `intersects'
@@ -414,7 +448,10 @@ was `intersects'
 <p><strong>Lines and polygons intersection</strong></p>
 <p>The output is a list of which polygon(s) each of the lines intersect with. For example, line intersects with the 1st and 2nd elements of polygons, which are polygon 1 and polygon 2.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(lines, polygons)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparse geometry binary predicate list of length 2, where the predicate
 was `intersects'
@@ -425,7 +462,10 @@ was `intersects'
 <p><strong>Polygons and polygons intersection</strong></p>
 <p>For polygons vs polygons interaction, sf::st_intersects() identifies any polygons that either touches (even at a point like polygons 1 and 3) or share some area.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(polygons, polygons)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparse geometry binary predicate list of length 3, where the predicate
 was `intersects'
@@ -434,6 +474,470 @@ was `intersects'
  3: 1, 2, 3</code></pre>
 </div>
 </div>
+</section>
+<section id="spatial-cropping" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="spatial-cropping"><span class="header-section-number">10.3</span> Spatial cropping</h2>
+<p>Spatial cropping is used to cut a spatial layer down to a smaller area using the boundary of another layer. You can think of it like using a cookie cutter on dough: the boundary layer acts as the cutter, and only the features inside that shape are kept. For example, you could crop a statewide river layer to a single county so students can work only with the rivers in their study area. This makes the data smaller, easier to manage, and more focused on the place being studied.</p>
+<p>To learn how spatial cropping works, import the following datasets into your R session:</p>
+<ul>
+<li>KS county borders (KS_county_borders.rds) - store as <code>ks_counties</code></li>
+<li>High Plains aquifer boundary (hp_bound2010.shp) - store as <code>hpa</code></li>
+<li>Irrigation wells in KS (Kansas_wells.rds) - store as <code>ks_wells</code></li>
+<li>US railroads in the Mid West region (mw_railroads.geojson) - store as <code>rail_roads_mw</code></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># KS county borders</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ks_counties <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/vector data/KS_county_borders.rds"</span>) </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># High Plains aquifer boundary</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>hpa <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"../data/vector data/hp_bound2010.shp"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `hp_bound2010' from data source 
+  `/Users/gperezqu/Library/CloudStorage/OneDrive-UniversityofTennessee/University of Tennessee/Teaching/R as GIS for Economists/data/vector data/hp_bound2010.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 199 features and 1 field
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -805708.3 ymin: 983257.8 xmax: -21500.35 ymax: 2312747
+Projected CRS: NAD_1983_Albers</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Irrigation wells in KS</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ks_wells <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/vector data/Kansas_wells.rds"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># US railroads in the Mid West region</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>rail_roads_mw <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"../data/vector data/mw_railroads.geojson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `mw_railroads' from data source 
+  `/Users/gperezqu/Library/CloudStorage/OneDrive-UniversityofTennessee/University of Tennessee/Teaching/R as GIS for Economists/data/vector data/mw_railroads.geojson' 
+  using driver `GeoJSON'
+Simple feature collection with 100661 features and 2 fields
+Geometry type: MULTILINESTRING
+Dimension:     XY
+Bounding box:  xmin: -414024 ymin: 3692172 xmax: 2094886 ymax: 5446589
+Projected CRS: WGS 84 / UTM zone 14N</code></pre>
+</div>
+</div>
+<p>Before performing any spatial cropping, all layers should use the same coordinate reference system (CRS). This ensures that each dataset lines up correctly in the same map space.</p>
+<p>In this step, transform the KS county boundaries to UTM Zone 14N (EPSG: 32614), and then reproject the aquifer boundary and irrigation wells so they match the CRS of KS_counties.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ks_counties <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ks_counties, <span class="dv">32614</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>old-style crs object detected; please recreate object with a recent sf::st_crs()</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>hpa <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(hpa, <span class="fu">st_crs</span>(ks_counties)) </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>ks_wells <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ks_wells, <span class="fu">st_crs</span>(ks_counties))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>rail_roads_mw <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(rail_roads_mw, <span class="fu">st_crs</span>(ks_counties)) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Using <code>hpa</code>, filter the dataset to keep only observations that overlap the aquifer boundary.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(hpa<span class="sc">$</span>AQUIFER)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "High Plains aquifer" "aquifer not present"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>hpa <span class="ot">&lt;-</span> hpa <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AQUIFER <span class="sc">==</span> <span class="st">"High Plains aquifer"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Create a map showing the boundaries of the High Plains Aquifer and Kansas counties.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(hpa) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(ks_counties) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"gray"</span>, <span class="at">fill =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now, add the irrigation wells layer to your map to display their locations within the study area.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(hpa) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(ks_counties) <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"gray"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(ks_wells) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="bounding-box" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="bounding-box"><span class="header-section-number">10.3.1</span> Bounding box</h3>
+<p>We can use <code>st_crop()</code> to reduce a spatial dataset to the rectangular area covered by another spatial object. This rectangular area is called a bounding box, and it represents the smallest box (defined by minimum and maximum x and y coordinates) that fully contains all features in a dataset.</p>
+<p>Every spatial dataset has a bounding box, and we can view it using <code>st_bbox()</code>. In the example below, we extract the bounding box of the irrigation wells in Kansas (ks_wells) to see the geographic extent of the data before cropping other layers to the same area.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bbox_ks_wells <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(ks_wells)  </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>bbox_ks_wells</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>     xmin      ymin      xmax      ymax 
+ 230332.0 4095052.5  887329.7 4433596.9 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(bbox_ks_wells)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "bbox"</code></pre>
+</div>
+</div>
+<p>As you can see, <code>st_bbox()</code> returns an object of class bbox. You cannot directly create a map using a bbox. So, let’s convert it to an sf using <code>st_as_sfc()</code>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>bbox_ks_wells <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(bbox_ks_wells) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Let’s see the bounding box in a map:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(bbox_ks_wells) <span class="sc">+</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"red"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(ks_wells) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s now crop High-Plains aquifer boundary to the bounding box of KS wells using <code>st_crop</code>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>hpa_cropped_ks <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(hpa, bbox_ks_wells)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
+all geometries</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(hpa_cropped_ks) <span class="sc">+</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(ks_wells) <span class="sc">+</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="automatic-cropping-using-bounding-boxes-with-st_crop" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="automatic-cropping-using-bounding-boxes-with-st_crop"><span class="header-section-number">10.3.2</span> Automatic cropping using bounding boxes with <code>st_crop()</code></h3>
+<p>When using <code>st_crop()</code>, you do not need to manually extract the bounding box of the second spatial object. Instead, st_crop() automatically computes the bounding box of the object you provide and uses it to define the cropping area.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>hpa_cropped_ks2 <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(hpa, ks_wells)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
+all geometries</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(hpa_cropped_ks2) <span class="sc">+</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(ks_wells) <span class="sc">+</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="spatial-subsetting" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="spatial-subsetting"><span class="header-section-number">10.4</span> Spatial subsetting</h2>
+<p>Spatial subsetting refers to the process of narrowing the geographic extent of a spatial dataset (the source data) using another spatial dataset (the target data) as a reference. In other words, we keep only the features from one layer that fall within or overlap a defined spatial area in another layer.</p>
+<p>Note: The difference between spatial cropping and subsetting is about what defines the selection area. Cropping uses a bounding box (rectangle), while subsetting uses the actual spatial geometry and relationships between features.</p>
+<section id="polygons-vs-polygons" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="polygons-vs-polygons"><span class="header-section-number">10.4.1</span> Polygons vs polygons</h3>
+<section id="topological-relation-st_intersects" class="level4" data-number="10.4.1.1">
+<h4 data-number="10.4.1.1" class="anchored" data-anchor-id="topological-relation-st_intersects"><span class="header-section-number">10.4.1.1</span> Topological relation: <code>st_intersects()</code></h4>
+<p>The code below selects only counties that intersect the HPA boundary. You can see that only the counties intersecting the HPA boundary remain. This is because, when using the syntax sf_1[sf_2, ], the default spatial (topological) relation is <code>sf::st_intersects()</code>. Any feature in <code>sf_1</code> that intersects the geometry of `sf_2.</p>
+<p>It is also important to note that using <code>st_intersects()</code> directly returns a list of intersection indices rather than an sf object. This list shows which features in one layer intersect with features in another, but it does not itself perform the subsetting or return a filtered spatial dataset.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>ks_co_hpa <span class="ot">&lt;-</span> ks_counties[hpa, ]</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ks_co_hpa) <span class="sc">+</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>() <span class="sc">+</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(hpa_cropped_ks) <span class="sc">+</span> </span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="other-topological-relations" class="level4" data-number="10.4.1.2">
+<h4 data-number="10.4.1.2" class="anchored" data-anchor-id="other-topological-relations"><span class="header-section-number">10.4.1.2</span> Other topological relations</h4>
+<p>However, you can specify other topological relations using the following code. For example, if you only want counties that are completely within the HPA boundary, you can use the following approach:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>co_within_hpa <span class="ot">&lt;-</span> ks_counties[hpa, op <span class="ot">=</span> st_within]</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(co_within_hpa) <span class="sc">+</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>() <span class="sc">+</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(hpa_cropped_ks) <span class="sc">+</span> </span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="points-vs-polygons" class="level3" data-number="10.4.2">
+<h3 data-number="10.4.2" class="anchored" data-anchor-id="points-vs-polygons"><span class="header-section-number">10.4.2</span> Points vs polygons</h3>
+<p>The following map shows the Kansas portion of the HPA along with all irrigation wells in Kansas. We can then select only the wells that fall within the HPA boundary.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(hpa_cropped_ks) <span class="sc">+</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(ks_wells) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">0.04</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>wells_in_hpa <span class="ot">&lt;-</span> ks_wells[hpa_cropped_ks, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(hpa_cropped_ks) <span class="sc">+</span> </span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(wells_in_hpa) <span class="sc">+</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">0.04</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="lines-vs-polygons" class="level3" data-number="10.4.3">
+<h3 data-number="10.4.3" class="anchored" data-anchor-id="lines-vs-polygons"><span class="header-section-number">10.4.3</span> Lines vs polygons</h3>
+<p>This figure shows the KS counties and U.S. railroads in the Mid West region:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(rail_roads_mw) <span class="sc">+</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>(<span class="at">col =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ks_counties) <span class="sc">+</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"gray"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># change layers order</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ks_counties) <span class="sc">+</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"gray"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(rail_roads_mw) <span class="sc">+</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>(<span class="at">col =</span> <span class="st">"purple"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-26-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can select only the railroads that intersect with Kansas.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>railroads_ks <span class="ot">&lt;-</span> rail_roads_mw[ks_counties, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(railroads_ks) <span class="sc">+</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>(<span class="at">col =</span> <span class="st">"purple"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="polygons-vs-points" class="level3" data-number="10.4.4">
+<h3 data-number="10.4.4" class="anchored" data-anchor-id="polygons-vs-points"><span class="header-section-number">10.4.4</span> Polygons vs Points</h3>
+<p>We can select only the counties that intersect with at least one well.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>ks_co_wells <span class="ot">&lt;-</span> ks_counties[wells_in_hpa, ]  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ks_co_wells) <span class="sc">+</span> </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(wells_in_hpa) <span class="sc">+</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">0.04</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="spatial-join" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="spatial-join"><span class="header-section-number">10.5</span> Spatial join</h2>
 
 
 </section>
