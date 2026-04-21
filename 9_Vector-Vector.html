@@ -241,7 +241,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#lines-vs-polygons" id="toc-lines-vs-polygons" class="nav-link" data-scroll-target="#lines-vs-polygons"><span class="header-section-number">10.4.3</span> Lines vs polygons</a></li>
   <li><a href="#polygons-vs-points" id="toc-polygons-vs-points" class="nav-link" data-scroll-target="#polygons-vs-points"><span class="header-section-number">10.4.4</span> Polygons vs Points</a></li>
   </ul></li>
-  <li><a href="#spatial-join" id="toc-spatial-join" class="nav-link" data-scroll-target="#spatial-join"><span class="header-section-number">10.5</span> Spatial join</a></li>
+  <li><a href="#spatial-join" id="toc-spatial-join" class="nav-link" data-scroll-target="#spatial-join"><span class="header-section-number">10.5</span> Spatial join</a>
+  <ul class="collapse">
+  <li><a href="#points-target-vs-polygons-source" id="toc-points-target-vs-polygons-source" class="nav-link" data-scroll-target="#points-target-vs-polygons-source"><span class="header-section-number">10.5.1</span> Points (target) vs polygons (source)</a></li>
+  <li><a href="#polygons-target-vs-points-source" id="toc-polygons-target-vs-points-source" class="nav-link" data-scroll-target="#polygons-target-vs-points-source"><span class="header-section-number">10.5.2</span> Polygons (target) vs points (source)</a></li>
+  <li><a href="#polygons-target-vs-polygons-source" id="toc-polygons-target-vs-polygons-source" class="nav-link" data-scroll-target="#polygons-target-vs-polygons-source"><span class="header-section-number">10.5.3</span> Polygons (target) vs polygons (source)</a></li>
+  <li><a href="#hands-on-exercise" id="toc-hands-on-exercise" class="nav-link" data-scroll-target="#hands-on-exercise"><span class="header-section-number">10.5.4</span> Hands-on exercise:</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -720,14 +726,14 @@ all geometries</code></pre>
 <p>Note: The difference between spatial cropping and subsetting is about what defines the selection area. Cropping uses a bounding box (rectangle), while subsetting uses the actual spatial geometry and relationships between features.</p>
 <section id="polygons-vs-polygons" class="level3" data-number="10.4.1">
 <h3 data-number="10.4.1" class="anchored" data-anchor-id="polygons-vs-polygons"><span class="header-section-number">10.4.1</span> Polygons vs polygons</h3>
-<section id="topological-relation-st_intersects" class="level4" data-number="10.4.1.1">
-<h4 data-number="10.4.1.1" class="anchored" data-anchor-id="topological-relation-st_intersects"><span class="header-section-number">10.4.1.1</span> Topological relation: <code>st_intersects()</code></h4>
+<section id="topological-relation-intersection" class="level4" data-number="10.4.1.1">
+<h4 data-number="10.4.1.1" class="anchored" data-anchor-id="topological-relation-intersection"><span class="header-section-number">10.4.1.1</span> Topological relation: intersection</h4>
 <p>The code below selects only counties that intersect the HPA boundary. You can see that only the counties intersecting the HPA boundary remain. This is because, when using the syntax sf_1[sf_2, ], the default spatial (topological) relation is <code>sf::st_intersects()</code>. Any feature in <code>sf_1</code> that intersects the geometry of `sf_2.</p>
 <p>It is also important to note that using <code>st_intersects()</code> directly returns a list of intersection indices rather than an sf object. This list shows which features in one layer intersect with features in another, but it does not itself perform the subsetting or return a filtered spatial dataset.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>ks_co_hpa <span class="ot">&lt;-</span> ks_counties[hpa, ]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>ks_co_hpa <span class="ot">&lt;-</span> ks_counties[hpa, ] <span class="co">#subsets KS counties based on the HPA boundary</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ks_co_hpa) <span class="sc">+</span></span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>() <span class="sc">+</span></span>
@@ -754,7 +760,7 @@ all geometries</code></pre>
 </section>
 <section id="other-topological-relations" class="level4" data-number="10.4.1.2">
 <h4 data-number="10.4.1.2" class="anchored" data-anchor-id="other-topological-relations"><span class="header-section-number">10.4.1.2</span> Other topological relations</h4>
-<p>However, you can specify other topological relations using the following code. For example, if you only want counties that are completely within the HPA boundary, you can use the following approach:</p>
+<p>You can specify other topological relations using the following code. For example, if you only want counties that are completely within the HPA boundary, you can use the following approach:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -938,8 +944,237 @@ all geometries</code></pre>
 </section>
 <section id="spatial-join" class="level2" data-number="10.5">
 <h2 data-number="10.5" class="anchored" data-anchor-id="spatial-join"><span class="header-section-number">10.5</span> Spatial join</h2>
+<p>A spatial join combines information from one spatial layer with another based on location. It works by identifying which features in one layer overlap or fall within features in another layer, then attaching the matching attribute values to the output.</p>
+<p>In this section, we focus on vector-to-vector spatial joins, where both layers are vector data. Specifically, we will examine three common types:</p>
+<ul>
+<li>points (target) with polygons (source)</li>
+<li>polygons (target) with points (source)</li>
+<li>polygons (target) with polygons (source)</li>
+</ul>
+<p>These examples show how spatial relationships can be used to add information from one dataset to another.</p>
+<p>To perform spatial join, we can use the <code>sf::st_join()</code> function, with the following syntax.</p>
+<p>Similar to spatial subsetting, the default topological relation is <code>sf::st_intersects()</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># st_join(target_sf, source_sf)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="points-target-vs-polygons-source" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="points-target-vs-polygons-source"><span class="header-section-number">10.5.1</span> Points (target) vs polygons (source)</h3>
+<p>In this case, each point in the target layer is checked to determine which polygon in the source layer it falls within. The attribute values from that polygon are then added to the point.</p>
+<p>For this example, we use the KS irrigation wells (points) and KS county boundaries (polygons). Our goal is to assign county-level corn price information from the county dataset to each well.</p>
+<p>To illustrate this process, we will first create a sample county-level corn price variable in the KS county data:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>ks_corn_price <span class="ot">&lt;-</span> ks_counties <span class="sc">%&gt;%</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">corn_price =</span> <span class="fu">seq</span>(<span class="fl">3.2</span>, <span class="fl">3.9</span>, <span class="at">length =</span> <span class="fu">nrow</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(COUNTYFP, corn_price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The map below shows KS counties color-differentiated by corn price.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ks_corn_price) <span class="sc">+</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">tm_polygons</span>(<span class="at">fill =</span> <span class="st">"corn_price"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now, let’s perform the spatial join:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>ks_wells_corn <span class="ot">&lt;-</span> <span class="fu">st_join</span>(ks_wells, ks_corn_price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Show the outcome in a map</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ks_counties) <span class="sc">+</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">tm_polygons</span>(<span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(ks_wells_corn) <span class="sc">+</span></span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"corn_price"</span>) <span class="co"># all the wells inside the same county have the same corn price value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="polygons-target-vs-points-source" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="polygons-target-vs-points-source"><span class="header-section-number">10.5.2</span> Polygons (target) vs points (source)</h3>
+<p>In this case, each polygon in the target layer is checked to find the points in the source layer that fall within it. The values from those points can then be summarized and added to the polygon.</p>
+<p>For instance, if you want to calculate the total groundwater pumping for each county, the target data would be ks_counties, and the source data would be ks_wells:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>ks_county_wells <span class="ot">&lt;-</span> <span class="fu">st_join</span>(ks_counties, ks_wells)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Using <code>ks_county_wells</code> we can calculate groundwater extraction by county:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>ks_county_wells <span class="sc">%&gt;%</span> </span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(COUNTYFP) <span class="sc">%&gt;%</span> </span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">af_used =</span> <span class="fu">sum</span>(af_used, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 105 features and 2 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 229253.5 ymin: 4094801 xmax: 890007.5 ymax: 4434288
+Projected CRS: WGS 84 / UTM zone 14N
+# A tibble: 105 × 3
+   COUNTYFP af_used                                                     geometry
+   &lt;fct&gt;      &lt;dbl&gt;                                           &lt;MULTIPOLYGON [m]&gt;
+ 1 001           0  (((806387 4191583, 805512 4215779, 844240.9 4217265, 845100…
+ 2 003           0  (((804971.3 4254894, 843634.8 4256415, 844240.9 4217265, 80…
+ 3 005         771. (((794798 4394875, 814054.6 4395649, 833328.7 4396412, 8396…
+ 4 007        4972. (((498886 4147060, 547336.9 4147260, 547367.8 4137622, 5575…
+ 5 009       61083. (((497132.8 4283127, 544688.2 4283265, 545236.6 4281565, 54…
+ 6 011           0  (((844767.7 4183342, 845100.4 4193068, 844240.9 4217265, 88…
+ 7 013         480. (((774189.2 4432752, 774491.2 4432762, 812462.5 4434180, 81…
+ 8 015         343. (((662406.7 4197742, 661982.8 4217157, 689364.6 4217517, 71…
+ 9 017           0  (((688956.3 4246711, 690085.5 4266038, 730694.2 4267016, 73…
+10 019           0  (((719369.2 4131329, 769067.5 4132390, 770145.1 4099095, 76…
+# ℹ 95 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="polygons-target-vs-polygons-source" class="level3" data-number="10.5.3">
+<h3 data-number="10.5.3" class="anchored" data-anchor-id="polygons-target-vs-polygons-source"><span class="header-section-number">10.5.3</span> Polygons (target) vs polygons (source)</h3>
+<p>In this case, <code>st_join(target_sf, source_sf)</code> returns all the unique polygon-polygon intersections, with the attributes from source_sf attached to the intersecting polygons.</p>
+<p>We will use <code>hpa</code> and KS counties to identify counties that overlap the aquifer.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>co_over_hpa <span class="ot">&lt;-</span> <span class="fu">st_join</span>(ks_counties, hpa)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="hands-on-exercise" class="level3" data-number="10.5.4">
+<h3 data-number="10.5.4" class="anchored" data-anchor-id="hands-on-exercise"><span class="header-section-number">10.5.4</span> Hands-on exercise:</h3>
+<ul>
+<li>Import <code>NE_county_borders.rds</code> and store it as <code>ne_co</code></li>
+<li>Import <code>urnrd_wells.rds</code> and store it as <code>ne_wells</code></li>
+<li>Check whether both layers use the same coordinate reference system (CRS)</li>
+<li>Create a map showing the county boundaries and well locations together</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>ne_co <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/vector data/NE_county_borders.rds"</span>)</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>ne_wells <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/vector data/urnrd_wells.rds"</span>)</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(ne_co) <span class="sc">==</span> <span class="fu">st_crs</span>(ne_wells)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ne_co) <span class="sc">+</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span> </span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(ne_wells) <span class="sc">+</span></span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">0.04</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Crop the <code>hpa</code> to the extent of <code>ne_wells</code>, then create a map showing the cropped aquifer boundary and the well locations.</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co">#hpa_cropped_ne_wells &lt;- st_crop(hpa, ne_wells)</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>hpa <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(hpa, <span class="fu">st_crs</span>(ne_wells))</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>hpa_cropped_ne_wells <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(hpa, ne_wells)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: attribute variables are assumed to be spatially constant throughout
+all geometries</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(hpa_cropped_ne_wells) <span class="sc">+</span> </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(ne_wells) <span class="sc">+</span></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Now, subsets NE counties based on the HPA boundary</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>hpa_ne_wells <span class="ot">&lt;-</span> ne_co[hpa, ]</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(hpa_ne_wells) <span class="sc">+</span> </span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── tmap v3 code detected ───────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9_Vector-Vector_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
