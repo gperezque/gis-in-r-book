@@ -235,6 +235,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#prism-data" id="toc-prism-data" class="nav-link active" data-scroll-target="#prism-data"><span class="header-section-number">11.1</span> PRISM data</a></li>
   <li><a href="#cropping-to-the-area-of-interest" id="toc-cropping-to-the-area-of-interest" class="nav-link" data-scroll-target="#cropping-to-the-area-of-interest"><span class="header-section-number">11.2</span> Cropping to the Area of Interest</a></li>
+  <li><a href="#extracting-values-from-raster-layers-to-vector-data" id="toc-extracting-values-from-raster-layers-to-vector-data" class="nav-link" data-scroll-target="#extracting-values-from-raster-layers-to-vector-data"><span class="header-section-number">11.3</span> Extracting values from Raster layers to Vector Data</a>
+  <ul class="collapse">
+  <li><a href="#extracting-to-points" id="toc-extracting-to-points" class="nav-link" data-scroll-target="#extracting-to-points"><span class="header-section-number">11.3.1</span> Extracting to points</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -268,6 +272,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For each point, the software finds the raster cell that contains that point and assigns that cell’s value to the point</p>
 <p><strong>Polygons</strong></p>
 <p>For each polygon, the software finds all raster cells that fall inside or overlap the polygon and returns the values from those cells</p>
+<p><strong>Visual representation of raster data extraction</strong></p>
+<p>In the figure, the raster is represented as a grid of cells, and each cell contains a value shown at its center. In the point example, there are three points placed on top of the raster.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/Point Extraction Grid.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Source: ChatGPT</figcaption>
+</figure>
+</div>
+<p>To extract raster values to points, we identify the cell that contains each point and assign that cell’s value to the point. In this example, Point 1, Point 2, and Point 3 receive the values 50, 4, and 54, respectively.</p>
+<p>In the polygon example, a polygon is overlaid on top of the raster cells, and the centroids of the cells are shown as black dots. Extracting raster values to a polygon means identifying the raster cells that intersect the polygon and retrieving the values of those cells. Some cells are completely inside the polygon, while others only partially overlap it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pics/Polygon Extraction Grid.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Source: ChatGPT</figcaption>
+</figure>
+</div>
+<p>Depending on the function and options used, different cells may be considered part of the polygon extraction. For example, by default, <code>terra::extract()</code> returns the values of cells whose centroids fall inside the polygon. However, it is also possible to include cells that are only partially intersected by the polygon. In those cases, we can calculate the fraction of each cell that overlaps the polygon, which is useful for computing area-weighted values later.</p>
 <section id="prism-data" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="prism-data"><span class="header-section-number">11.1</span> PRISM data</h2>
 <div class="cell">
@@ -286,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  raster, <span class="co"># handle raster data</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  exactextractr, <span class="co"># fast extractions</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  sf, <span class="co"># vector data operations</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  dplyr, <span class="co"># data wrangling</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  tidyverse, <span class="co"># data wrangling</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  tidyr, <span class="co"># data wrangling</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  data.table, <span class="co"># data wrangling</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  prism, <span class="co"># download PRISM data</span></span>
@@ -296,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>The <a href="https://docs.ropensci.org/prism/reference/get_prism_data.html"><strong>prism</strong></a> package provides a convenient way to download and import high-resolution climate data directly into R.</p>
-<p>To begin, you first set a local working directory where the data will be stored using <code>options(prism.path = "your/folder/path")</code>, and then ensure that this folder exists.</p>
+<p>To begin, you first set a local working directory where the data will be stored using <code>options(prism.path = "your/folder/path")</code>, and then ensure that this folder exists. In other words, <code>options()</code> is a convenient way to tell the package: “use this folder as the default PRISM data directory”</p>
 <p>You can download data using functions such as <code>get_prism_dailys()</code> (for daily variables like precipitation or temperature) by specifying the variable type (e.g., “tmax” for max temperature), the date of interest, and whether to keep the downloaded zip file. Once the data are downloaded, PRISM automatically organizes them into a folder named according to the variable, region, resolution, and date.</p>
 <p>To import the raster into R for analysis, you can use the <strong>terra</strong> function <code>rast()</code> and point it to the <code>.bil</code> file inside the downloaded folder. This converts the PRISM dataset into a usable raster object that can be mapped, analyzed, or combined with other spatial data.</p>
 <div class="cell">
@@ -309,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- download PRISM precipitation data ---#</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>prism<span class="sc">::</span><span class="fu">get_prism_dailys</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_prism_dailys</span>(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"tmax"</span>,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="st">"2025-06-29"</span>,</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">keepZip =</span> <span class="cn">FALSE</span></span>
@@ -362,6 +383,8 @@ prism_tmax_us_25m_20250629.zip already exists. Skipping downloading.</code></pre
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>tn_co <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(tn_co, terra<span class="sc">::</span><span class="fu">crs</span>(prism.tmax))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
+<p>The <code>terra::crop()</code> function trims a raster to the geographic extent of another spatial object. In this example, <code>terra::crop(prism.tmax, tn_co)</code> cuts the <code>prism.tmax</code> raster so that it keeps only the area covering the extent of <code>tn_co</code>.</p>
+<p>This is useful for reducing file size, speeding up analysis, and focusing only on the study area.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -379,8 +402,172 @@ prism_tmax_us_25m_20250629.zip already exists. Skipping downloading.</code></pre
 </div>
 </div>
 </div>
+<p><code>terra::crop(prism.tmax, tn_co)</code> uses the extent of <code>tn_co</code>, which is its bounding box.</p>
+<p>That means the raster is trimmed to the smallest rectangle that contains <code>tn_co</code>, not to the exact county boundaries. So cells outside the county polygons but still inside that rectangle will remain.</p>
+<p>If you want the raster to match the actual shape of <code>tn_co</code>, you usually follow <code>crop()</code> with <code>mask()</code>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tmax_mask <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">mask</span>(tmax_crop, tn_co)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tmax_mask) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_Vector-Raster_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using ggplot()</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster</span>(<span class="at">data =</span> tmax_mask) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> tn_co, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_whitebox_c</span>(</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"tmax"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">palette =</span> <span class="st">"muted"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(<span class="at">suffix =</span> <span class="st">"º"</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.breaks =</span> <span class="dv">12</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">guide =</span> <span class="fu">guide_legend</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_Vector-Raster_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="extracting-values-from-raster-layers-to-vector-data" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="extracting-values-from-raster-layers-to-vector-data"><span class="header-section-number">11.3</span> Extracting values from Raster layers to Vector Data</h2>
+<p>In this section, we will learn how to extract information from raster layers for spatial units represented as vector data (points and polygons).</p>
+<section id="extracting-to-points" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="extracting-to-points"><span class="header-section-number">11.3.1</span> Extracting to points</h3>
+<p>Let’s create our point data as the centroids of each county in TN.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tn_point <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(tn_co)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: st_centroid assumes attributes are constant over geometries</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tn_co) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(tn_point) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">"blue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_Vector-Raster_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can extract values from raster layers to points using <code>terra::extract()</code>. It finds which raster cell each of the points is located within and assigns the value of the cell to the point.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>tmax_points <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(tmax_crop, tn_point)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tmax_points)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID prism_tmax_us_25m_20250629
+1  1                    33.5542
+2  2                    31.0596
+3  3                    28.2538
+4  4                    33.5878
+5  5                    29.5014
+6  6                    31.2475</code></pre>
+</div>
+</div>
+<p>The resulting object is a <code>data.frame</code>, where the <code>ID</code> variable represents the order of the observations in the points data and the second column represents that values extracted for the points from the raster cells. So, you can assign the extracted values as a new variable of the points data as follows:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tn_point<span class="sc">$</span>prism_tmax_us_25m_20250629 <span class="ot">&lt;-</span> tmax_points[, <span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Now, let’s add another layer of tmax data.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- download PRISM precipitation data ---#</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_prism_dailys</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"tmax"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="st">"2025-06-30"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">keepZip =</span> <span class="cn">FALSE</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+prism_tmax_us_25m_20250630.zip already exists. Skipping downloading.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>prism.tmax30 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../data/prism/prism_tmax_us_25m_20250630/prism_tmax_us_25m_20250630.bil"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cropping </span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>tmax_crop30 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">crop</span>(prism.tmax30, tn_co)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tmax_crop30) <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_Vector-Raster_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Stack the two tmax raster layers:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a multi-layer SpatRaster</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>prism_tmax_stack <span class="ot">&lt;-</span> <span class="fu">c</span>(tmax_crop, tmax_crop30)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract tmax values </span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>tmax_from_stack <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_stack, tn_point)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tmax_from_stack)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID prism_tmax_us_25m_20250629 prism_tmax_us_25m_20250630
+1  1                    33.5542                    33.3785
+2  2                    31.0596                    30.6321
+3  3                    28.2538                    29.1724
+4  4                    33.5878                    34.0244
+5  5                    29.5014                    29.7035
+6  6                    31.2475                    32.1017</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
